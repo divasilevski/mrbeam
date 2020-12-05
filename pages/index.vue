@@ -1,5 +1,5 @@
 <template lang="pug">
-  .container
+  .content
     h1 Hello world!
     button(@click="click") Click
 </template>
