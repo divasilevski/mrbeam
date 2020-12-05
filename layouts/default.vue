@@ -5,6 +5,7 @@
 
 <style lang="scss">
 #app {
-  background: $main;
+  background: $bg;
+  color: $imain;
 }
 </style>
