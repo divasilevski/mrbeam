@@ -34,7 +34,9 @@ export default {
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: 'https://mrbeam-api.herokuapp.com/',
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
