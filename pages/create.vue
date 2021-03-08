@@ -1,8 +1,8 @@
 <template lang="pug">
   .content
     h1 Создаем балку!
-    h2 Генерация
-    pre {{ response }}
+    h2 Сгенерированный с бэка лист юнитов
+    UnitList
 </template>
 
 <script lang="ts">
@@ -13,11 +13,6 @@ export default Vue.extend({
   async asyncData({ $axios, store }) {
     const response = await api.generate($axios)
     store.commit('units/add', response)
-  },
-  computed: {
-    response() {
-      return this.$store.state.units.units
-    },
   },
 })
 </script>
