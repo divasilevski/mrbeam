@@ -14,7 +14,8 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vercel-builder": "^0.18.1",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "paper": "^0.12.11"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",

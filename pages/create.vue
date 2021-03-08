@@ -1,6 +1,8 @@
 <template lang="pug">
   .content
     h1 Создаем балку!
+    h2 Построение балки
+    BeamImage
     h2 Сгенерированный с бэка лист юнитов
     UnitList
 </template>
