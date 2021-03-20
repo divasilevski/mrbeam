@@ -1,10 +1,12 @@
 <template lang="pug">
-  .beam-image
-    canvas(id="beam" resize="true")
+.beam-image
+  canvas#beam(resize='true')
 </template>
 
 <script lang="ts">
+import { Project } from 'paper/dist/paper-core'
 import Vue from 'vue'
+import PaperBeam from './beam-image.paper'
 
 export default Vue.extend({
   name: 'BeamImage',
@@ -15,30 +17,21 @@ export default Vue.extend({
   },
   mounted(): void {
     if (!window) return
-    const $canvas = document.getElementById('beam')
-
-    const p = (window as any).paper as any
-    p.setup($canvas)
+    const $canvas = document.getElementById('beam') as HTMLCanvasElement
+    const paper = new Project($canvas)
+    const paperBeam = new PaperBeam(75, 50)
 
     const onResize = () => {
       if (this.units.length) {
-        p.project.clear()
+        paper.clear()
         setTimeout(() => {
-          // Check size
           const w = $canvas!.offsetWidth
-          p.project.view.setViewSize(new p.Size(w, 150))
-
-          const path = new p.Path()
-          path.strokeColor = 'black'
-          const start = new p.Point(0, 0)
-          path.moveTo(start)
-          path.lineTo(start.add([w, 150]))
-          p.view.draw()
+          paperBeam.createBeam(this.units, w)
         })
       }
     }
 
-    onResize()
+    setTimeout(onResize)
     window.addEventListener('resize', onResize)
 
     this.$once('hook:destroy', () => {
