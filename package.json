@@ -14,8 +14,7 @@
     "@nuxtjs/vercel-builder": "^0.18.1",
     "core-js": "^3.6.5",
     "nuxt": "^2.15.3",
-    "paper-jsdom": "^0.12.15",
-    "paper-jsdom-canvas": "^0.12.15"
+    "paper": "^0.12.15"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",

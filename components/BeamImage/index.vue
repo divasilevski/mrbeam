@@ -4,7 +4,6 @@
 </template>
 
 <script lang="ts">
-import { Project } from 'paper/dist/paper-core'
 import Vue from 'vue'
 import PaperBeam from './beam-image.paper'
 
@@ -18,12 +17,12 @@ export default Vue.extend({
   mounted(): void {
     if (!window) return
     const $canvas = document.getElementById('beam') as HTMLCanvasElement
-    const paper = new Project($canvas)
+    const paperjs = new paper.Project($canvas)
     const paperBeam = new PaperBeam(75, 50)
 
     const onResize = () => {
       if (this.units.length) {
-        paper.clear()
+        paperjs.clear()
         setTimeout(() => {
           const w = $canvas!.offsetWidth
           paperBeam.createBeam(this.units, w)

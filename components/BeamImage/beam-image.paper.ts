@@ -1,4 +1,3 @@
-import { Color, Path, Point, PointText } from "paper/dist/paper-core"
 import { Unit } from "~/assets/scripts/units.types"
 
 export default class PaperBeam {
@@ -10,9 +9,9 @@ export default class PaperBeam {
   beamSize: any = {}
 
   colors = {
-    point: new Color("#f0bc18"),
-    line: new Color("#f0bc18"),
-    text: new Color("#f0bc18"),
+    point: new paper.Color("#f0bc18"),
+    line: new paper.Color("#f0bc18"),
+    text: new paper.Color("#f0bc18"),
   }
 
   constructor(canvasHeight: number, padding: number) {
@@ -38,11 +37,11 @@ export default class PaperBeam {
   }
 
   _paperPoint(x: number, label: string) {
-    let point = new Path.Circle(new Point(x, this.canvasHeight), 3);
+    let point = new paper.Path.Circle(new paper.Point(x, this.canvasHeight), 3);
     point.strokeColor = this.colors.point;
     point.strokeWidth = 2;
 
-    let text = new PointText(new Point(x, this.canvasHeight + 50));
+    let text = new paper.PointText(new paper.Point(x, this.canvasHeight + 50));
     text.content = (Math.round(+label * 100) / 100).toString()
     text.style = {
       fontFamily: "Overlock",
@@ -54,9 +53,9 @@ export default class PaperBeam {
   }
 
   _paperLine(x: number, y: number) {
-    const p1 = new Point(x + 3, this.canvasHeight)
-    const p2 = new Point(y - 3, this.canvasHeight)
-    let line = new Path.Line(p1, p2)
+    const p1 = new paper.Point(x + 3, this.canvasHeight)
+    const p2 = new paper.Point(y - 3, this.canvasHeight)
+    let line = new paper.Path.Line(p1, p2)
     line.strokeColor = this.colors.line
     line.strokeWidth = 4
   }
