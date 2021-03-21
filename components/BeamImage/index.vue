@@ -32,6 +32,7 @@ export default Vue.extend({
 
     setTimeout(onResize)
     window.addEventListener('resize', onResize)
+    this.$watch('units', onResize)
 
     this.$once('hook:destroy', () => {
       window.removeEventListener('resize', onResize)
