@@ -18,7 +18,7 @@ export default Vue.extend({
     if (!window) return
     const $canvas = document.getElementById('beam') as HTMLCanvasElement
     const paperjs = new paper.Project($canvas)
-    const paperBeam = new PaperBeam(75, 50)
+    const paperBeam = new PaperBeam(75, 40)
 
     const onResize = () => {
       if (this.units.length) {
