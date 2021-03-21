@@ -20,9 +20,9 @@ export default Vue.extend({
     const paperjs = new paper.Project($canvas)
     const paperBeam = new PaperBeam(75, 40)
 
-    const onResize = () => {
+    const reDraw = () => {
+      paperjs.clear()
       if (this.units.length) {
-        paperjs.clear()
         setTimeout(() => {
           const w = $canvas!.offsetWidth
           paperBeam.createBeam(this.units, w)
@@ -30,12 +30,12 @@ export default Vue.extend({
       }
     }
 
-    setTimeout(onResize)
-    window.addEventListener('resize', onResize)
-    this.$watch('units', onResize)
+    setTimeout(reDraw)
+    window.addEventListener('resize', reDraw)
+    this.$watch('units', reDraw)
 
     this.$once('hook:destroy', () => {
-      window.removeEventListener('resize', onResize)
+      window.removeEventListener('resize', reDraw)
     })
   },
 })

@@ -1,9 +1,10 @@
 <template lang="pug">
 .content
-  h1 Создаем балку!
   button(@click='random') RandomBeam
   BeamImage
-  h2 Сгенерированный с бэка лист юнитов
+  br
+  FormMain
+  br
   UnitList
 </template>
 

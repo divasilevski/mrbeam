@@ -1,12 +1,16 @@
 <template lang="pug">
   .input-container
-    input(type="text")
+    input(
+      type="text"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
+    )
 
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  name: 'InputText',
+  props: ['value'],
 })
 </script>
