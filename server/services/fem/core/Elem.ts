@@ -20,10 +20,16 @@ export class Elem implements Element {
 
   // SETTERS
   addForce(value: number) {
+    if (!this.nodes[0].force) {
+      this.nodes[0].force = 0
+    }
     this.nodes[0].force += value
   }
 
   addMoment(value: number) {
+    if (!this.nodes[0].moment) {
+      this.nodes[0].moment = 0
+    }
     this.nodes[0].moment += value
   }
 
@@ -119,7 +125,7 @@ export class Elem implements Element {
   }
 
   // static
-  static getLength(elems: Array<Elem>): ElementLength {
+  static getLength(elems: Array<Element>): ElementLength {
     const start = elems
       .map((el) => el.nodes[0].x)
       .reduce((a, b) => Math.min(a, b))

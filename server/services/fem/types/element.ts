@@ -1,7 +1,7 @@
 export interface Node {
   x: number
-  force: number
-  moment: number
+  force?: number
+  moment?: number
 
   support?: 'fixed' | 'simple' | 'hinge'
 }
