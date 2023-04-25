@@ -1,0 +1,9 @@
+{
+  "plugins": ["prettier"],
+  "extends": ["@nuxtjs/eslint-config-typescript", "prettier"],
+  "rules": {
+    "prettier/prettier": 2,
+    "vue/multi-word-component-names": "off", // conflicts with nuxt nested components
+    "vue/no-multiple-template-root": "off" // fragments were added to the vue 3
+  }
+}
