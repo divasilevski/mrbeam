@@ -1,10 +1,10 @@
-name: CI
+name: Build Test
 on:
   workflow_dispatch:
   pull_request:
     types: [opened, edited, reopened]
 jobs:
-  deploy:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
