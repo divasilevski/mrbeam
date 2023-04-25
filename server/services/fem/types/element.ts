@@ -18,6 +18,7 @@ export interface ElementLength {
 }
 
 export interface Element {
+  nodes: Node[]
   distload: Array<Dist>
   material: [number, number, number]
   addForce: (value: number) => void
