@@ -8,9 +8,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
   ],
-  imports: {
-    dirs: ['./store'],
-  },
   vite: {
     plugins: [svgLoader({ defaultImport: 'component' })],
   },
