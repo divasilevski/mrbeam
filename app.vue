@@ -1,18 +1,18 @@
 <template>
-  <div class="app">Nuxt app</div>
-  <Icon name="home" />
-  <NuxtPage />
+  <main>
+    <NuxtPage />
+  </main>
 </template>
 
 <script lang="ts" setup>
 useHead({
-  title: 'Nuxt app',
+  title: 'MrBeam',
   htmlAttrs: { lang: 'en' },
 })
 </script>
 
-<style lang="postcss">
-.app {
-  @apply p-4 text-primary font-bold;
+<style lang="postcss" scoped>
+main {
+  @apply m-auto max-w-4xl p-4;
 }
 </style>

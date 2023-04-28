@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.9",
+    "chart.js": "^4.3.0",
     "nanoid": "^4.0.2",
     "pinia": "^2.0.35"
   }

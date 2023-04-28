@@ -1,15 +1,14 @@
 <template>
-  <pre>{{ generatedData }}</pre>
-  <pre>{{ data }}</pre>
+  <article>
+    <MainBeam />
+    <MainInput />
+    <MainTable />
+    <MainChart />
+  </article>
 </template>
 
-<script lang="ts" setup>
-const { data: generatedData } = await useFetch('/api/generate', {
-  server: true,
-})
-const { data } = await useFetch('/api/calculate', {
-  method: 'post',
-  body: unref(generatedData),
-  server: true,
-})
-</script>
+<style lang="postcss" scope>
+article {
+  @apply flex flex-col gap-4;
+}
+</style>
