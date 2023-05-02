@@ -1,4 +1,6 @@
-import { Point, Path, Color, Group, SymbolDefinition } from 'paper'
+import paper from 'paper'
+
+const { Point, Path, Color, Group, SymbolDefinition } = paper
 
 export function forceSymbol(height: number, color: typeof Color.prototype) {
   const line = new Path()

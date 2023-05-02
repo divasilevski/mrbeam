@@ -1,5 +1,7 @@
-import { Color, Path, Point, PointText, Project, Style } from 'paper'
+import paper from 'paper'
 import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
+
+const { Path, Color, Point, PointText, Project, Style } = paper
 
 const COLORS = {
   background: new Color('#f2f7f2'),
