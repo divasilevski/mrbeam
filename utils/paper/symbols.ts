@@ -32,6 +32,7 @@ export function momentSymbol(height: number, color: typeof Color.prototype) {
       center.y + r * Math.cos((120 / 180) * Math.PI),
     ],
     strokeColor: color,
+    strokeCap: 'round',
   })
 
   arc.strokeWidth = 4
@@ -79,6 +80,7 @@ export function simpleSymbol(height: number, color: typeof Color.prototype) {
     )
   )
   defLine.strokeColor = color
+  defLine.strokeCap = 'round'
   defLine.strokeWidth = 4
 
   const symbol = new SymbolDefinition(new Group([triangle, defLine]))

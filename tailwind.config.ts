@@ -6,6 +6,7 @@ export default <Partial<Config>>{
     extend: {
       colors: {
         primary: '#0284c7',
+        canvas: '#f2f7f2',
       },
     },
   },

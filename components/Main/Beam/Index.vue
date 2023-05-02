@@ -13,6 +13,6 @@ const store = useUnitsStore()
 
 <style lang="postcss" scoped>
 .box {
-  @apply border-[1px] border-gray-100 p-4;
+  @apply p-4 border-[1px] border-gray-100 bg-canvas;
 }
 </style>

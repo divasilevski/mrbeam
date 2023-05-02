@@ -2,13 +2,16 @@ import { Color, Path, Point, PointText, Project, Style } from 'paper'
 import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
 
 const COLORS = {
-  point: new Color('#f0bc18'),
-  line: new Color('#f0bc18'),
-  text: new Color('#f0bc18'),
-  distload: new Color('#f0bc18'),
-  moment: new Color('#f0bc18'),
-  force: new Color('#f0bc18'),
-  simple: new Color('#f0bc18'),
+  background: new Color('#f2f7f2'),
+  point: new Color('#f2bb05'),
+  line: new Color('#f2bb05'),
+  text: new Color('#f2bb05'),
+  distload: new Color('#f2bb05'),
+  moment: new Color('#d74e09'),
+  force: new Color('#d74e09'),
+  simple: new Color('#558564'),
+  fixed: new Color('#558564'),
+  hinge: new Color('#558564'),
 }
 
 const CANVAS_HEIGHT = 150
@@ -17,7 +20,7 @@ const FORCE_HEIGHT = 34
 const SIMPLE_HEIGHT = 24
 const FIXED_HEIGHT = 24
 const DISTLOAD_HEIGHT = 24
-const PADDING = 20
+const PADDING = 24
 
 interface DrawProps {
   units: Unit[]
@@ -26,8 +29,9 @@ interface DrawProps {
 
 export class PaperBeam {
   private project: typeof Project.prototype | null = null
-  private xValues: number[] = []
   private points: number[] = []
+  private units: Unit[] = []
+  private scale = 1
 
   private initProject(canvas: HTMLCanvasElement) {
     if (!this.project) {
@@ -37,17 +41,28 @@ export class PaperBeam {
     this.project.clear()
   }
 
-  private calcPoints({ units, canvas }: DrawProps) {
+  private initProperties({ units, canvas }: DrawProps) {
     const positions = units.map((unit) => unit.x).flat()
     const uniqPositions = [...new Set(positions)]
-    const sorted = uniqPositions.sort((a, b) => a - b)
-    const length = sorted[sorted.length - 1] - sorted[0]
+    const points = uniqPositions.sort((a, b) => a - b)
 
-    const canvasWidth = canvas.offsetWidth
-    const scale = (canvasWidth - PADDING * 2) / length
+    const length = points[points.length - 1] - points[0]
+    const scale = (canvas.offsetWidth - PADDING * 2) / length
 
-    this.xValues = [...sorted]
-    this.points = sorted.map((pos) => (pos - sorted[0]) * scale + PADDING)
+    this.points = points
+    this.units = units
+    this.scale = scale
+  }
+
+  private getUnitsPoints(type: UnitType) {
+    return this.units
+      .filter((unit) => unit.type === type)
+      .map((unit) => unit.x)
+      .flat()
+  }
+
+  private normalize(point: number) {
+    return (point - this.points[0]) * this.scale + PADDING
   }
 
   private drawLines() {
@@ -57,8 +72,8 @@ export class PaperBeam {
 
     this.points.reduce((a, b) => {
       const line = new Path.Line(
-        new Point(a + POINT_RADIUS, CANVAS_HEIGHT / 2),
-        new Point(b - POINT_RADIUS, CANVAS_HEIGHT / 2)
+        new Point(this.normalize(a), CANVAS_HEIGHT / 2),
+        new Point(this.normalize(b), CANVAS_HEIGHT / 2)
       )
       line.strokeColor = COLORS.line
       line.strokeWidth = 4
@@ -67,28 +82,34 @@ export class PaperBeam {
   }
 
   private drawPoints() {
+    const fixed = this.getUnitsPoints('fixed')
+
     this.points.forEach((a) => {
-      const point = new Point(a, CANVAS_HEIGHT / 2)
+      if (fixed.includes(a)) return
+
+      const point = new Point(this.normalize(a), CANVAS_HEIGHT / 2)
       const circle = new Path.Circle(point, POINT_RADIUS)
+      circle.fillColor = COLORS.background
       circle.strokeColor = COLORS.point
       circle.strokeWidth = 2
     })
   }
 
   private drawHinges() {
-    this.points.forEach((a) => {
-      const point = new Point(a, CANVAS_HEIGHT / 2)
+    this.getUnitsPoints('hinge').forEach((a) => {
+      const point = new Point(this.normalize(a), CANVAS_HEIGHT / 2)
       const circle = new Path.Circle(point, POINT_RADIUS + 2)
-      circle.strokeColor = COLORS.point
+      circle.fillColor = COLORS.background
+      circle.strokeColor = COLORS.hinge
       circle.strokeWidth = 4
     })
   }
 
   private drawPointsText() {
-    this.points.forEach((a, index) => {
-      const point = new Point(a, CANVAS_HEIGHT / 2 + 50)
+    this.points.forEach((a) => {
+      const point = new Point(this.normalize(a), CANVAS_HEIGHT / 2 + 50)
       const text = new PointText(point)
-      text.content = Number(this.xValues[index].toPrecision(2)).toString()
+      text.content = Number(a.toPrecision(2)).toString()
 
       text.style = {
         fontWeight: 'bold',
@@ -100,17 +121,24 @@ export class PaperBeam {
   }
 
   private drawSimple() {
-    this.points.forEach((a) => {
+    this.getUnitsPoints('simple').forEach((a) => {
       const symbol = simpleSymbol(SIMPLE_HEIGHT, COLORS.simple)
       symbol.item.bounds.top += POINT_RADIUS
-      symbol.place(new Point(a, CANVAS_HEIGHT / 2))
+      symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
     })
   }
 
   private drawFixed() {
-    this.points.forEach((a) => {
-      const symbol = fixedSymbol(FIXED_HEIGHT, COLORS.simple)
-      symbol.place(new Point(a, CANVAS_HEIGHT / 2))
+    this.getUnitsPoints('fixed').forEach((a) => {
+      const symbol = fixedSymbol(FIXED_HEIGHT, COLORS.fixed)
+      const isLeftPoint = a === this.points[this.points.length - 1]
+
+      if (isLeftPoint) {
+        symbol.item.scaling = new Point(-1, 1)
+        symbol.item.bounds.left = 0
+      }
+
+      symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
     })
   }
 
@@ -119,41 +147,46 @@ export class PaperBeam {
       return
     }
 
-    this.points.reduce((a, b) => {
-      const symbol = forceSymbol(DISTLOAD_HEIGHT, COLORS.distload)
-      symbol.item.bounds.bottom = -POINT_RADIUS
+    const units = this.units.filter((unit) => unit.type === 'distload')
 
-      const width = b - a
-      const count = Math.floor(width / 15)
+    units.forEach((unit) => {
+      if (Array.isArray(unit.x)) {
+        const a = this.normalize(unit.x[0])
+        const b = this.normalize(unit.x[1])
 
-      for (let i = 0; i < count + 1; i++) {
-        const point = new Point(a + (width / count) * i, CANVAS_HEIGHT / 2)
-        symbol.place(point)
+        const symbol = forceSymbol(DISTLOAD_HEIGHT, COLORS.distload)
+        symbol.item.bounds.bottom = -POINT_RADIUS
+
+        const width = Math.abs(b - a)
+        const count = Math.floor(width / 15)
+
+        for (let i = 0; i < count + 1; i++) {
+          const point = new Point(a + (width / count) * i, CANVAS_HEIGHT / 2)
+          symbol.place(point)
+        }
+
+        const line = new Path()
+        const lineHeight = CANVAS_HEIGHT / 2 - DISTLOAD_HEIGHT - 2
+        line.add(new Point(a - 2, lineHeight))
+        line.add(new Point(a + width + 2, lineHeight))
+        line.strokeColor = COLORS.distload
+        line.strokeWidth = 4
       }
-
-      const line = new Path()
-      const lineHeight = CANVAS_HEIGHT / 2 - DISTLOAD_HEIGHT - 2
-      line.add(new Point(a - 2, lineHeight))
-      line.add(new Point(a + width + 2, lineHeight))
-      line.strokeColor = COLORS.distload
-      line.strokeWidth = 4
-
-      return b
     })
   }
 
   private drawMoments() {
-    this.points.forEach((a) => {
+    this.getUnitsPoints('force').forEach((a) => {
       const symbol = momentSymbol(FORCE_HEIGHT, COLORS.moment)
-      symbol.place(new Point(a, CANVAS_HEIGHT / 2))
+      symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
     })
   }
 
   private drawForces() {
-    this.points.forEach((a) => {
+    this.getUnitsPoints('moment').forEach((a) => {
       const symbol = forceSymbol(FORCE_HEIGHT, COLORS.force)
       symbol.item.bounds.bottom = -POINT_RADIUS
-      symbol.place(new Point(a, CANVAS_HEIGHT / 2))
+      symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
     })
   }
 
@@ -164,17 +197,20 @@ export class PaperBeam {
       return false
     }
 
-    this.calcPoints({ units, canvas })
+    this.initProperties({ units, canvas })
 
+    // layer 1
+    this.drawSimple()
+    this.drawDistloads()
+    this.drawPointsText()
+
+    // layer 2
     this.drawLines()
     this.drawPoints()
     this.drawHinges()
-    // this.drawPointsText()
 
-    this.drawSimple()
+    // layer 3
     this.drawFixed()
-
-    this.drawDistloads()
     this.drawMoments()
     this.drawForces()
   }
