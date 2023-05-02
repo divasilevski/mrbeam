@@ -28,6 +28,7 @@
     "@vue/test-utils": "^2.3.2",
     "@vueuse/core": "^10.1.0",
     "@vueuse/nuxt": "^10.1.0",
+    "canvas": "^2.11.2",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -45,6 +46,7 @@
     "@pinia/nuxt": "^0.4.9",
     "chart.js": "^4.3.0",
     "nanoid": "^4.0.2",
+    "paper": "^0.12.17",
     "pinia": "^2.0.35"
   }
 }
