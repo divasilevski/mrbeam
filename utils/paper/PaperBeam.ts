@@ -176,14 +176,14 @@ export class PaperBeam {
   }
 
   private drawMoments() {
-    this.getUnitsPoints('force').forEach((a) => {
+    this.getUnitsPoints('moment').forEach((a) => {
       const symbol = momentSymbol(FORCE_HEIGHT, COLORS.moment)
       symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
     })
   }
 
   private drawForces() {
-    this.getUnitsPoints('moment').forEach((a) => {
+    this.getUnitsPoints('force').forEach((a) => {
       const symbol = forceSymbol(FORCE_HEIGHT, COLORS.force)
       symbol.item.bounds.bottom = -POINT_RADIUS
       symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
