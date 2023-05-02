@@ -1,6 +1,7 @@
 <template>
   <section class="box">
     <AppButton @click="store.generateAsync">Generate</AppButton>
+    <MainBeamCanvas />
   </section>
 </template>
 
