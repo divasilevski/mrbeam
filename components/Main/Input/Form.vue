@@ -79,7 +79,7 @@ const addUnit = () => {
       store.add({
         id: nanoid(),
         type: defenition.value,
-        x: [models.x],
+        x: models.x,
       })
       break
     case 'material':
