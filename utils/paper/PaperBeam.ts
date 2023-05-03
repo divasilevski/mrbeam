@@ -38,8 +38,8 @@ export class PaperBeam {
   private initProject(canvas: HTMLCanvasElement) {
     if (!this.project) {
       this.project = new Project(canvas)
-      this.project.activate()
     }
+    this.project.activate()
     this.project.clear()
   }
 
