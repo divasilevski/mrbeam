@@ -1,6 +1,6 @@
 import paper from 'paper'
 
-const { Color, Path, Point, Project } = paper
+const { Color, Path, Point, PointText, Project, Style } = paper
 
 const PADDING = 24
 
@@ -8,6 +8,7 @@ const COLORS = {
   background: new Color('#f2f7f2'),
   line: new Color('#d74e09'),
   axis: new Color('#f2bb05'),
+  text: new Color('#f2bb05'),
 }
 
 interface DrawProps {
@@ -17,6 +18,7 @@ interface DrawProps {
 
 export class PaperChart {
   private project: typeof Project.prototype | null = null
+  private canvas: HTMLCanvasElement = null
   private points: number[][] = []
   private rect = { maxX: 0, minX: 0, maxY: 0, minY: 0 }
   private scale = { x: 1, y: 1 }
@@ -38,6 +40,7 @@ export class PaperChart {
     const scaleX = (canvas.offsetWidth - PADDING * 2) / (maxX - minX)
     const scaleY = (canvas.offsetHeight - PADDING * 2) / (maxY - minY)
 
+    this.canvas = canvas
     this.points = [...points]
     this.rect = { maxX, minX, maxY, minY }
     this.scale = { x: scaleX, y: scaleY }
@@ -48,10 +51,13 @@ export class PaperChart {
   }
 
   private normalizeY(point: number) {
-    return (point - this.rect.minY) * this.scale.y + PADDING
+    return (
+      this.canvas.offsetHeight -
+      ((point - this.rect.minY) * this.scale.y + PADDING)
+    )
   }
 
-  private drawZero() {
+  private drawAxis() {
     const line = new Path.Line(
       new Point(this.normalizeX(this.rect.minX), this.normalizeY(0)),
       new Point(this.normalizeX(this.rect.maxX), this.normalizeY(0))
@@ -59,6 +65,27 @@ export class PaperChart {
 
     line.strokeColor = COLORS.axis
     line.strokeWidth = 1
+  }
+
+  private drawAxisText() {
+    const points = [
+      new Point(this.normalizeX(0), this.normalizeY(this.rect.maxY) - 7),
+      new Point(this.normalizeX(0), this.normalizeY(this.rect.minY) + 17),
+    ]
+
+    const values = points.map((point) => new PointText(point))
+
+    values[0].content = Number(this.rect.maxY.toFixed(7)).toString()
+    values[1].content = Number(this.rect.minY.toFixed(7)).toString()
+
+    values.forEach((value) => {
+      value.style = {
+        fontWeight: 'bold',
+        fontSize: 14,
+        fillColor: COLORS.text,
+        justification: 'left',
+      } as typeof Style.prototype
+    })
   }
 
   private drawLine() {
@@ -80,7 +107,8 @@ export class PaperChart {
 
     this.initProperties({ points, canvas })
 
-    this.drawZero()
+    this.drawAxis()
     this.drawLine()
+    this.drawAxisText()
   }
 }
