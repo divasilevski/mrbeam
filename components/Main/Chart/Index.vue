@@ -27,7 +27,7 @@ const shearPoints = computed(() => {
     return (
       store.solution?.labels.map((x, index) => {
         const y = store.solution?.shear[index] as number
-        return [x, y]
+        return [Number(x.toPrecision(3)), Number(y.toPrecision(3))]
       }) || []
     )
   }
@@ -39,7 +39,7 @@ const momentPoints = computed(() => {
     return (
       store.solution?.labels.map((x, index) => {
         const y = store.solution?.moment[index] as number
-        return [x, y]
+        return [Number(x.toPrecision(3)), Number(y.toPrecision(3))]
       }) || []
     )
   }
