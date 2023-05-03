@@ -4,6 +4,12 @@ const { Color, Path, Point, Project } = paper
 
 const PADDING = 24
 
+const COLORS = {
+  background: new Color('#f2f7f2'),
+  line: new Color('#d74e09'),
+  axis: new Color('#f2bb05'),
+}
+
 interface DrawProps {
   points: number[][]
   canvas: HTMLCanvasElement
@@ -26,8 +32,8 @@ export class PaperChart {
   private initProperties({ points, canvas }: DrawProps) {
     const pointsX = points.map(([x, _]) => x)
     const pointsY = points.map(([_, y]) => y)
-    const [maxX, minX] = [Math.max(...pointsX), Math.min(...pointsX)]
-    const [maxY, minY] = [Math.max(...pointsY), Math.min(...pointsY)]
+    const [maxX, minX] = [Math.max(...pointsX, 0), Math.min(...pointsX, 0)]
+    const [maxY, minY] = [Math.max(...pointsY, 0), Math.min(...pointsY, 0)]
 
     const scaleX = (canvas.offsetWidth - PADDING * 2) / (maxX - minX)
     const scaleY = (canvas.offsetHeight - PADDING * 2) / (maxY - minY)
@@ -45,13 +51,23 @@ export class PaperChart {
     return (point - this.rect.minY) * this.scale.y + PADDING
   }
 
+  private drawZero() {
+    const line = new Path.Line(
+      new Point(this.normalizeX(this.rect.minX), this.normalizeY(0)),
+      new Point(this.normalizeX(this.rect.maxX), this.normalizeY(0))
+    )
+
+    line.strokeColor = COLORS.axis
+    line.strokeWidth = 1
+  }
+
   private drawLine() {
     const path = new Path()
     this.points.forEach(([x, y]) => {
       path.add(new Point(this.normalizeX(x), this.normalizeY(y)))
     })
 
-    path.strokeColor = new Color('#f2bb05')
+    path.strokeColor = COLORS.line
     path.strokeWidth = 4
   }
 
@@ -64,6 +80,7 @@ export class PaperChart {
 
     this.initProperties({ points, canvas })
 
+    this.drawZero()
     this.drawLine()
   }
 }
