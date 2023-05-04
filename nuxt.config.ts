@@ -11,4 +11,11 @@ export default defineNuxtConfig({
   vite: {
     plugins: [svgLoader({ defaultImport: 'component' })],
   },
+  htmlValidator: {
+    options: {
+      rules: {
+        'prefer-native-element': 'off', // Conflict with Simplebar
+      },
+    },
+  },
 })

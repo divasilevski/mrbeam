@@ -1,17 +1,22 @@
 <template>
-  <main>
-    <NuxtPage />
-  </main>
+  <Simplebar style="height: 100vh">
+    <main>
+      <NuxtPage />
+    </main>
+  </Simplebar>
 </template>
 
 <script lang="ts" setup>
+import Simplebar from 'simplebar-vue'
+import 'simplebar-vue/dist/simplebar.min.css'
+
 useHead({
   title: 'MrBeam',
   htmlAttrs: { lang: 'en' },
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
 main {
   @apply m-auto max-w-4xl p-4;
 }
