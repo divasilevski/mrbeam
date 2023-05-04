@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <label :for="`id:${props.id}`">{{ props.label }}</label>
+  <div class="input-container">
+    <label :for="`id:${props.id}`" v-html="props.label" />
     <input
       :id="`id:${props.id}`"
       :type="props.type"
@@ -43,11 +43,15 @@ const input = (event: Event) => {
 </script>
 
 <style lang="postcss" scoped>
-label {
-  @apply block text-xs font-medium text-gray-700;
-}
+.input-container {
+  @apply flex items-center gap-2 w-full;
 
-input {
-  @apply mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm;
+  label {
+    @apply block font-medium text-gray-700 w-4;
+  }
+
+  input {
+    @apply mt-1 w-full rounded-full border-gray-200 shadow-sm sm:text-sm;
+  }
 }
 </style>

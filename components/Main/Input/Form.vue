@@ -11,8 +11,14 @@
     </div>
 
     <div v-show="props.tab === 'distload'" class="inputs">
-      <AppInput id="dist:x" v-model.number="models.x" label="X0" />
-      <AppInput id="dist:x1" v-model.number="models.x1" label="X1" />
+      <div class="row">
+        <AppInput id="dist:x" v-model.number="models.x" label="X<sub>0</sub>" />
+        <AppInput
+          id="dist:x1"
+          v-model.number="models.x1"
+          label="X<sub>1</sub>"
+        />
+      </div>
       <AppInput id="dist:q0" v-model.number="models.q0" label="Q" />
     </div>
 
@@ -99,6 +105,14 @@ const addUnit = () => {
 <style lang="postcss" scoped>
 form,
 .inputs {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col items-center justify-center gap-4;
+}
+
+.row {
+  @apply flex gap-4;
+}
+
+button {
+  @apply mt-2;
 }
 </style>
