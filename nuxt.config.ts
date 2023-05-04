@@ -9,7 +9,19 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   vite: {
-    plugins: [svgLoader({ defaultImport: 'component' })],
+    plugins: [
+      svgLoader({
+        defaultImport: 'component',
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: { overrides: { removeViewBox: false } },
+            },
+          ],
+        },
+      }),
+    ],
   },
   htmlValidator: {
     options: {

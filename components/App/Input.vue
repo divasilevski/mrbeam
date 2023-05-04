@@ -44,10 +44,10 @@ const input = (event: Event) => {
 
 <style lang="postcss" scoped>
 .input-container {
-  @apply flex items-center gap-2 w-full;
+  @apply flex items-baseline gap-2 w-full;
 
   label {
-    @apply block font-medium text-gray-700 w-4;
+    @apply font-medium text-gray-700 w-5;
   }
 
   input {

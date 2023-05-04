@@ -1,14 +1,14 @@
 <template>
   <div class="defenitions">
     <nav>
-      <a
+      <span
         v-for="defenition in defenitions"
         :key="defenition"
         :class="{ active: defenition === props.modelValue }"
         @click="emit('update:modelValue', defenition)"
       >
         <AppIcon :name="defenition" />
-      </a>
+      </span>
     </nav>
   </div>
 </template>
@@ -31,9 +31,9 @@ const emit = defineEmits(['update:modelValue'])
   @apply flex items-center justify-center h-[42px];
 
   nav {
-    @apply flex gap-2 px-2 border-gray-100 border-dashed border-[1px] rounded-full shadow-inner;
+    @apply flex gap-2 px-2 border-gray-100 border-dashed border-[1px] rounded-full shadow-sm;
 
-    a {
+    span {
       @apply flex items-center justify-center p-2 cursor-pointer;
 
       svg {

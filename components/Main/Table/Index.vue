@@ -1,8 +1,9 @@
 <template>
   <section>
-    <div>
-      <AppButton @click="store.clear">Clear</AppButton>
+    <div v-if="store.units.length" class="tools">
+      <AppIconButton name="bin" @click="store.clear" />
     </div>
+
     <MainTableItem v-for="unit in store.units" :key="unit.id" :unit="unit" />
   </section>
 </template>
@@ -15,6 +16,10 @@ const store = useUnitsStore()
 
 <style lang="postcss" scoped>
 section {
-  @apply border-[1px] border-gray-100 p-4 flex flex-col gap-2;
+  @apply flex flex-col gap-2;
+
+  .tools {
+    @apply flex justify-end;
+  }
 }
 </style>
