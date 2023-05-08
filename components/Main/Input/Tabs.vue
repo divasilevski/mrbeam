@@ -1,17 +1,20 @@
 <template>
-  <nav>
-    <a
-      v-for="tab in tabs"
-      :key="tab"
-      :class="{ active: tab === props.modelValue }"
-      @click="emit('update:modelValue', tab)"
-      v-text="tab"
-    />
-  </nav>
+  <div class="tabs">
+    <nav>
+      <span
+        v-for="tab in tabs"
+        :key="tab"
+        :class="{ active: tab === props.modelValue }"
+        @click="emit('update:modelValue', tab)"
+      >
+        <AppIcon :name="tab" />
+      </span>
+    </nav>
+  </div>
 </template>
 
 <script lang="ts" setup>
-const tabs = ['force', 'moment', 'distload', 'defenition', 'material']
+const tabs = ['force', 'moment', 'distload', 'defenition']
 
 const props = defineProps({
   modelValue: {
@@ -24,15 +27,26 @@ const emit = defineEmits(['update:modelValue'])
 </script>
 
 <style lang="postcss" scoped>
-nav {
-  @apply flex border-b border-gray-100 text-sm font-medium;
+.tabs {
+  @apply flex items-center justify-center;
 
-  a {
-    @apply -mb-px border-b border-transparent p-4 hover:text-blue-500 cursor-pointer;
-  }
+  nav {
+    @apply flex gap-2 px-2 border-gray-100 border-dashed border-[1px] rounded-full shadow-sm;
 
-  .active {
-    @apply border-current text-blue-500;
+    span {
+      @apply flex items-center justify-center p-2 cursor-pointer;
+
+      svg {
+        @apply text-gray-400;
+      }
+      svg:hover {
+        @apply text-primary;
+      }
+    }
+
+    .active svg {
+      @apply text-primary;
+    }
   }
 }
 </style>

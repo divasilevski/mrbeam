@@ -11,6 +11,6 @@ const tab = ref('force')
 
 <style lang="postcss" scoped>
 section {
-  @apply border-[1px] border-gray-100 p-4 flex flex-col gap-4;
+  @apply flex flex-col gap-4 px-4 py-8;
 }
 </style>

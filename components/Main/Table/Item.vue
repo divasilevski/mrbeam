@@ -1,10 +1,12 @@
 <template>
   <div class="item">
-    <div class="item__values">
-      <div>{{ unit.type }}</div>
+    <div class="values">
+      <div class="icon">
+        <AppIcon :name="unit.type" />
+      </div>
 
       <div>
-        <span><AppNumber :value="position.x1" /></span>
+        <AppNumber :value="position.x1" />
         <span v-if="position.x2">
           {{ ' ... ' }}
           <AppNumber :value="position.x2" />
@@ -22,7 +24,7 @@
           <AppNumber :value="unit.value" />
         </template>
       </div>
-      <AppButton @click="remove">Remove</AppButton>
+      <AppIconButton name="close" @click="remove" />
     </div>
   </div>
 </template>
@@ -54,11 +56,18 @@ const position = computed(() => {
 
 <style lang="postcss" scoped>
 .item {
-  @apply flex items-center py-2 px-4 rounded-lg border-gray-100 border-[1px];
+  @apply flex items-center py-1 px-3 rounded-full border-gray-100 border-[1px];
 
-  .item__values {
-    @apply grid gap-4 w-full;
-    grid-template-columns: 100px 1fr 1fr auto;
+  .values {
+    @apply grid grid-cols-[100px,1fr,1fr,auto] gap-4 w-full;
+
+    .icon {
+      @apply flex items-center w-12;
+
+      svg {
+        @apply h-6 w-8;
+      }
+    }
   }
 }
 </style>

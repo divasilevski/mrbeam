@@ -12,6 +12,7 @@ export default defineConfig({
     }),
   ],
   test: {
+    threads: false,
     environmentMatchGlobs: [['./tests/**', 'jsdom']],
     coverage: {
       reportsDirectory: './tests/coverage',

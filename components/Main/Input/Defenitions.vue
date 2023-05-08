@@ -1,17 +1,20 @@
 <template>
   <div class="defenitions">
-    <div
-      v-for="defenition in defenitions"
-      :key="defenition"
-      :class="{ active: defenition === props.modelValue }"
-      @click="emit('update:modelValue', defenition)"
-      v-text="defenition"
-    />
+    <nav>
+      <span
+        v-for="defenition in defenitions"
+        :key="defenition"
+        :class="{ active: defenition === props.modelValue }"
+        @click="emit('update:modelValue', defenition)"
+      >
+        <AppIcon :name="defenition" />
+      </span>
+    </nav>
   </div>
 </template>
 
 <script lang="ts" setup>
-const defenitions = ['simple', 'hinge', 'fixed']
+const defenitions = ['simple', 'fixed', 'hinge']
 
 const props = defineProps({
   modelValue: {
@@ -25,14 +28,25 @@ const emit = defineEmits(['update:modelValue'])
 
 <style lang="postcss">
 .defenitions {
-  @apply flex gap-2 text-sm font-medium;
+  @apply flex items-center justify-center h-[42px];
 
-  div {
-    @apply py-1 px-4 rounded text-white bg-blue-500 hover:bg-blue-600 cursor-pointer;
-  }
+  nav {
+    @apply flex gap-2 px-2 border-gray-100 border-dashed border-[1px] rounded-full shadow-sm;
 
-  .active {
-    @apply bg-blue-600;
+    span {
+      @apply flex items-center justify-center p-2 cursor-pointer;
+
+      svg {
+        @apply text-gray-400;
+      }
+      svg:hover {
+        @apply text-primary;
+      }
+    }
+
+    .active svg {
+      @apply text-primary;
+    }
   }
 }
 </style>

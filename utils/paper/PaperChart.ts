@@ -18,7 +18,7 @@ interface DrawProps {
 
 export class PaperChart {
   private project: typeof Project.prototype | null = null
-  private canvas: HTMLCanvasElement = null
+  private canvas: HTMLCanvasElement | null = null
   private points: number[][] = []
   private rect = { maxX: 0, minX: 0, maxY: 0, minY: 0 }
   private scale = { x: 1, y: 1 }
@@ -51,10 +51,8 @@ export class PaperChart {
   }
 
   private normalizeY(point: number) {
-    return (
-      this.canvas.offsetHeight -
-      ((point - this.rect.minY) * this.scale.y + PADDING)
-    )
+    const height = this.canvas?.offsetHeight || 0
+    return height - ((point - this.rect.minY) * this.scale.y + PADDING)
   }
 
   private drawAxis() {
