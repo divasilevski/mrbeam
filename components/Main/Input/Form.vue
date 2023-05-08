@@ -24,7 +24,7 @@
 
     <div v-show="props.tab == 'defenition'" class="inputs">
       <MainInputDefenitions v-model="defenition" />
-      <AppInput id="def:x" v-model="models.x" label="X"></AppInput>
+      <AppInput id="def:x" v-model.number="models.x" label="X"></AppInput>
     </div>
 
     <div v-show="props.tab === 'material'" class="inputs">

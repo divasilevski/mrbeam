@@ -111,7 +111,7 @@ export class PaperBeam {
     this.points.forEach((a) => {
       const point = new Point(this.normalize(a), CANVAS_HEIGHT / 2 + 50)
       const text = new PointText(point)
-      text.content = Number(a.toPrecision(2)).toString()
+      text.content = Number(Number(a).toPrecision(2)).toString()
 
       text.style = {
         fontWeight: 'bold',

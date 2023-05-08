@@ -18,32 +18,63 @@ export function shuffleArray<T>(array: Array<T>): Array<T> {
 }
 
 export function solve(matrix: number[][], vector: number[]): number[] {
-  // size
+  // Just make a single matrix
+  for (let i = 0; i < matrix.length; i++) {
+    matrix[i].push(vector[i])
+  }
   const n = matrix.length
 
-  // create SLAU
-  for (let i = 0; i < n; i++) matrix[i].push(vector[i])
-
-  // go along the diagonal elements
   for (let i = 0; i < n; i++) {
-    // make diagonal equal one
-    if (matrix[i][i] !== 1) {
-      const aii = matrix[i][i]
-      for (let j = 0; j < n + 1; j++) matrix[i][j] /= aii
+    // Search for maximum in this column
+    let maxEl = Math.abs(matrix[i][i])
+    let maxRow = i
+
+    for (let k = i + 1; k < n; k++) {
+      if (Math.abs(matrix[k][i]) > maxEl) {
+        maxEl = Math.abs(matrix[k][i])
+        maxRow = k
+      }
     }
 
-    // change the other lines
-    for (let j = 0; j < n; j++) {
-      if (j === i || matrix[j][i] === 0) continue
+    // Swap maximum row with current row (column by column)
+    for (let k = i; k < n + 1; k++) {
+      const tmp = matrix[maxRow][k]
+      matrix[maxRow][k] = matrix[i][k]
+      matrix[i][k] = tmp
+    }
 
-      const aji = matrix[j][i]
-      for (let k = i; k < n + 1; k++) {
-        matrix[j][k] -= matrix[i][k] * aji
+    // Make all rows below this one 0 in current column
+    for (let k = i + 1; k < n; k++) {
+      const c = -matrix[k][i] / matrix[i][i]
+      for (let j = i; j < n + 1; j++) {
+        if (i === j) {
+          matrix[k][j] = 0
+        } else {
+          matrix[k][j] += c * matrix[i][j]
+        }
       }
     }
   }
 
-  return matrix.map((element) => element[n])
+  function fillArray(i: number, n: number, v: number) {
+    const a = []
+    for (; i < n; i++) {
+      a.push(v)
+    }
+    return a
+  }
+
+  // Solve equation Ax=b for an upper triangular matrix A
+  const x = fillArray(0, n, 0)
+
+  for (let i = n - 1; i > -1; i--) {
+    x[i] = matrix[i][n] / matrix[i][i]
+    for (let k = i - 1; k > -1; k--) {
+      matrix[k][n] -= matrix[k][i] * x[i]
+    }
+  }
+
+  return x
 }
 
 export function multiply(matrix: number[][], vector: number[]): number[] {
