@@ -1,5 +1,5 @@
-import generate from '../services/fem/generate'
+import generateSimple from '../services/fem/generateSimple'
 
 export default defineEventHandler(() => {
-  return JSON.stringify(generate(), null, 4)
+  return JSON.stringify(generateSimple(), null, 4)
 })
