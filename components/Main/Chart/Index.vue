@@ -1,18 +1,18 @@
 <template>
   <section class="box">
-    <MainChartCanvas
-      v-if="shearPoints.length > 1"
-      :points="shearPoints"
-      title="Plot of forces"
-    />
-    <MainChartCanvas
-      v-if="momentPoints.length > 1"
-      :points="momentPoints"
-      title="Plot of moments"
-    />
-    <AppButton v-if="!store.solution" @click="store.calculateAsync">
-      Calculate
-    </AppButton>
+    <MainChartBottomSheet>
+      <MainChartCanvas
+        v-if="shearPoints.length > 1"
+        :points="shearPoints"
+        title="Plot of forces"
+      />
+      <MainChartCanvas
+        v-if="momentPoints.length > 1"
+        :points="momentPoints"
+        title="Plot of moments"
+      />
+    </MainChartBottomSheet>
+
     <div v-if="store.solutionError">{{ store.solutionError }}</div>
   </section>
 </template>
@@ -49,6 +49,10 @@ const momentPoints = computed(() => {
 
 <style lang="postcss" scoped>
 .box {
-  @apply border-[1px] border-gray-100 p-4;
+  @apply p-4;
+
+  .float {
+    @apply fixed right-0 bottom-9;
+  }
 }
 </style>
