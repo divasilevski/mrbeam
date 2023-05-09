@@ -46,6 +46,14 @@ export const useUnitsStore = defineStore('units-store', () => {
     }
   }
 
+  const isCalculated = computed(() => {
+    return units.value.length > 0
+  })
+
+  const hasSolution = computed(() => {
+    return Boolean(solution.value)
+  })
+
   watch(units, () => {
     solution.value = null
     solutionError.value = null
@@ -54,6 +62,8 @@ export const useUnitsStore = defineStore('units-store', () => {
   return {
     units,
     solution,
+    hasSolution,
+    isCalculated,
     solutionError,
     add,
     set,

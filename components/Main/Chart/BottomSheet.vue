@@ -1,19 +1,20 @@
 <template>
-  <AppBottomSheet :ident="ident" :min-height="42" :max-height="maxHeight">
+  <AppBottomSheet :ident="hasSolution" :min-height="42" :max-height="maxHeight">
     <slot />
 
     <template #float="{ toggleHeight, isMaxHeight }">
-      <AppButton
-        :style="{
-          transform: `translateY(${!store.units.length ? 100 : 0}px)`,
-          transition: `transform 0.5s`,
-        }"
-        @click="click(toggleHeight)"
+      <button
+        type="button"
+        class="float-button"
+        :style="floatButtonStyle"
+        @click="clickFloatButton(toggleHeight)"
       >
-        <span v-if="!store.solution">culc</span>
-        <span v-else-if="isMaxHeight">down</span>
-        <span v-else>up</span>
-      </AppButton>
+        <span class="sr-only">Calculate</span>
+
+        <AppLoader v-if="loading" />
+        <AppIcon v-else-if="!hasSolution" name="equals" />
+        <AppIcon v-else name="arrow" :class="{ revert: isMaxHeight }" />
+      </button>
     </template>
   </AppBottomSheet>
 </template>
@@ -21,13 +22,15 @@
 <script lang="ts" setup>
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
+const store = useUnitsStore()
 const { height } = useWindowSize()
+
 const maxHeight = computed(() => height.value - 215)
 
-const store = useUnitsStore()
+const hasSolution = computed(() => store.hasSolution)
 
-const ident = computed(() => {
-  return !!store.solution
+const floatButtonStyle = computed(() => {
+  return `transform: translateY(${store.isCalculated ? 0 : 100}px)`
 })
 
 const loading = ref(false)
@@ -38,11 +41,22 @@ const calculate = async () => {
   loading.value = false
 }
 
-const click = (toggle: () => void) => {
-  if (!store.solution) {
-    calculate()
-  } else {
-    toggle()
-  }
+const clickFloatButton = (toggle: () => void) => {
+  store.hasSolution ? toggle() : calculate()
 }
 </script>
+
+<style lang="postcss" scoped>
+.float-button {
+  @apply flex items-center justify-center h-12 w-12 rounded-full text-white bg-blue-500 shadow-md cursor-pointer;
+  @apply transition-transform duration-500;
+
+  .icon {
+    @apply transition-transform duration-500;
+  }
+
+  .revert {
+    @apply -rotate-180;
+  }
+}
+</style>

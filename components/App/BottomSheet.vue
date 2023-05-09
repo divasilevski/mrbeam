@@ -45,19 +45,18 @@ const props = defineProps({
   },
 })
 
-// -------------------------------
-
 const { height } = useWindowSize()
 const isDrag = ref(false)
 const draggbleRef = ref()
 
+const dy = (value: number) => height.value - value
+
+const getHeight = (isMax: boolean) => {
+  return isMax ? dy(props.maxHeight) : dy(props.minHeight)
+}
+
 const { y } = useDraggable(draggbleRef, {
-  initialValue: {
-    x: 0,
-    y: props.ident
-      ? height.value - props.maxHeight
-      : height.value - props.minHeight,
-  },
+  initialValue: { x: 0, y: getHeight(props.ident) },
   onStart: () => {
     isDrag.value = true
   },
@@ -66,45 +65,28 @@ const { y } = useDraggable(draggbleRef, {
   },
 })
 
-// -------------------------------
-
-const style = computed(() => {
-  return {
-    height: `${height.value - y.value || props.minHeight}px`,
-    transform: `translateY(${props.ident ? 0 : props.minHeight}px)`,
-  }
-})
-
-watch(toRef(props, 'ident'), () => {
-  if (props.ident) {
-    y.value = height.value - props.maxHeight
-  } else {
-    y.value = height.value - props.minHeight
-  }
-})
-
-const toggleHeight = () => {
-  if (y.value === height.value - props.minHeight) {
-    y.value = height.value - props.maxHeight
-  } else {
-    y.value = height.value - props.minHeight
-  }
-}
-
 const isMaxHeight = computed(() => {
   return y.value < height.value - (props.maxHeight + props.minHeight) / 2
 })
 
+const style = computed(() => {
+  return {
+    height: `${dy(y.value) || props.minHeight}px`,
+    transform: `translateY(${props.ident ? 0 : props.minHeight}px)`,
+  }
+})
+
+const toggleHeight = () => {
+  y.value = getHeight(!isMaxHeight.value)
+}
+
+watch(toRef(props, 'ident'), () => {
+  y.value = getHeight(props.ident)
+})
+
 watchEffect(() => {
   if (!isDrag.value) {
-    const top = height.value - props.maxHeight
-    const bot = height.value - props.minHeight
-
-    if (isMaxHeight.value) {
-      y.value = top
-    } else {
-      y.value = bot
-    }
+    y.value = getHeight(isMaxHeight.value)
   }
 })
 </script>
@@ -114,7 +96,7 @@ watchEffect(() => {
   @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none;
 
   .float-button {
-    @apply absolute right-8 -translate-y-4 z-10;
+    @apply absolute right-10 -translate-y-[50%] z-10;
   }
 
   .content {
