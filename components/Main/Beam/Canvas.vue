@@ -31,6 +31,6 @@ watchEffect(() => {
 
 <style lang="postcss" scoped>
 canvas {
-  @apply w-full h-[150px] bg-canvas;
+  @apply w-full h-canvas;
 }
 </style>

@@ -118,17 +118,17 @@ watchEffect(() => {
   }
 
   .content {
-    @apply flex flex-col rounded-t-2xl max-h-[100vh] h-[30vh] bg-gray-200;
+    @apply flex flex-col rounded-t-2xl bg-white shadow-bottomSheet;
 
     .controls {
       @apply flex;
 
       .draggable-area {
-        @apply w-12 m-auto p-4 cursor-grab;
+        @apply m-auto py-3 px-4 cursor-grab;
       }
 
       .draggable-thumb {
-        @apply w-12 h-1 bg-slate-500 rounded-sm;
+        @apply w-12 h-1 bg-secondary rounded-sm;
       }
 
       .close-sheet {
@@ -137,7 +137,7 @@ watchEffect(() => {
     }
 
     .body {
-      @apply flex flex-col flex-grow gap-4 h-full p-4 overflow-y-auto;
+      @apply flex flex-col flex-grow gap-4 h-full px-4 pt-4 overflow-y-auto;
     }
   }
 

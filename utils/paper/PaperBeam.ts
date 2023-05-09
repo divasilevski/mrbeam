@@ -4,7 +4,7 @@ import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
 const { Path, Color, Point, PointText, Project, Style } = paper
 
 const COLORS = {
-  background: new Color('#f2f7f2'),
+  background: new Color('#fff'),
   point: new Color('#f2bb05'),
   line: new Color('#f2bb05'),
   text: new Color('#f2bb05'),

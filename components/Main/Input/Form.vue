@@ -35,7 +35,11 @@
       <AppInput id="mat:a" v-model.number="models.a" label="A" />
     </div>
 
-    <AppButton type="submit" @click="addUnit">Add element</AppButton>
+    <AppButton type="submit" @click="addUnit">
+      <AppIcon name="plus" />
+      Add element
+      <AppIcon name="plus" />
+    </AppButton>
   </form>
 </template>
 

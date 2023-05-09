@@ -18,6 +18,6 @@ useHead({
 
 <style lang="postcss">
 main {
-  @apply m-auto max-w-4xl p-4;
+  @apply m-auto max-w-4xl p-4 pb-16;
 }
 </style>

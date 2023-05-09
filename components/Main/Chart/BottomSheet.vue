@@ -1,5 +1,5 @@
 <template>
-  <AppBottomSheet :ident="ident" :min-height="60" :max-height="maxHeight">
+  <AppBottomSheet :ident="ident" :min-height="42" :max-height="maxHeight">
     <slot />
 
     <template #float="{ toggleHeight, isMaxHeight }">
@@ -22,7 +22,7 @@
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
 const { height } = useWindowSize()
-const maxHeight = computed(() => height.value - 230)
+const maxHeight = computed(() => height.value - 215)
 
 const store = useUnitsStore()
 
