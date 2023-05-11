@@ -18,7 +18,7 @@
       </header>
 
       <div class="body">
-        <Simplebar style="height: 100%">
+        <Simplebar style="height: 100%" :class="{ closed: isClosed }">
           <slot></slot>
         </Simplebar>
       </div>
@@ -64,6 +64,10 @@ const { y } = useDraggable(draggbleRef, {
 
 const isMaxHeight = computed(() => {
   return y.value < dy((props.maxHeight + props.minHeight) / 2)
+})
+
+const isClosed = computed(() => {
+  return y.value !== dy(props.maxHeight)
 })
 
 const style = computed(() => {
@@ -123,5 +127,18 @@ watchEffect(() => {
   .content:not(.drag) {
     transition: height 0.5s, transform 0.5s;
   }
+}
+
+/* Fix simplebar */
+[data-simplebar].closed {
+  overflow: hidden;
+}
+
+[data-simplebar]:not(.closed) :deep(.simplebar-track) {
+  @apply opacity-30 transition-opacity delay-500;
+}
+
+[data-simplebar].closed :deep(.simplebar-track) {
+  @apply opacity-0;
 }
 </style>

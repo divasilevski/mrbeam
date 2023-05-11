@@ -17,4 +17,9 @@ useHead({
 main {
   @apply m-auto max-w-4xl p-4 pb-16;
 }
+
+/* Fix simplebar */
+[data-simplebar] .simplebar-track {
+  @apply opacity-30 w-[9px];
+}
 </style>
