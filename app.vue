@@ -7,9 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import Simplebar from 'simplebar-vue'
-import 'simplebar-vue/dist/simplebar.min.css'
-
 useHead({
   title: 'MrBeam',
   htmlAttrs: { lang: 'en' },

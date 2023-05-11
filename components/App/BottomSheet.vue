@@ -27,9 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-import Simplebar from 'simplebar-vue'
-import 'simplebar-vue/dist/simplebar.min.css'
-
 const props = defineProps({
   ident: {
     type: Boolean,
@@ -66,7 +63,7 @@ const { y } = useDraggable(draggbleRef, {
 })
 
 const isMaxHeight = computed(() => {
-  return y.value < height.value - (props.maxHeight + props.minHeight) / 2
+  return y.value < dy((props.maxHeight + props.minHeight) / 2)
 })
 
 const style = computed(() => {
