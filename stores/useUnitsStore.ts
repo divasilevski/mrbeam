@@ -5,20 +5,32 @@ export const useUnitsStore = defineStore('units-store', () => {
   const solution = ref<Solution | null>(null)
   const solutionError = ref<string | null>(null)
 
-  const add = (unit: Unit) => {
-    units.value = [...units.value, unit]
+  const isCalculated = computed(() => {
+    return units.value.length > 0
+  })
+
+  const hasSolution = computed(() => {
+    return Boolean(solution.value)
+  })
+
+  const resetSolution = () => {
+    solution.value = null
+    solutionError.value = null
   }
 
-  const set = (newUnits: Unit[]) => {
-    units.value = newUnits
+  const add = (unit: Unit) => {
+    units.value = [...units.value, unit]
+    resetSolution()
   }
 
   const clear = () => {
     units.value = []
+    resetSolution()
   }
 
   const removeById = (id: string) => {
     units.value = units.value.filter((unit: Unit) => unit.id !== id)
+    resetSolution()
   }
 
   const generateAsync = async () => {
@@ -26,6 +38,7 @@ export const useUnitsStore = defineStore('units-store', () => {
 
     if (data.value) {
       units.value = JSON.parse(data.value)
+      await calculateAsync()
     }
   }
 
@@ -46,19 +59,6 @@ export const useUnitsStore = defineStore('units-store', () => {
     }
   }
 
-  const isCalculated = computed(() => {
-    return units.value.length > 0
-  })
-
-  const hasSolution = computed(() => {
-    return Boolean(solution.value)
-  })
-
-  watch(units, () => {
-    solution.value = null
-    solutionError.value = null
-  })
-
   return {
     units,
     solution,
@@ -66,7 +66,6 @@ export const useUnitsStore = defineStore('units-store', () => {
     isCalculated,
     solutionError,
     add,
-    set,
     clear,
     removeById,
     generateAsync,
