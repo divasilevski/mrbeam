@@ -22,6 +22,8 @@
 <script lang="ts" setup>
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
+const { scrollTo } = useMainScroll()
+
 const store = useUnitsStore()
 const { height } = useWindowSize()
 
@@ -37,6 +39,9 @@ const loading = ref(false)
 
 const calculate = async () => {
   loading.value = true
+
+  scrollTo({ top: 0, behavior: 'smooth' })
+
   await store.calculateAsync()
   loading.value = false
 }

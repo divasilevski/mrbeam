@@ -1,5 +1,5 @@
 <template>
-  <Simplebar style="height: 100vh">
+  <Simplebar id="main-scroll" style="height: 100vh">
     <main>
       <NuxtPage />
     </main>
