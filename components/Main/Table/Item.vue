@@ -59,7 +59,7 @@ const position = computed(() => {
   @apply flex items-center py-1 px-3 rounded-full border-gray-100 border-[1px];
 
   .values {
-    @apply grid grid-cols-[100px,1fr,1fr,auto] gap-4 w-full;
+    @apply grid grid-cols-[60px,1fr,1fr,auto] gap-4 w-full;
 
     .icon {
       @apply flex items-center w-12;

@@ -1,25 +1,31 @@
 <template>
   <section>
-    <div v-if="store.units.length" class="tools">
-      <AppIconButton name="bin" @click="store.clear">Remove all</AppIconButton>
-    </div>
-
-    <MainTableItem v-for="unit in store.units" :key="unit.id" :unit="unit" />
+    <MainTableHeader v-if="sorted.length" />
+    <MainTableItem v-for="unit in sorted" :key="unit.id" :unit="unit" />
   </section>
 </template>
 
 <script lang="ts" setup>
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
+type NumberUnit = Unit & { x: number }
+
 const store = useUnitsStore()
+
+const sorted = computed(() => {
+  const byArray = (unit: Unit) => Array.isArray(unit.x)
+  const byNumber = (unit: Unit) => !Array.isArray(unit.x)
+
+  const arrayUnits = store.units.filter(byArray)
+  const numberUnits = store.units.filter(byNumber) as NumberUnit[]
+  const sortedUnits = numberUnits.sort((a, b) => a.x - b.x)
+
+  return [...sortedUnits, ...arrayUnits]
+})
 </script>
 
 <style lang="postcss" scoped>
 section {
   @apply flex flex-col gap-2;
-
-  .tools {
-    @apply flex justify-end;
-  }
 }
 </style>
