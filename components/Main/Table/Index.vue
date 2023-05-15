@@ -1,7 +1,7 @@
 <template>
   <section>
     <div v-if="store.units.length" class="tools">
-      <AppIconButton name="bin" @click="store.clear" />
+      <AppIconButton name="bin" @click="store.clear">Remove all</AppIconButton>
     </div>
 
     <MainTableItem v-for="unit in store.units" :key="unit.id" :unit="unit" />

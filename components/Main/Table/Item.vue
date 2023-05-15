@@ -24,7 +24,7 @@
           <AppNumber :value="unit.value" />
         </template>
       </div>
-      <AppIconButton name="close" @click="remove" />
+      <AppIconButton name="close" @click="remove">close</AppIconButton>
     </div>
   </div>
 </template>

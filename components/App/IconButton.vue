@@ -1,6 +1,7 @@
 <template>
   <button type="button">
     <AppIcon :name="props.name" />
+    <span class="sr-only"><slot /></span>
   </button>
 </template>
 
