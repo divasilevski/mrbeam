@@ -54,7 +54,7 @@ const onClick = () => {
 watch(toRef(store, 'solution'), () => {
   const { Status, status, toggleStatus } = bsRef.value
 
-  if (status === Status.MinHeight) {
+  if (status === Status.MinHeight && store.hasSolution) {
     toggleStatus()
   }
 })
