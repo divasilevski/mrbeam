@@ -90,15 +90,15 @@ export function addSupport(units: Unit[]) {
   if (units.length > 5) addSimple(units)
 }
 
-export function addDistload(units: Unit[], beamLength: number | number[]) {
+export function addDistload(units: Unit[], beamLength: number) {
   if (randInt(0, 2)) return false
 
   shuffleArray(units)
   for (let i = units.length - 1; i >= 0; i--) {
     if (units[i].type === 'point') {
       units[i].type = 'distload'
-      units[i].x = typeof beamLength === 'number' ? [0, beamLength] : beamLength
-      units[i].value = randInt(0, 1) ? randForce() : [randForce(), randForce()]
+      units[i].x = [0, beamLength]
+      units[i].value = randForce()
       return true
     }
   }

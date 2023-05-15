@@ -1,48 +1,76 @@
 <template>
-  <AppBottomSheet :ident="ident" :min-height="60" :max-height="maxHeight">
+  <AppBottomSheet
+    ref="bsRef"
+    :has-ident="hasIdent"
+    :min-height="minHeight"
+    :max-height="maxHeight"
+  >
     <slot />
 
-    <template #float="{ toggleHeight, isMaxHeight }">
-      <AppButton
-        :style="{
-          transform: `translateY(${!store.units.length ? 100 : 0}px)`,
-          transition: `transform 0.5s`,
-        }"
-        @click="click(toggleHeight)"
+    <template #float>
+      <button
+        type="button"
+        class="float-button"
+        :style="`transform: translateY(${translate}px)`"
+        @click="onClick()"
       >
-        <span v-if="!store.solution">culc</span>
-        <span v-else-if="isMaxHeight">down</span>
-        <span v-else>up</span>
-      </AppButton>
+        <span class="sr-only">Calculate</span>
+
+        <AppLoader v-if="store.loading" />
+        <AppIcon v-else-if="!hasIdent" name="equals" />
+        <AppIcon v-else name="arrow" :class="{ downward: isDownward }" />
+      </button>
     </template>
   </AppBottomSheet>
 </template>
 
 <script lang="ts" setup>
+import constants from '~/constants'
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
+// heights
 const { height } = useWindowSize()
-const maxHeight = computed(() => height.value - 230)
 
+const topIdent = constants.canvasSize + constants.padding * 4
+const minHeight = constants.bottomSheetMinHeight
+const maxHeight = computed(() => height.value - topIdent)
+
+// logic
+const bsRef = ref()
 const store = useUnitsStore()
 
-const ident = computed(() => {
-  return !!store.solution
-})
+const hasIdent = computed(() => store.hasSolution)
+const isDownward = computed(() => bsRef.value?.isChangeToMax)
+const translate = computed(() => (store.isCalculated ? 0 : minHeight + 48 / 2))
 
-const loading = ref(false)
-
-const calculate = async () => {
-  loading.value = true
-  await store.calculateAsync()
-  loading.value = false
-}
-
-const click = (toggle: () => void) => {
-  if (!store.solution) {
-    calculate()
+const onClick = () => {
+  if (store.hasSolution) {
+    bsRef.value?.toggleStatus()
   } else {
-    toggle()
+    store.calculateAsync()
   }
 }
+
+watch(toRef(store, 'solution'), () => {
+  const { Status, status, toggleStatus } = bsRef.value
+
+  if (status === Status.MinHeight) {
+    toggleStatus()
+  }
+})
 </script>
+
+<style lang="postcss" scoped>
+.float-button {
+  @apply flex items-center justify-center h-12 w-12 rounded-full text-white bg-blue-500 shadow-md cursor-pointer;
+  @apply transition-transform duration-500;
+
+  .icon {
+    @apply transition-transform duration-500;
+  }
+
+  .downward {
+    @apply -rotate-180;
+  }
+}
+</style>

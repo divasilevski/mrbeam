@@ -1,5 +1,5 @@
 <template>
-  <Simplebar style="height: 100vh">
+  <Simplebar id="main-scroll" style="height: 100vh">
     <main>
       <NuxtPage />
     </main>
@@ -7,9 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import Simplebar from 'simplebar-vue'
-import 'simplebar-vue/dist/simplebar.min.css'
-
 useHead({
   title: 'MrBeam',
   htmlAttrs: { lang: 'en' },
@@ -18,6 +15,11 @@ useHead({
 
 <style lang="postcss">
 main {
-  @apply m-auto max-w-4xl p-4;
+  @apply m-auto max-w-4xl p-4 pb-16;
+}
+
+/* Fix simplebar */
+[data-simplebar] .simplebar-track {
+  @apply opacity-30 w-[9px] -z-10;
 }
 </style>

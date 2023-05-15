@@ -1,20 +1,22 @@
 <template>
-  <section class="box">
+  <article>
     <MainChartBottomSheet>
-      <MainChartCanvas
-        v-if="shearPoints.length > 1"
-        :points="shearPoints"
-        title="Plot of forces"
-      />
-      <MainChartCanvas
-        v-if="momentPoints.length > 1"
-        :points="momentPoints"
-        title="Plot of moments"
-      />
+      <div class="charts">
+        <MainChartSection
+          v-if="shearPoints.length > 1"
+          :points="shearPoints"
+          title="Forces"
+        />
+        <MainChartSection
+          v-if="momentPoints.length > 1"
+          :points="momentPoints"
+          title="Moments"
+        />
+      </div>
     </MainChartBottomSheet>
 
     <div v-if="store.solutionError">{{ store.solutionError }}</div>
-  </section>
+  </article>
 </template>
 
 <script lang="ts" setup>
@@ -48,11 +50,7 @@ const momentPoints = computed(() => {
 </script>
 
 <style lang="postcss" scoped>
-.box {
-  @apply p-4;
-
-  .float {
-    @apply fixed right-0 bottom-9;
-  }
+.charts {
+  @apply flex flex-col gap-4 pb-4;
 }
 </style>

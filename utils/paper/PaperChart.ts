@@ -5,7 +5,7 @@ const { Color, Path, Point, PointText, Project, Style } = paper
 const PADDING = 24
 
 const COLORS = {
-  background: new Color('#f2f7f2'),
+  background: new Color('#fff'),
   line: new Color('#d74e09'),
   axis: new Color('#f2bb05'),
   text: new Color('#f2bb05'),

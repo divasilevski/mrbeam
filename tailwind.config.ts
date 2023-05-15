@@ -4,10 +4,15 @@ export default <Partial<Config>>{
   plugins: [require('@tailwindcss/forms')],
   theme: {
     extend: {
+      height: {
+        canvas: '150px',
+      },
       colors: {
         primary: '#0284c7',
         secondary: '#ccc',
-        canvas: '#f2f7f2',
+      },
+      boxShadow: {
+        bottomSheet: '0px -2px 20px -12px rgba(0,0,0,0.4)',
       },
     },
   },

@@ -1,5 +1,4 @@
 <template>
-  <span>{{ props.title }}</span>
   <canvas ref="canvasRef" resize />
 </template>
 
@@ -7,10 +6,6 @@
 import { PaperChart } from '~/utils/paper/PaperChart'
 
 const props = defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
   points: {
     type: Array as () => number[][],
     default: () => [],
@@ -42,6 +37,6 @@ watchEffect(() => {
 
 <style lang="postcss" scoped>
 canvas {
-  @apply w-full h-[150px] bg-canvas;
+  @apply w-full h-canvas;
 }
 </style>

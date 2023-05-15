@@ -1,16 +1,16 @@
 <template>
   <div class="sheet">
     <div class="float-button">
-      <slot
-        name="float"
-        :toggle-height="toggleHeight"
-        :is-max-height="isMaxHeight"
-      >
-        <span @click="toggleHeight">Toggle</span>
+      <slot name="float">
+        <span @click="toggleStatus">Toggle</span>
       </slot>
     </div>
 
-    <div class="content" :class="{ drag: isDrag }" :style="style">
+    <div
+      class="content"
+      :class="{ dragging: isDragging }"
+      :style="[heightStyle, transformStyle]"
+    >
       <header class="controls">
         <div ref="draggbleRef" class="draggable-area">
           <div class="draggable-thumb" />
@@ -18,7 +18,7 @@
       </header>
 
       <div class="body">
-        <Simplebar style="height: 100%">
+        <Simplebar style="height: 100%" :class="{ сollapsed: isСollapsed }">
           <slot></slot>
         </Simplebar>
       </div>
@@ -27,11 +27,13 @@
 </template>
 
 <script lang="ts" setup>
-import Simplebar from 'simplebar-vue'
-import 'simplebar-vue/dist/simplebar.min.css'
+enum Status {
+  MinHeight = 'MinHeight',
+  MaxHeight = 'MaxHeight',
+}
 
 const props = defineProps({
-  ident: {
+  hasIdent: {
     type: Boolean,
     default: false,
   },
@@ -45,68 +47,74 @@ const props = defineProps({
   },
 })
 
-// -------------------------------
-
 const { height } = useWindowSize()
-const isDrag = ref(false)
+
 const draggbleRef = ref()
+const status = ref(Status.MinHeight)
 
-const { y } = useDraggable(draggbleRef, {
-  initialValue: {
-    x: 0,
-    y: props.ident
-      ? height.value - props.maxHeight
-      : height.value - props.minHeight,
-  },
-  onStart: () => {
-    isDrag.value = true
-  },
-  onEnd: () => {
-    isDrag.value = false
-  },
-})
+const dy = (value: number) => height.value - value
 
-// -------------------------------
-
-const style = computed(() => {
-  return {
-    height: `${height.value - y.value || props.minHeight}px`,
-    transform: `translateY(${props.ident ? 0 : props.minHeight}px)`,
-  }
-})
-
-watch(toRef(props, 'ident'), () => {
-  if (props.ident) {
-    y.value = height.value - props.maxHeight
+const onEnd = () => {
+  if (!isChangeToMax.value) {
+    status.value = Status.MinHeight
+    y.value = dy(props.minHeight)
   } else {
-    y.value = height.value - props.minHeight
-  }
-})
-
-const toggleHeight = () => {
-  if (y.value === height.value - props.minHeight) {
-    y.value = height.value - props.maxHeight
-  } else {
-    y.value = height.value - props.minHeight
+    status.value = Status.MaxHeight
+    y.value = dy(props.maxHeight)
   }
 }
 
-const isMaxHeight = computed(() => {
-  return y.value < height.value - (props.maxHeight + props.minHeight) / 2
+const { y, isDragging } = useDraggable(draggbleRef, {
+  initialValue: { x: 0, y: dy(props.minHeight) },
+  axis: 'y',
+  onEnd,
 })
 
-watchEffect(() => {
-  if (!isDrag.value) {
-    const top = height.value - props.maxHeight
-    const bot = height.value - props.minHeight
+// to template
+const isСollapsed = computed(() => {
+  return status.value === Status.MinHeight
+})
 
-    if (isMaxHeight.value) {
-      y.value = top
-    } else {
-      y.value = bot
-    }
+const heightStyle = computed(() => {
+  if (isDragging.value) return `height: ${dy(y.value)}px`
+
+  return status.value === Status.MaxHeight
+    ? `height: ${props.maxHeight}px`
+    : `height: ${props.minHeight}px`
+})
+
+const transformStyle = computed(() => {
+  return `transform: translateY(${props.hasIdent ? 0 : props.minHeight}px)`
+})
+
+// to expose
+const isChangeToMax = computed(() => {
+  if (status.value === Status.MaxHeight) {
+    return y.value < dy(props.maxHeight - 100)
+  } else {
+    return y.value < dy(props.minHeight + 100)
   }
 })
+
+const toggleStatus = () => {
+  if (isChangeToMax.value) {
+    status.value = Status.MinHeight
+    y.value = dy(props.minHeight)
+  } else {
+    status.value = Status.MaxHeight
+    y.value = dy(props.maxHeight)
+  }
+}
+
+watch(height, () => {
+  if (status.value === Status.MaxHeight) {
+    y.value = dy(props.maxHeight)
+  } else {
+    y.value = dy(props.minHeight)
+  }
+})
+
+defineExpose({ Status, status, toggleStatus, isChangeToMax })
 </script>
 
 <style lang="postcss" scoped>
@@ -114,21 +122,21 @@ watchEffect(() => {
   @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none;
 
   .float-button {
-    @apply absolute right-8 -translate-y-4 z-10;
+    @apply absolute right-10 -translate-y-[50%] z-10;
   }
 
   .content {
-    @apply flex flex-col rounded-t-2xl max-h-[100vh] h-[30vh] bg-gray-200;
+    @apply flex flex-col rounded-t-2xl bg-white shadow-bottomSheet;
 
     .controls {
       @apply flex;
 
       .draggable-area {
-        @apply w-12 m-auto p-4 cursor-grab;
+        @apply m-auto py-3 px-4 cursor-grab;
       }
 
       .draggable-thumb {
-        @apply w-12 h-1 bg-slate-500 rounded-sm;
+        @apply w-12 h-1 bg-secondary rounded-sm;
       }
 
       .close-sheet {
@@ -137,12 +145,25 @@ watchEffect(() => {
     }
 
     .body {
-      @apply flex flex-col flex-grow gap-4 h-full p-4 overflow-y-auto;
+      @apply flex flex-col flex-grow gap-4 h-full px-4 pt-4 overflow-y-auto;
     }
   }
 
-  .content:not(.drag) {
+  .content:not(.dragging) {
     transition: height 0.5s, transform 0.5s;
   }
+}
+
+/* Fix simplebar */
+[data-simplebar].сollapsed {
+  overflow: hidden;
+}
+
+[data-simplebar]:not(.сollapsed) :deep(.simplebar-track) {
+  @apply opacity-30 transition-opacity delay-500;
+}
+
+[data-simplebar].сollapsed :deep(.simplebar-track) {
+  @apply opacity-0;
 }
 </style>

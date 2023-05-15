@@ -2,16 +2,17 @@
   <div class="input-container">
     <label :for="`id:${props.id}`" v-html="props.label" />
     <input
+      v-bind="$attrs"
       :id="`id:${props.id}`"
       :type="props.type"
-      :placeholder="props.placeholder"
       :value="props.modelValue"
-      @input="input"
+      @input="onInput"
     />
+    <div v-if="error" class="error">{{ error }}</div>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" inherit-attrs="false" setup>
 const props = defineProps({
   id: {
     type: String,
@@ -21,10 +22,6 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  placeholder: {
-    type: String,
-    default: '',
-  },
   modelValue: {
     type: [String, Number],
     default: '',
@@ -33,18 +30,23 @@ const props = defineProps({
     type: String,
     default: 'text',
   },
+  error: {
+    type: String,
+    default: '',
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-const input = (event: Event) => {
-  emit('update:modelValue', (event.target as HTMLInputElement).value)
+const onInput = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
 }
 </script>
 
 <style lang="postcss" scoped>
 .input-container {
-  @apply flex items-baseline gap-2 w-full;
+  @apply relative flex items-baseline gap-2 w-full;
 
   label {
     @apply font-medium text-gray-700 w-5;
@@ -52,6 +54,10 @@ const input = (event: Event) => {
 
   input {
     @apply mt-1 w-full rounded-full border-gray-200 shadow-sm sm:text-sm;
+  }
+
+  .error {
+    @apply absolute -bottom-4 right-4 text-xs text-red-500;
   }
 }
 </style>
