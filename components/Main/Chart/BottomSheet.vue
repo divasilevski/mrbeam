@@ -1,17 +1,22 @@
 <template>
-  <AppBottomSheet :ident="hasSolution" :min-height="42" :max-height="maxHeight">
+  <AppBottomSheet
+    ref="bsRef"
+    :has-ident="hasSolution"
+    :min-height="42"
+    :max-height="maxHeight"
+  >
     <slot />
 
-    <template #float="{ toggleHeight, isMaxHeight }">
+    <template #float>
       <button
         type="button"
         class="float-button"
         :style="floatButtonStyle"
-        @click="clickFloatButton(toggleHeight)"
+        @click="clickFloatButton()"
       >
         <span class="sr-only">Calculate</span>
 
-        <AppLoader v-if="loading" />
+        <AppLoader v-if="store.loading" />
         <AppIcon v-else-if="!hasSolution" name="equals" />
         <AppIcon v-else name="arrow" :class="{ revert: isMaxHeight }" />
       </button>
@@ -22,7 +27,7 @@
 <script lang="ts" setup>
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
-const { scrollTo } = useMainScroll()
+const bsRef = ref()
 
 const store = useUnitsStore()
 const { height } = useWindowSize()
@@ -31,23 +36,18 @@ const maxHeight = computed(() => height.value - 215)
 
 const hasSolution = computed(() => store.hasSolution)
 
+const isMaxHeight = computed(() => bsRef.value?.isChangeToMax)
+
 const floatButtonStyle = computed(() => {
   return `transform: translateY(${store.isCalculated ? 0 : 100}px)`
 })
 
-const loading = ref(false)
-
 const calculate = async () => {
-  loading.value = true
-
-  scrollTo({ top: 0, behavior: 'smooth' })
-
   await store.calculateAsync()
-  loading.value = false
 }
 
-const clickFloatButton = (toggle: () => void) => {
-  store.hasSolution ? toggle() : calculate()
+const clickFloatButton = () => {
+  store.hasSolution ? bsRef.value.toggleStatus() : calculate()
 }
 </script>
 

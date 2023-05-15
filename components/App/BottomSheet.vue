@@ -1,16 +1,16 @@
 <template>
   <div class="sheet">
     <div class="float-button">
-      <slot
-        name="float"
-        :toggle-height="toggleHeight"
-        :is-max-height="isMaxHeight"
-      >
-        <span @click="toggleHeight">Toggle</span>
+      <slot name="float">
+        <span @click="toggleStatus">Toggle</span>
       </slot>
     </div>
 
-    <div class="content" :class="{ drag: isDrag }" :style="style">
+    <div
+      class="content"
+      :class="{ dragging: isDragging }"
+      :style="[heightStyle, transformStyle]"
+    >
       <header class="controls">
         <div ref="draggbleRef" class="draggable-area">
           <div class="draggable-thumb" />
@@ -18,7 +18,7 @@
       </header>
 
       <div class="body">
-        <Simplebar style="height: 100%" :class="{ closed: isClosed }">
+        <Simplebar style="height: 100%" :class="{ сollapsed: isСollapsed }">
           <slot></slot>
         </Simplebar>
       </div>
@@ -27,8 +27,13 @@
 </template>
 
 <script lang="ts" setup>
+enum Status {
+  MinHeight = 'MinHeight',
+  MaxHeight = 'MaxHeight',
+}
+
 const props = defineProps({
-  ident: {
+  hasIdent: {
     type: Boolean,
     default: false,
   },
@@ -43,53 +48,73 @@ const props = defineProps({
 })
 
 const { height } = useWindowSize()
-const isDrag = ref(false)
+
 const draggbleRef = ref()
+const status = ref(Status.MinHeight)
 
 const dy = (value: number) => height.value - value
 
-const getHeight = (isMax: boolean) => {
-  return isMax ? dy(props.maxHeight) : dy(props.minHeight)
+const onEnd = () => {
+  if (!isChangeToMax.value) {
+    status.value = Status.MinHeight
+    y.value = dy(props.minHeight)
+  } else {
+    status.value = Status.MaxHeight
+    y.value = dy(props.maxHeight)
+  }
 }
 
-const { y } = useDraggable(draggbleRef, {
-  initialValue: { x: 0, y: getHeight(props.ident) },
-  onStart: () => {
-    isDrag.value = true
-  },
-  onEnd: () => {
-    isDrag.value = false
-  },
+const { y, isDragging } = useDraggable(draggbleRef, {
+  initialValue: { x: 0, y: dy(props.minHeight) },
+  axis: 'y',
+  onEnd,
 })
 
-const isMaxHeight = computed(() => {
-  return y.value < dy((props.maxHeight + props.minHeight) / 2)
+// to template
+const isСollapsed = computed(() => {
+  return status.value === Status.MinHeight
 })
 
-const isClosed = computed(() => {
-  return y.value !== dy(props.maxHeight)
+const heightStyle = computed(() => {
+  if (isDragging.value) return `height: ${dy(y.value)}px`
+
+  return status.value === Status.MaxHeight
+    ? `height: ${props.maxHeight}px`
+    : `height: ${props.minHeight}px`
 })
 
-const style = computed(() => {
-  return {
-    height: `${dy(y.value) || props.minHeight}px`,
-    transform: `translateY(${props.ident ? 0 : props.minHeight}px)`,
+const transformStyle = computed(() => {
+  return `transform: translateY(${props.hasIdent ? 0 : props.minHeight}px)`
+})
+
+// to expose
+const isChangeToMax = computed(() => {
+  if (status.value === Status.MaxHeight) {
+    return y.value < dy(props.maxHeight - 100)
+  } else {
+    return y.value < dy(props.minHeight + 100)
   }
 })
 
-const toggleHeight = () => {
-  y.value = getHeight(!isMaxHeight.value)
+const toggleStatus = () => {
+  if (isChangeToMax.value) {
+    status.value = Status.MinHeight
+    y.value = dy(props.minHeight)
+  } else {
+    status.value = Status.MaxHeight
+    y.value = dy(props.maxHeight)
+  }
 }
 
-watch(toRef(props, 'ident'), () => {
-  y.value = getHeight(props.ident)
-})
-
-watchEffect(() => {
-  if (!isDrag.value) {
-    y.value = getHeight(isMaxHeight.value)
+watch(height, () => {
+  if (status.value === Status.MaxHeight) {
+    y.value = dy(props.maxHeight)
+  } else {
+    y.value = dy(props.minHeight)
   }
 })
+
+defineExpose({ Status, status, toggleStatus, isChangeToMax })
 </script>
 
 <style lang="postcss" scoped>
@@ -124,21 +149,21 @@ watchEffect(() => {
     }
   }
 
-  .content:not(.drag) {
+  .content:not(.dragging) {
     transition: height 0.5s, transform 0.5s;
   }
 }
 
 /* Fix simplebar */
-[data-simplebar].closed {
+[data-simplebar].сollapsed {
   overflow: hidden;
 }
 
-[data-simplebar]:not(.closed) :deep(.simplebar-track) {
+[data-simplebar]:not(.сollapsed) :deep(.simplebar-track) {
   @apply opacity-30 transition-opacity delay-500;
 }
 
-[data-simplebar].closed :deep(.simplebar-track) {
+[data-simplebar].сollapsed :deep(.simplebar-track) {
   @apply opacity-0;
 }
 </style>

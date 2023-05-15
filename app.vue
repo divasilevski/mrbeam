@@ -20,6 +20,6 @@ main {
 
 /* Fix simplebar */
 [data-simplebar] .simplebar-track {
-  @apply opacity-30 w-[9px];
+  @apply opacity-30 w-[9px] -z-10;
 }
 </style>

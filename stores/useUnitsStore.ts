@@ -2,8 +2,11 @@ import { defineStore } from 'pinia'
 
 export const useUnitsStore = defineStore('units-store', () => {
   const units = ref<Unit[]>([])
+  const loading = ref(false)
   const solution = ref<Solution | null>(null)
   const solutionError = ref<string | null>(null)
+
+  const { scrollTo } = useMainScroll()
 
   const isCalculated = computed(() => {
     return units.value.length > 0
@@ -44,12 +47,17 @@ export const useUnitsStore = defineStore('units-store', () => {
 
   const calculateAsync = async () => {
     if (units.value.length > 0) {
+      loading.value = true
+
       const { data, error } = await useFetch('/api/calculate', {
         method: 'post',
         body: units.value,
       })
 
+      loading.value = false
+
       if (data.value) {
+        scrollTo({ top: 0, behavior: 'smooth' })
         solution.value = JSON.parse(data.value)
       }
 
@@ -61,6 +69,7 @@ export const useUnitsStore = defineStore('units-store', () => {
 
   return {
     units,
+    loading,
     solution,
     hasSolution,
     isCalculated,
