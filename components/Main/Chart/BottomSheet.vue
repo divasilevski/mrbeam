@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import constants from '~/constants'
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useSolutionStore } from '~/stores/useSolutionStore'
 
 // heights
 const { height } = useWindowSize()
@@ -37,7 +37,7 @@ const maxHeight = computed(() => height.value - topIdent)
 
 // logic
 const bsRef = ref()
-const store = useUnitsStore()
+const store = useSolutionStore()
 
 const hasIdent = computed(() => store.hasSolution)
 const isDownward = computed(() => bsRef.value?.isChangeToMax)
