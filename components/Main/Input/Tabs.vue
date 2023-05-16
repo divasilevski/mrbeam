@@ -1,15 +1,18 @@
 <template>
   <div class="tabs">
-    <nav>
+    <div class="tablist" role="tablist">
       <span
         v-for="tab in tabs"
         :key="tab"
         :class="{ active: tab === props.modelValue }"
+        role="tab"
+        tabindex="0"
+        @keypress.enter="emit('update:modelValue', tab)"
         @click="emit('update:modelValue', tab)"
       >
         <AppIcon :name="tab" />
       </span>
-    </nav>
+    </div>
   </div>
 </template>
 
@@ -30,11 +33,11 @@ const emit = defineEmits(['update:modelValue'])
 .tabs {
   @apply flex items-center justify-center;
 
-  nav {
+  .tablist {
     @apply flex gap-2 px-2 border-gray-100 border-dashed border-[1px] rounded-full shadow-sm;
 
     span {
-      @apply flex items-center justify-center p-2 cursor-pointer;
+      @apply flex items-center justify-center p-2 cursor-pointer rounded-full;
 
       svg {
         @apply text-gray-400;

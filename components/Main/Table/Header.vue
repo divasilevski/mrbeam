@@ -1,0 +1,30 @@
+<template>
+  <div class="header">
+    <div />
+    <div />
+    <div />
+    <div>
+      <AppIconButton name="bin" @click="onRemove">Remove all</AppIconButton>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useUnitsStore } from '~/stores/useUnitsStore'
+
+const store = useUnitsStore()
+
+const onRemove = () => {
+  store.clear()
+}
+</script>
+
+<style lang="postcss" scoped>
+.header {
+  @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto] gap-4 w-full px-3;
+
+  div {
+    @apply flex items-center;
+  }
+}
+</style>

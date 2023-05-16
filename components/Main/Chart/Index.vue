@@ -20,9 +20,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useSolutionStore } from '~/stores/useSolutionStore'
 
-const store = useUnitsStore()
+const store = useSolutionStore()
 
 const shearPoints = computed(() => {
   if (Array.isArray(store.solution?.labels)) {
