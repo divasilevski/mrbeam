@@ -1,6 +1,7 @@
 <template>
   <Simplebar id="main-scroll" style="height: 100vh">
     <main>
+      <LayoutHeader />
       <NuxtPage />
     </main>
   </Simplebar>
@@ -15,7 +16,7 @@ useHead({
 
 <style lang="postcss">
 main {
-  @apply m-auto max-w-4xl p-4 pb-16;
+  @apply m-auto max-w-4xl px-4 pb-16;
 }
 
 /* Fix simplebar */

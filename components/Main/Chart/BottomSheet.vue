@@ -31,7 +31,7 @@ import { useSolutionStore } from '~/stores/useSolutionStore'
 // heights
 const { height } = useWindowSize()
 
-const topIdent = constants.canvasSize + constants.padding * 4
+const topIdent = constants.canvasSize + constants.header + constants.padding * 3
 const minHeight = constants.bottomSheetMinHeight
 const maxHeight = computed(() => height.value - topIdent)
 
