@@ -1,43 +1,89 @@
 <template>
-  <span :data-value="props.value">{{ formatValue }}</span>
+  <span class="number">
+    <span
+      v-if="hasTooltip"
+      ref="valueRef"
+      class="values"
+      @mouseenter="onMouseenter"
+      @mouseleave="onMouseleave"
+      @touchend="onTouchend"
+    >
+      <span v-text="formatedValues" />
+      <sup>★</sup>
+    </span>
+    <span v-else v-text="formatedValues" />
+    <div v-if="isShown" class="tooltip" v-html="tooltipValues" />
+  </span>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  value: {
-    type: Number,
-    default: 0,
-  },
-})
+type Value = number | number[]
 
-const formatter = Intl.NumberFormat('en', {
-  notation: 'compact',
-})
+const props = defineProps<{ value: Value }>()
 
-const formatValue = computed(() => {
-  if (Math.abs(props.value) < 0.001) {
-    return Number(props.value)
-      .toExponential(1)
-      .replace(/\.0/, '')
-      .replace(/e\+0/, '')
+const isNumber = (value: Value): value is number => {
+  return !Array.isArray(value)
+}
+
+const formatedValues = computed(() => {
+  if (isNumber(props.value)) {
+    return formatNumber(props.value)
+  } else {
+    return props.value.map(formatNumber).join(' ... ')
   }
-  return formatter.format(props.value)
+})
+
+const tooltipValues = computed(() => {
+  if (isNumber(props.value)) {
+    return props.value
+  } else {
+    return props.value.map((value) => `<div>${value}</div>`).join('')
+  }
+})
+
+const unformatedValues = computed(() => {
+  if (isNumber(props.value)) {
+    return props.value.toString()
+  } else {
+    return props.value.join(' ... ')
+  }
+})
+
+const hasTooltip = computed(() => {
+  return formatedValues.value !== unformatedValues.value
+})
+
+// tooltip
+const valueRef = ref()
+const isShown = ref(false)
+
+const onMouseenter = () => {
+  isShown.value = true
+}
+
+const onMouseleave = () => {
+  isShown.value = false
+}
+
+const onTouchend = () => {
+  isShown.value = !isShown.value
+}
+
+onClickOutside(valueRef, () => {
+  isShown.value = false
 })
 </script>
 
 <style lang="postcss" scoped>
-span {
-  @apply relative cursor-pointer;
-}
+.number {
+  @apply relative;
 
-span:hover::before {
-  display: block;
-}
+  .values {
+    @apply relative cursor-pointer;
+  }
 
-span::before {
-  display: none;
-  content: attr(data-value);
-
-  @apply absolute bottom-2 p-1 bg-white rounded shadow-sm;
+  .tooltip {
+    @apply absolute top-0 -left-2 -translate-y-full px-2 py-1 text-sm bg-white border-[1px];
+  }
 }
 </style>
