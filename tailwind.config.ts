@@ -1,7 +1,8 @@
 import type { Config } from 'tailwindcss'
 
 export default <Partial<Config>>{
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+
   theme: {
     extend: {
       height: {
