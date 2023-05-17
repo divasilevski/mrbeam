@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/html-validator',
     '@nuxtjs/tailwindcss',
-    '@nuxt/content',
     '@vueuse/nuxt',
     '@pinia/nuxt',
   ],
@@ -32,8 +31,5 @@ export default defineNuxtConfig({
         'prefer-native-element': 'off', // Conflict with Simplebar
       },
     },
-  },
-  content: {
-    documentDriven: true,
   },
 })
