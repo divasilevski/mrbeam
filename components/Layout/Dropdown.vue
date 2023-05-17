@@ -13,7 +13,6 @@
           target="_blank"
           external
         >
-          <AppIcon name="github" />
           GitHub
         </NuxtLink>
       </div>
