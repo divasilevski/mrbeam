@@ -10,10 +10,10 @@ export default <Partial<Config>>{
       },
       colors: {
         bg: '#ffffff',
-        primary: '#2b2d42',
+        primary: '#33475b',
         accent: '#3b82f6',
         'accent-dark': '#2876f5',
-        secondary: '#bacceb',
+        secondary: '#b1cefb',
         'secondary-light': '#e9eef6',
         error: '#ff3333',
       },
