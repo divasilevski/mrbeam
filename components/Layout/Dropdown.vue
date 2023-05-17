@@ -6,7 +6,16 @@
 
     <div v-if="isShown" class="panel" role="menu">
       <div class="item-container">
-        <div class="item" role="menuitem">History</div>
+        <NuxtLink
+          class="item"
+          role="menuitem"
+          to="https://github.com/divasilevski/mrbeam"
+          target="_blank"
+          external
+        >
+          <AppIcon name="github" />
+          GitHub
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -38,7 +47,7 @@ onClickOutside(buttonRef, () => {
       @apply p-2 cursor-pointer;
 
       .item {
-        @apply block rounded-lg px-4 py-2 text-sm text-secondary hover:bg-secondary-light hover:text-primary;
+        @apply block rounded-lg px-4 py-2 text-sm text-accent hover:bg-secondary-light hover:text-accent-dark;
       }
     }
   }

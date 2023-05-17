@@ -17,5 +17,9 @@
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title: 'MrBeam | Docs',
+})
+
 const { toc } = useContent()
 </script>

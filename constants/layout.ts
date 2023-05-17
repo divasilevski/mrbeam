@@ -1,5 +1,5 @@
 export default {
-  header: 48,
+  header: 56,
   padding: 16,
   canvasSize: 150,
   bottomSheetMinHeight: 44,

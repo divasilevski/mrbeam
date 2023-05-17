@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 useHead({
-  title: 'MrBeam',
+  title: 'MrBeam | Сalculator',
 })
 </script>
 
