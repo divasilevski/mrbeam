@@ -8,7 +8,7 @@
       <AppNumber :value="props.unit.x" />
 
       <div>
-        <template v-if="symbol">
+        <template v-if="props.unit.value && symbol">
           <span class="symbol">{{ symbol + '&nbsp;&nbsp;' }}</span>
           <AppNumber :value="props.unit.value" />
         </template>
@@ -53,7 +53,7 @@ const onRemove = () => {
 
 <style lang="postcss" scoped>
 .item {
-  @apply flex items-center py-1 px-3 rounded-full border-gray-100 border-[1px];
+  @apply flex items-center py-1 px-3 rounded-full border border-secondary-light;
 
   .values {
     @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto] gap-4 items-center w-full;

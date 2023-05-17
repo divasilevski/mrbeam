@@ -7,6 +7,6 @@
 
 <style lang="postcss" scoped>
 .box {
-  @apply relative px-2 py-6 border-[1px] border-dashed;
+  @apply relative px-2 py-6 border border-dashed;
 }
 </style>

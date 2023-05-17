@@ -22,14 +22,14 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 .section {
-  @apply border-[1px] border-white;
+  @apply border border-bg;
 
   .title {
     @apply px-6 mb-2 text-lg font-bold;
   }
 
   .canvas {
-    @apply px-2 py-6 border-[1px] border-dashed;
+    @apply px-2 py-6 border border-dashed;
   }
 }
 </style>

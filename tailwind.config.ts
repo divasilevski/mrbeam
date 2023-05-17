@@ -9,8 +9,13 @@ export default <Partial<Config>>{
         canvas: '150px',
       },
       colors: {
-        primary: '#0284c7',
-        secondary: '#ccc',
+        bg: '#ffffff',
+        primary: '#2b2d42',
+        accent: '#3b82f6',
+        'accent-dark': '#2876f5',
+        secondary: '#bacceb',
+        'secondary-light': '#e9eef6',
+        error: '#ff3333',
       },
       boxShadow: {
         bottomSheet: '0px -2px 20px -12px rgba(0,0,0,0.4)',

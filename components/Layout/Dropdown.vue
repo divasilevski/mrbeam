@@ -32,13 +32,13 @@ onClickOutside(buttonRef, () => {
   @apply relative;
 
   .panel {
-    @apply absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg;
+    @apply absolute end-0 z-10 mt-2 w-56 rounded-md border border-secondary-light bg-bg shadow-lg;
 
     .item-container {
       @apply p-2 cursor-pointer;
 
       .item {
-        @apply block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700;
+        @apply block rounded-lg px-4 py-2 text-sm text-secondary hover:bg-secondary-light hover:text-primary;
       }
     }
   }

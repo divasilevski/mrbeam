@@ -126,7 +126,7 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
   }
 
   .content {
-    @apply flex flex-col rounded-t-2xl bg-white shadow-bottomSheet;
+    @apply flex flex-col rounded-t-2xl bg-bg shadow-bottomSheet;
 
     .controls {
       @apply flex;

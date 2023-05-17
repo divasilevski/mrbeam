@@ -24,11 +24,11 @@
     @apply flex items-center gap-4;
 
     a {
-      @apply px-3 py-1 rounded-md font-medium text-gray-500 hover:bg-slate-100;
+      @apply px-3 py-1 rounded-md font-medium text-secondary hover:bg-secondary-light;
     }
 
     .router-link-active {
-      @apply bg-slate-100;
+      @apply bg-secondary-light;
     }
   }
 }

@@ -16,7 +16,7 @@ useHead({
 
 <style lang="postcss">
 main {
-  @apply m-auto max-w-4xl px-4 pb-16;
+  @apply m-auto max-w-4xl px-4 pb-16 text-primary;
 }
 
 /* Fix simplebar */
