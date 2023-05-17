@@ -34,21 +34,21 @@ const emit = defineEmits(['update:modelValue'])
   @apply flex items-center justify-center;
 
   .tablist {
-    @apply flex gap-2 px-2 border-gray-100 border-dashed border-[1px] rounded-full shadow-sm;
+    @apply flex gap-2 px-2 border-secondary-light border rounded-full shadow-sm;
 
     span {
       @apply flex items-center justify-center p-2 cursor-pointer rounded-full;
 
       svg {
-        @apply text-gray-400;
+        @apply text-secondary;
       }
       svg:hover {
-        @apply text-primary;
+        @apply text-accent;
       }
     }
 
     .active svg {
-      @apply text-primary;
+      @apply text-accent;
     }
   }
 }

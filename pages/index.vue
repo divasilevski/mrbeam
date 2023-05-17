@@ -7,6 +7,12 @@
   </article>
 </template>
 
+<script lang="ts" setup>
+useHead({
+  title: 'MrBeam | Сalculator',
+})
+</script>
+
 <style lang="postcss" scope>
 article {
   @apply flex flex-col gap-4;

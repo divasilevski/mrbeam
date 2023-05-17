@@ -83,7 +83,7 @@ onClickOutside(valueRef, () => {
   }
 
   .tooltip {
-    @apply absolute top-0 -left-2 -translate-y-full px-2 py-1 text-sm bg-white border-[1px];
+    @apply absolute top-0 -left-2 -translate-y-full px-2 py-1 text-sm bg-bg border;
   }
 }
 </style>

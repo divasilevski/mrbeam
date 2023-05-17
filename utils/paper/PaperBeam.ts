@@ -5,15 +5,15 @@ const { Path, Color, Point, PointText, Project, Style } = paper
 
 const COLORS = {
   background: new Color('#fff'),
-  point: new Color('#f2bb05'),
-  line: new Color('#f2bb05'),
-  text: new Color('#f2bb05'),
-  distload: new Color('#f2bb05'),
-  moment: new Color('#d74e09'),
-  force: new Color('#d74e09'),
-  simple: new Color('#558564'),
-  fixed: new Color('#558564'),
-  hinge: new Color('#558564'),
+  point: new Color('#b1cefb'),
+  line: new Color('#b1cefb'),
+  distload: new Color('#b1cefb'),
+  moment: new Color('#ef476f'),
+  force: new Color('#ef476f'),
+  text: new Color('#33475b'),
+  simple: new Color('#33475b'),
+  fixed: new Color('#33475b'),
+  hinge: new Color('#33475b'),
 }
 
 const CANVAS_HEIGHT = 150

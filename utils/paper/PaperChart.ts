@@ -6,9 +6,9 @@ const PADDING = 24
 
 const COLORS = {
   background: new Color('#fff'),
-  line: new Color('#d74e09'),
-  axis: new Color('#f2bb05'),
-  text: new Color('#f2bb05'),
+  line: new Color('#ef476f'),
+  axis: new Color('#33475b'),
+  text: new Color('#33475b'),
 }
 
 interface DrawProps {

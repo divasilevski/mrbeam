@@ -16,10 +16,10 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 button {
-  @apply flex items-center justify-center w-8 h-8 rounded-full text-secondary;
+  @apply flex items-center justify-center w-8 h-8 rounded-full text-secondary transition-colors;
 }
 
 button:hover {
-  @apply text-primary;
+  @apply text-accent;
 }
 </style>

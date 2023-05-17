@@ -49,15 +49,15 @@ const onInput = (event: Event) => {
   @apply relative flex items-baseline gap-2 w-full;
 
   label {
-    @apply font-medium text-gray-700 w-5;
+    @apply font-medium text-primary w-5;
   }
 
   input {
-    @apply mt-1 w-full rounded-full border-gray-200 shadow-sm sm:text-sm;
+    @apply mt-1 w-full rounded-full border-secondary shadow-sm sm:text-sm;
   }
 
   .error {
-    @apply absolute -bottom-4 right-4 text-xs text-red-500;
+    @apply absolute -bottom-4 right-4 text-xs text-error;
   }
 }
 </style>
