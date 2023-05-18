@@ -1,4 +1,4 @@
-import { parse } from '~/server/services/fem/core/parse'
+import { parse } from '~/utils/fem/core/parse'
 
 export const elements = parse([
   {

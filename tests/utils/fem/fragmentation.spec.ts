@@ -1,5 +1,5 @@
 import { elements } from './helpers'
-import { fragmentation } from '~/server/services/fem/core/fragmentation'
+import { fragmentation } from '~/utils/fem/core/fragmentation'
 
 describe('function fragmentation', () => {
   const cloneElems = () => elements.map((el) => el.getClone())

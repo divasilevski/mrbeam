@@ -1,5 +1,5 @@
-import { ErrorMessage } from '~/server/services/fem/config/errors'
-import { handleErrors } from '~/server/services/fem/core/error'
+import { ErrorMessage } from '~/utils/fem/config/errors'
+import { handleErrors } from '~/utils/fem/core/error'
 
 describe('handleError function', () => {
   const someGoodUnits1 = [

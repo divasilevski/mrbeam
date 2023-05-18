@@ -16,8 +16,7 @@
       >
         <span class="sr-only">Calculate</span>
 
-        <AppLoader v-if="store.loading" />
-        <AppIcon v-else-if="!hasIdent" name="equals" />
+        <AppIcon v-if="!hasIdent" name="equals" />
         <AppIcon v-else name="arrow" :class="{ downward: isDownward }" />
       </button>
     </template>

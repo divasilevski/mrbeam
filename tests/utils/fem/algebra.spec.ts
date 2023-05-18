@@ -1,4 +1,4 @@
-import * as algebra from '~/server/services/fem/core/algebra'
+import * as algebra from '~/utils/fem/core/algebra'
 const { randInt, solve, shuffleArray, multiply } = algebra
 
 describe('randInt', () => {

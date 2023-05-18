@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid'
 
-import { Elem } from '~/server/services/fem/core/Elem'
-import { decryption, parse } from '~/server/services/fem/core/parse'
+import { Elem } from '~/utils/fem/core/Elem'
+import { decryption, parse } from '~/utils/fem/core/parse'
 
-import { Node } from '~/server/services/fem/types/element'
-import { Unit } from '~/server/services/fem/types/unit'
+import { Node } from '~/utils/fem/types/element'
+import { Unit } from '~/utils/fem/types/unit'
 
 describe('decription function and Elem class setters', () => {
   const node1: Node = { x: 0, force: 0, moment: 0 }

@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { useUnitsStore } from '~/stores/useUnitsStore'
+import calculate from '~/utils/fem/calculate'
 
 export const useSolutionStore = defineStore('solution-store', () => {
   const store = useUnitsStore()
   const { scrollTo } = useMainScroll()
 
-  const loading = ref(false)
   const solution = ref<Solution | null>(null)
   const solutionError = ref<string | null>(null)
 
@@ -22,30 +22,22 @@ export const useSolutionStore = defineStore('solution-store', () => {
     solutionError.value = null
   }
 
-  const calculateAsync = async () => {
+  const calculateAsync = () => {
     if (store.units.length > 0) {
-      loading.value = true
+      try {
+        const data = calculate(store.units)
 
-      const { data, error } = await useFetch('/api/calculate', {
-        method: 'post',
-        body: store.units,
-      })
-
-      loading.value = false
-
-      if (data.value) {
-        scrollTo({ top: 0, behavior: 'smooth' })
-        solution.value = JSON.parse(data.value)
-      }
-
-      if (error.value) {
-        solutionError.value = error.value.data.message
+        if (data) {
+          scrollTo({ top: 0, behavior: 'smooth' })
+          solution.value = data
+        }
+      } catch (error) {
+        solutionError.value = 'Can`t calculate'
       }
     }
   }
 
   return {
-    loading,
     solution,
     hasSolution,
     isCalculated,

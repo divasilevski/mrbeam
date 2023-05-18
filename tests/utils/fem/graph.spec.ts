@@ -1,6 +1,6 @@
 import { elements } from './helpers'
 
-import { createGraph } from '~/server/services/fem/core/graph'
+import { createGraph } from '~/utils/fem/core/graph'
 
 function generateMatrix(length: number) {
   return Array.from(new Array(length)).map(() =>
