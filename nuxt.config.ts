@@ -33,6 +33,24 @@ export default defineNuxtConfig({
       },
     },
   },
+  app: {
+    keepalive: true,
+    head: {
+      title: 'MrBeam',
+      htmlAttrs: { lang: 'en' },
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+      meta: [
+        {
+          name: 'apple-mobile-web-app-status-bar-style',
+          content: 'white-translucent',
+        },
+      ],
+    },
+  },
 
   // pwa settings
   experimental: {
@@ -53,7 +71,10 @@ export default defineNuxtConfig({
     manifest: {
       name: 'MrBeam',
       short_name: 'MrBeam',
+      description: 'MrBeam - blazingly fast beam calculator',
       theme_color: '#ffffff',
+      orientation: 'portrait',
+      lang: 'en',
       icons: [
         {
           src: 'pwa-192x192.png',
@@ -69,6 +90,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
+      globPatterns: ['**/*.{js,css,html,png,ico}'],
     },
     client: {
       installPrompt: true,

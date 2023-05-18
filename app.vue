@@ -9,12 +9,7 @@
   </Simplebar>
 </template>
 
-<script lang="ts" setup>
-useHead({
-  title: 'MrBeam',
-  htmlAttrs: { lang: 'en' },
-})
-</script>
+<script lang="ts" setup></script>
 
 <style lang="postcss">
 main {
