@@ -1,4 +1,6 @@
 <template>
+  <VitePwaManifest />
+  <LayoutPWAToast />
   <Simplebar id="main-scroll" style="height: 100vh">
     <main>
       <LayoutHeader />
