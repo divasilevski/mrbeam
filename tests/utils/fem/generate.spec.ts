@@ -12,7 +12,7 @@ import generate, {
   addAdvancedMaterial,
   addAdvancedDistload,
   finish,
-} from '~/server/services/fem/generate'
+} from '~/utils/fem/generate'
 
 describe('generate: randForce', () => {
   it('should be a multiple of 10 between 50-100', () => {

@@ -1,14 +1,14 @@
 import { nanoid } from 'nanoid'
 
-import { Unit } from '~/server/services/fem/types/unit'
+import { Unit } from '~/utils/fem/types/unit'
 
-import { parse } from '~/server/services/fem/core/parse'
-import generate from '~/server/services/fem/generate'
+import { parse } from '~/utils/fem/core/parse'
+import generate from '~/utils/fem/generate'
 import calculate, {
   buildGlobalM,
   buildGlobalV,
   buildSkeleton,
-} from '~/server/services/fem/calculate'
+} from '~/utils/fem/calculate'
 
 const units: Unit[] = [
   { id: nanoid(), x: [0, 6], value: [3, 1, 1], type: 'material' },

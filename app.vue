@@ -1,4 +1,6 @@
 <template>
+  <VitePwaManifest />
+  <LayoutPWAToast />
   <Simplebar id="main-scroll" style="height: 100vh">
     <main>
       <LayoutHeader />
@@ -7,12 +9,7 @@
   </Simplebar>
 </template>
 
-<script lang="ts" setup>
-useHead({
-  title: 'MrBeam',
-  htmlAttrs: { lang: 'en' },
-})
-</script>
+<script lang="ts" setup></script>
 
 <style lang="postcss">
 main {

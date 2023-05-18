@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useSolutionStore } from '~/stores/useSolutionStore'
+import generateSimple from '~/utils/fem/generateSimple'
 
 export const useUnitsStore = defineStore('units-store', () => {
   const store = useSolutionStore()
@@ -21,12 +22,12 @@ export const useUnitsStore = defineStore('units-store', () => {
     store.resetSolution()
   }
 
-  const generateAsync = async () => {
-    const { data } = await useFetch('/api/generate')
+  const generateAsync = () => {
+    const data = generateSimple()
 
-    if (data.value) {
-      units.value = JSON.parse(data.value)
-      await store.calculateAsync()
+    if (data) {
+      units.value = data
+      store.calculateAsync()
     }
   }
 
