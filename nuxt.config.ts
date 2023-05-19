@@ -3,6 +3,7 @@ import inheritAttrs from 'vite-plugin-vue-setup-inherit-attrs'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   modules: [
     '@nuxtjs/html-validator',
     '@nuxtjs/tailwindcss',
