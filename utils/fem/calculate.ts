@@ -104,7 +104,7 @@ export function buildGlobalV(elems: Element[], skeleton: Skeleton) {
 
 export default function calculate(
   units: Unit[],
-  options: CalculateOptions = { count: 10 }
+  options: CalculateOptions = { count: 100 }
 ) {
   handleErrors(units)
 

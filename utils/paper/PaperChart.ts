@@ -1,11 +1,13 @@
 import paper from 'paper'
 
-const { Color, Path, Point, PointText, Project, Style } = paper
+const { Color, Path, Point, PointText, Project, Style, Group } = paper
 
 const PADDING = 24
+const PATTERN_SPACE = 10
 
 const COLORS = {
   background: new Color('#fff'),
+  pattern: new Color('#33475b'),
   line: new Color('#ef476f'),
   axis: new Color('#33475b'),
   text: new Color('#33475b'),
@@ -14,6 +16,7 @@ const COLORS = {
 interface DrawProps {
   points: number[][]
   canvas: HTMLCanvasElement
+  hasPattern?: boolean
 }
 
 export class PaperChart {
@@ -53,6 +56,35 @@ export class PaperChart {
   private normalizeY(point: number) {
     const height = this.canvas?.offsetHeight || 0
     return height - ((point - this.rect.minY) * this.scale.y + PADDING)
+  }
+
+  private drawPattern() {
+    const pattern = new Group()
+    let x = this.normalizeX(0)
+
+    while (x < this.normalizeX(this.rect.maxX)) {
+      const startPoint = new Point(x, this.normalizeY(this.rect.minY))
+      const endPoint = new Point(x, this.normalizeY(this.rect.maxY))
+      pattern.addChild(new Path.Line(startPoint, endPoint))
+
+      x += PATTERN_SPACE
+    }
+
+    pattern.strokeColor = COLORS.pattern
+    pattern.strokeWidth = 1
+
+    // ---
+    const path = new Path()
+
+    path.add(new Point(this.normalizeX(0), this.normalizeY(0)))
+    this.points.forEach(([x, y]) =>
+      path.add(new Point(this.normalizeX(x), this.normalizeY(y)))
+    )
+    path.add(new Point(this.normalizeX(this.rect.maxX), this.normalizeY(0)))
+    // ---
+
+    const maskGroup = new Group([path, pattern])
+    maskGroup.clipped = true
   }
 
   private drawAxis() {
@@ -96,7 +128,7 @@ export class PaperChart {
     path.strokeWidth = 4
   }
 
-  draw({ points, canvas }: DrawProps) {
+  draw({ points, canvas, hasPattern }: DrawProps) {
     this.initProject(canvas)
 
     if (!points.length) {
@@ -104,6 +136,10 @@ export class PaperChart {
     }
 
     this.initProperties({ points, canvas })
+
+    if (hasPattern) {
+      this.drawPattern()
+    }
 
     this.drawAxis()
     this.drawLine()

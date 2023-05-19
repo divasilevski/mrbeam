@@ -21,6 +21,7 @@ useResizeObserver(canvasRef, () => {
     beam.draw({
       points: props.points,
       canvas: canvasRef.value,
+      hasPattern: true,
     })
   }
 })
@@ -30,6 +31,7 @@ watchEffect(() => {
     beam.draw({
       points: props.points,
       canvas: canvasRef.value,
+      hasPattern: true,
     })
   }
 })
