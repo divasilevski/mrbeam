@@ -18,7 +18,7 @@ import { useSolutionStore } from '~/stores/useSolutionStore'
 const unitsStore = useUnitsStore()
 const solutionStore = useSolutionStore()
 
-const error = computed(() => solutionStore.solutionError)
+const error = computed(() => solutionStore.errorMessage)
 
 const onRemove = () => {
   unitsStore.clear()

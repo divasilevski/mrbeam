@@ -1,12 +1,10 @@
 <template>
-  <div
-    ref="hintRef"
-    class="hint"
-    @mouseenter="onMouseenter"
-    @mouseleave="onMouseleave"
-    @touchstart="onTouchstart"
-  >
-    <AppIcon :name="props.name" />
+  <div ref="hintRef" class="hint" @touchstart="onTouchstart">
+    <AppIcon
+      :name="props.name"
+      @mouseenter="onMouseenter"
+      @mouseleave="onMouseleave"
+    />
 
     <div class="content" :class="{ opened: isOpened }">
       <slot></slot>
@@ -51,7 +49,7 @@ onClickOutside(hintRef, () => {
   }
 
   .content {
-    @apply absolute bottom-full left-0 hidden max-w-sm w-[calc(100vw-60px)] px-2 py-1 bg-white border shadow-sm;
+    @apply absolute bottom-full left-0 hidden w-max px-2 py-1 bg-white border shadow-sm;
   }
 
   .content.opened {
