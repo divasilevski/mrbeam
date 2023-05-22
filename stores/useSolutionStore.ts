@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { useUnitsStore } from '~/stores/useUnitsStore'
+
+import { handleErrors } from '~/utils/fem/core/error'
 import calculate from '~/utils/fem/calculate'
 
 export const useSolutionStore = defineStore('solution-store', () => {
@@ -10,7 +12,7 @@ export const useSolutionStore = defineStore('solution-store', () => {
   const solutionError = ref<string | null>(null)
 
   const isCalculated = computed(() => {
-    return store.units.length > 0
+    return !solutionError.value
   })
 
   const hasSolution = computed(() => {
@@ -36,6 +38,15 @@ export const useSolutionStore = defineStore('solution-store', () => {
       }
     }
   }
+
+  watchEffect(() => {
+    try {
+      handleErrors(store.units)
+      solutionError.value = null
+    } catch (error) {
+      solutionError.value = (error as Error).message
+    }
+  })
 
   return {
     solution,

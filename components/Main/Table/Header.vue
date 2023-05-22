@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <div />
+    <div>
+      <div v-if="error">{{ error }}</div>
+    </div>
     <div />
     <div />
     <div>
@@ -11,11 +13,15 @@
 
 <script lang="ts" setup>
 import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useSolutionStore } from '~/stores/useSolutionStore'
 
-const store = useUnitsStore()
+const unitsStore = useUnitsStore()
+const solutionStore = useSolutionStore()
+
+const error = computed(() => solutionStore.solutionError)
 
 const onRemove = () => {
-  store.clear()
+  unitsStore.clear()
 }
 </script>
 
