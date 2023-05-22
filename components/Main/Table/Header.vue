@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div>
-      <div v-if="error">{{ error }}</div>
+      <AppIconHint v-if="error" name="warning">{{ error }}</AppIconHint>
     </div>
     <div />
     <div />
