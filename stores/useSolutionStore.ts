@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useUnitsStore } from '~/stores/useUnitsStore'
 
 import calculate from '~/utils/fem/calculate'
-import checkErrors from '~/utils/fem/checkErrors'
+import checkUnits from '~/utils/fem/checkUnits'
 
 export const useSolutionStore = defineStore('solution-store', () => {
   const store = useUnitsStore()
@@ -40,7 +40,7 @@ export const useSolutionStore = defineStore('solution-store', () => {
   }
 
   watchEffect(() => {
-    errorMessage.value = checkErrors(store.units)
+    errorMessage.value = checkUnits(store.units || [])
   })
 
   return {

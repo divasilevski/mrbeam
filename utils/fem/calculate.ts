@@ -3,10 +3,9 @@ import { Element } from './types/element'
 import { Unit } from './types/unit'
 
 import { fragmentation } from './core/fragmentation'
+import { multiply, solve } from './core/algebra'
 import { createGraph } from './core/graph'
 import { parse } from './core/parse'
-import { handleErrors } from './core/error'
-import { multiply, solve } from './core/algebra'
 
 export function buildSkeleton(elems: Element[]): Skeleton {
   let counter = 0 // Общее кол-во элементов в матрице индексов
@@ -106,8 +105,6 @@ export default function calculate(
   units: Unit[],
   options: CalculateOptions = { count: 100 }
 ) {
-  handleErrors(units)
-
   const elements = fragmentation(parse(units), options)
 
   const skeleton: Skeleton = buildSkeleton(elements)
