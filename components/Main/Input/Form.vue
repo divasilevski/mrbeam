@@ -67,7 +67,7 @@ const addUnit = () => {
   switch (props.tab) {
     case 'force':
       add({
-        id: nanoid(),
+        id: nanoid(8),
         type: 'force',
         x: values.x0,
         value: values.p,
@@ -75,7 +75,7 @@ const addUnit = () => {
       break
     case 'moment':
       add({
-        id: nanoid(),
+        id: nanoid(8),
         type: 'moment',
         x: values.x0,
         value: values.m,
@@ -83,7 +83,7 @@ const addUnit = () => {
       break
     case 'distload':
       add({
-        id: nanoid(),
+        id: nanoid(8),
         type: 'distload',
         x: [values.x0, values.x1].sort((a, b) => a - b),
         value: values.q,
@@ -91,7 +91,7 @@ const addUnit = () => {
       break
     case 'defenition':
       store.add({
-        id: nanoid(),
+        id: nanoid(8),
         type: defenition.value,
         x: values.x0,
       })
