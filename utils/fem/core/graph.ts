@@ -1,5 +1,24 @@
 import { Graph, GraphProps } from '../types/graph'
 
+function calculateDeviation(array: number[]) {
+  const n = array.length
+  const mean = array.reduce((sum, x) => sum + x, 0) / n
+  const squaredDiffs = array.map((x) => (x - mean) ** 2)
+  const variance = squaredDiffs.reduce((sum, x) => sum + x, 0) / n
+  return Math.sqrt(variance)
+}
+
+function checkDeviation(array: number[]) {
+  const error = 1e-6
+  const signs = 6
+
+  if (calculateDeviation(array) < error) {
+    return array.map((number) => parseFloat(number.toFixed(signs)))
+  }
+
+  return array
+}
+
 export function createGraph(props: GraphProps): Graph {
   const { elements, localSolutions, localReactions } = props
   const labels = []
@@ -23,11 +42,11 @@ export function createGraph(props: GraphProps): Graph {
   }
 
   return {
-    labels,
-    shear,
-    moment,
-    displacement,
-    slopeRadians,
-    slopeDegrees,
+    labels: checkDeviation(labels),
+    shear: checkDeviation(shear),
+    moment: checkDeviation(moment),
+    displacement: checkDeviation(displacement),
+    slopeRadians: checkDeviation(slopeRadians),
+    slopeDegrees: checkDeviation(slopeDegrees),
   }
 }

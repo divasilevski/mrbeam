@@ -14,8 +14,6 @@
         />
       </div>
     </MainChartBottomSheet>
-
-    <div v-if="store.solutionError">{{ store.solutionError }}</div>
   </article>
 </template>
 

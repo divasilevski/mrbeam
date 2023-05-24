@@ -1,16 +1,18 @@
 import { defineStore } from 'pinia'
 import { useUnitsStore } from '~/stores/useUnitsStore'
+
 import calculate from '~/utils/fem/calculate'
+import checkUnits from '~/utils/fem/checkUnits'
 
 export const useSolutionStore = defineStore('solution-store', () => {
   const store = useUnitsStore()
   const { scrollTo } = useMainScroll()
 
   const solution = ref<Solution | null>(null)
-  const solutionError = ref<string | null>(null)
+  const errorMessage = ref<string | null>(null)
 
   const isCalculated = computed(() => {
-    return store.units.length > 0
+    return !errorMessage.value
   })
 
   const hasSolution = computed(() => {
@@ -19,7 +21,7 @@ export const useSolutionStore = defineStore('solution-store', () => {
 
   const resetSolution = () => {
     solution.value = null
-    solutionError.value = null
+    errorMessage.value = null
   }
 
   const calculateAsync = () => {
@@ -32,16 +34,20 @@ export const useSolutionStore = defineStore('solution-store', () => {
           solution.value = data
         }
       } catch (error) {
-        solutionError.value = 'Can`t calculate'
+        errorMessage.value = 'Woops!'
       }
     }
   }
+
+  watchEffect(() => {
+    errorMessage.value = checkUnits(store.units || [])
+  })
 
   return {
     solution,
     hasSolution,
     isCalculated,
-    solutionError,
+    errorMessage,
 
     resetSolution,
     calculateAsync,

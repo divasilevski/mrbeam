@@ -11,8 +11,8 @@
       :class="{ dragging: isDragging }"
       :style="[heightStyle, transformStyle]"
     >
-      <header class="controls">
-        <div ref="draggbleRef" class="draggable-area">
+      <header ref="draggableRef" class="controls">
+        <div class="draggable-area">
           <div class="draggable-thumb" />
         </div>
       </header>
@@ -49,7 +49,7 @@ const props = defineProps({
 
 const { height } = useWindowSize()
 
-const draggbleRef = ref()
+const draggableRef = ref()
 const status = ref(Status.MinHeight)
 
 const dy = (value: number) => height.value - value
@@ -64,7 +64,7 @@ const onEnd = () => {
   }
 }
 
-const { y, isDragging } = useDraggable(draggbleRef, {
+const { y, isDragging } = useDraggable(draggableRef, {
   initialValue: { x: 0, y: dy(props.minHeight) },
   axis: 'y',
   onEnd,

@@ -59,34 +59,39 @@ const addUnit = () => {
     values[key] = Number.parseFloat(models[modelsKey])
   })
 
+  const add = (unit: Unit) => {
+    const pointUnit: Unit = { id: unit.id, type: 'point', x: unit.x }
+    store.add(unit.value ? unit : pointUnit)
+  }
+
   switch (props.tab) {
     case 'force':
-      store.add({
-        id: nanoid(),
+      add({
+        id: nanoid(8),
         type: 'force',
         x: values.x0,
         value: values.p,
       })
       break
     case 'moment':
-      store.add({
-        id: nanoid(),
+      add({
+        id: nanoid(8),
         type: 'moment',
         x: values.x0,
         value: values.m,
       })
       break
     case 'distload':
-      store.add({
-        id: nanoid(),
+      add({
+        id: nanoid(8),
         type: 'distload',
-        x: [values.x0, values.x1],
+        x: [values.x0, values.x1].sort((a, b) => a - b),
         value: values.q,
       })
       break
     case 'defenition':
       store.add({
-        id: nanoid(),
+        id: nanoid(8),
         type: defenition.value,
         x: values.x0,
       })

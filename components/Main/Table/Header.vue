@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <div />
+    <div>
+      <AppIconHint v-if="error" name="warning">{{ error }}</AppIconHint>
+    </div>
     <div />
     <div />
     <div>
@@ -11,11 +13,15 @@
 
 <script lang="ts" setup>
 import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useSolutionStore } from '~/stores/useSolutionStore'
 
-const store = useUnitsStore()
+const unitsStore = useUnitsStore()
+const solutionStore = useSolutionStore()
+
+const error = computed(() => solutionStore.errorMessage)
 
 const onRemove = () => {
-  store.clear()
+  unitsStore.clear()
 }
 </script>
 
