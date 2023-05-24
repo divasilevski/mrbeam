@@ -4,6 +4,8 @@ import { Elem } from './Elem'
 
 export function decryption(unit: Unit, elem: Element) {
   switch (unit.type) {
+    case 'point':
+      break
     case 'force':
       elem.addForce(unit.value as number)
       break
