@@ -91,6 +91,8 @@ export function createUnits(pattern: Type[], step: number) {
           hasDistload = true
         }
         break
+      case Type.Point:
+        break
 
       default:
         units.push({ id, type, x })
