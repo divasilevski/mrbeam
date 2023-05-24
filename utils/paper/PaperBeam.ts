@@ -29,6 +29,10 @@ interface DrawProps {
   canvas: HTMLCanvasElement
 }
 
+function getNumberFrom(value: number | number[]) {
+  return Array.isArray(value) ? value[0] : value
+}
+
 export class PaperBeam {
   private project: typeof Project.prototype | null = null
   private points: number[] = []
@@ -54,6 +58,10 @@ export class PaperBeam {
     this.points = points
     this.units = units
     this.scale = scale
+  }
+
+  private getFiltered(type: UnitType) {
+    return this.units.filter((unit) => unit.type === type)
   }
 
   private getUnitsPoints(type: UnitType) {
@@ -149,7 +157,7 @@ export class PaperBeam {
       return
     }
 
-    const units = this.units.filter((unit) => unit.type === 'distload')
+    const units = this.getFiltered('distload')
 
     units.forEach((unit) => {
       if (Array.isArray(unit.x)) {
@@ -185,10 +193,11 @@ export class PaperBeam {
   }
 
   private drawForces() {
-    this.getUnitsPoints('force').forEach((a) => {
+    this.getFiltered('force').forEach((unit) => {
+      const x = getNumberFrom(unit.x)
       const symbol = forceSymbol(FORCE_HEIGHT, COLORS.force)
       symbol.item.bounds.bottom = -POINT_RADIUS
-      symbol.place(new Point(this.normalize(a), CANVAS_HEIGHT / 2))
+      symbol.place(new Point(this.normalize(x), CANVAS_HEIGHT / 2))
     })
   }
 

@@ -9,6 +9,15 @@ export function getUnitValue(unit: Unit) {
   return 0
 }
 
+export function isIntersect(array1: unknown[], array2: unknown[]) {
+  for (let i = 0; i < array1.length; i++) {
+    if (array2.includes(array1[i])) {
+      return true
+    }
+  }
+  return false
+}
+
 export default function checkUnits(units: Unit[]) {
   if (units.length === 0 || units.length === 1) {
     return ErrorMessage.NotEnough
@@ -17,16 +26,19 @@ export default function checkUnits(units: Unit[]) {
   // Supports
   const count = { fixed: 0, simple: 0, hinge: 0 }
   const positions = []
+  const supports = []
 
   for (const unit of units) {
     switch (unit.type) {
       case 'simple':
         count.simple++
         positions.push(unit.x)
+        supports.push(unit.x)
         break
       case 'fixed':
         count.fixed++
         positions.push(unit.x)
+        supports.push(unit.x)
         break
       case 'hinge':
         count.hinge++
@@ -46,7 +58,7 @@ export default function checkUnits(units: Unit[]) {
   }
 
   if (positions.length !== new Set(positions).size) {
-    return ErrorMessage.MultipleSuppots
+    return ErrorMessage.MultipleSupports
   }
 
   // Loads
@@ -56,6 +68,14 @@ export default function checkUnits(units: Unit[]) {
 
   if (!absoluteSum) {
     return ErrorMessage.NoLoads
+  }
+
+  const forces = units
+    .filter((unit) => unit.type === 'force' && unit.value !== 0)
+    .map((unit) => unit.x)
+
+  if (isIntersect(forces, supports)) {
+    return ErrorMessage.SupportWithForce
   }
 
   return null

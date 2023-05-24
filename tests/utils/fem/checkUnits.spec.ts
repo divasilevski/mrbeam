@@ -1,4 +1,4 @@
-import checkUnits, { getUnitValue } from '~/utils/fem/checkUnits'
+import checkUnits, { getUnitValue, isIntersect } from '~/utils/fem/checkUnits'
 import { ErrorMessage } from '~/utils/fem/config/errors'
 
 describe('checkUnits', () => {
@@ -32,7 +32,7 @@ describe('checkUnits', () => {
       { id: '1', x: 0, type: 'simple' },
     ]
     const msg = checkUnits(units)
-    expect(msg).toBe(ErrorMessage.MultipleSuppots)
+    expect(msg).toBe(ErrorMessage.MultipleSupports)
   })
 
   it('should be return NoLoads', () => {
@@ -52,6 +52,16 @@ describe('checkUnits', () => {
     ]
     const msg = checkUnits(units)
     expect(msg).toBe(ErrorMessage.NoLoads)
+  })
+
+  it('should be return SupportWithForce', () => {
+    const units: Unit[] = [
+      { id: '0', x: 0, type: 'simple' },
+      { id: '1', x: 1, type: 'force', value: 1 },
+      { id: '1', x: 1, type: 'simple' },
+    ]
+    const msg = checkUnits(units)
+    expect(msg).toBe(ErrorMessage.SupportWithForce)
   })
 
   it('should be return null', () => {
@@ -88,5 +98,21 @@ describe('getUnitValue', () => {
   it('should be return 1 if units with Array value', () => {
     const value = getUnitValue({ id: '0', x: 0, type: 'force', value: [5, 6] })
     expect(value).toBe(1)
+  })
+})
+
+describe('isIntersect', () => {
+  it('should be return true', () => {
+    const array1 = [1, 2, 3]
+    const array2 = [3, 4, 5]
+    const bool = isIntersect(array1, array2)
+    expect(bool).toBe(true)
+  })
+
+  it('should be return false', () => {
+    const array1 = [1, 2, 3]
+    const array2 = [4, 5, 6]
+    const bool = isIntersect(array1, array2)
+    expect(bool).toBe(false)
   })
 })
