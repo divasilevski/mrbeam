@@ -21,17 +21,36 @@ export function getRandomStep() {
 
 export function getRandomPattern() {
   const easyPatterns = [
-    [Type.Fixed, Type.Point],
-    [Type.Fixed, Type.Point, Type.Point],
-    [Type.Simple, Type.Point, Type.Simple],
-    [Type.Simple, Type.Point, Type.Point, Type.Simple],
-    [Type.Point, Type.Simple, Type.Simple, Type.Point],
-    [Type.Point, Type.Point, Type.Simple, Type.Simple],
+    [Type.Fixed, Type.Force],
+    [Type.Fixed, Type.Moment],
+    [Type.Fixed, Type.Distload, Type.Point],
+
+    [Type.Fixed, Type.Moment, Type.Force],
+    [Type.Fixed, Type.Distload, Type.Moment],
+
+    [Type.Simple, Type.Distload, Type.Simple],
+    [Type.Simple, Type.Force, Type.Simple],
+    [Type.Simple, Type.Moment, Type.Simple],
+    [Type.Force, Type.Simple, Type.Simple],
+
+    [Type.Simple, Type.Force, Type.Force, Type.Simple],
+    [Type.Simple, Type.Moment, Type.Moment, Type.Simple],
+
+    [Type.Force, Type.Simple, Type.Simple, Type.Force],
+    [Type.Moment, Type.Simple, Type.Simple, Type.Moment],
+    [Type.Point, Type.Simple, Type.Simple, Type.Distload, Type.Point],
   ]
 
   const hardPatterns = [
-    [Type.Fixed, Type.Point, Type.Hinge, Type.Point, Type.Fixed],
-    [Type.Fixed, Type.Point, Type.Hinge, Type.Point, Type.Simple],
+    [Type.Fixed, Type.Force, Type.Hinge, Type.Force, Type.Fixed],
+    [Type.Fixed, Type.Force, Type.Hinge, Type.Force, Type.Simple],
+    [Type.Fixed, Type.Moment, Type.Hinge, Type.Moment, Type.Fixed],
+    [Type.Fixed, Type.Moment, Type.Hinge, Type.Moment, Type.Simple],
+
+    [Type.Fixed, Type.Hinge, Type.Distload, Type.Fixed],
+    [Type.Fixed, Type.Hinge, Type.Distload, Type.Simple],
+    [Type.Fixed, Type.Hinge, Type.Simple, Type.Distload],
+    [Type.Fixed, Type.Hinge, Type.Simple, Type.Distload],
   ]
 
   if (randInt(0, 100) > 15) {
@@ -39,12 +58,6 @@ export function getRandomPattern() {
   } else {
     return hardPatterns[randInt(0, hardPatterns.length - 1)] // 15%
   }
-}
-
-export function appendLoads(pattern: Type[]) {
-  const types = [Type.Force, Type.Moment, Type.Distload]
-  const newType = types[randInt(0, types.length - 1)]
-  return pattern.map((type) => (type === Type.Point ? newType : type))
 }
 
 export function appendReversal(pattern: Type[]) {
@@ -91,6 +104,6 @@ export function createUnits(pattern: Type[], step: number) {
 export default function generate() {
   const step = getRandomStep()
   const pattern = getRandomPattern()
-  const finalPattern = appendReversal(appendLoads(pattern))
+  const finalPattern = appendReversal(pattern)
   return createUnits(finalPattern, step)
 }
