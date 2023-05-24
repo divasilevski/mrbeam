@@ -39,9 +39,11 @@ export class PaperChart {
     const pointsY = points.map(([_, y]) => y)
     const [maxX, minX] = [Math.max(...pointsX), Math.min(...pointsX)]
     const [maxY, minY] = [Math.max(...pointsY, 0), Math.min(...pointsY, 0)]
+    const differenceX = maxX - minX
+    const differenceY = Math.max(maxY - minY, 0.1) // Can be zero!
 
-    const scaleX = (canvas.offsetWidth - PADDING * 2) / (maxX - minX)
-    const scaleY = (canvas.offsetHeight - PADDING * 2) / (maxY - minY)
+    const scaleX = (canvas.offsetWidth - PADDING * 2) / differenceX
+    const scaleY = (canvas.offsetHeight - PADDING * 2) / differenceY
 
     this.canvas = canvas
     this.points = [...points]
@@ -98,6 +100,11 @@ export class PaperChart {
   }
 
   private drawAxisText() {
+    const max = Number(this.rect.maxY.toFixed(7)).toString()
+    const min = Number(this.rect.minY.toFixed(7)).toString()
+
+    const content = max === min ? [max] : [max, min]
+
     const points = [
       new Point(
         this.normalizeX(this.rect.minX),
@@ -109,12 +116,11 @@ export class PaperChart {
       ),
     ]
 
-    const values = points.map((point) => new PointText(point))
+    const values = content.map((_, index) => new PointText(points[index]))
 
-    values[0].content = Number(this.rect.maxY.toFixed(7)).toString()
-    values[1].content = Number(this.rect.minY.toFixed(7)).toString()
+    values.forEach((value, index) => {
+      value.content = content[index]
 
-    values.forEach((value) => {
       value.style = {
         fontWeight: 'bold',
         fontSize: 14,
