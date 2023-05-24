@@ -37,7 +37,7 @@ export class PaperChart {
   private initProperties({ points, canvas }: DrawProps) {
     const pointsX = points.map(([x, _]) => x)
     const pointsY = points.map(([_, y]) => y)
-    const [maxX, minX] = [Math.max(...pointsX, 0), Math.min(...pointsX, 0)]
+    const [maxX, minX] = [Math.max(...pointsX), Math.min(...pointsX)]
     const [maxY, minY] = [Math.max(...pointsY, 0), Math.min(...pointsY, 0)]
 
     const scaleX = (canvas.offsetWidth - PADDING * 2) / (maxX - minX)
@@ -60,7 +60,7 @@ export class PaperChart {
 
   private drawPattern() {
     const pattern = new Group()
-    let x = this.normalizeX(0)
+    let x = this.normalizeX(this.rect.minX)
 
     while (x < this.normalizeX(this.rect.maxX)) {
       const startPoint = new Point(x, this.normalizeY(this.rect.minY))
@@ -76,7 +76,7 @@ export class PaperChart {
     // ---
     const path = new Path()
 
-    path.add(new Point(this.normalizeX(0), this.normalizeY(0)))
+    path.add(new Point(this.normalizeX(this.rect.minX), this.normalizeY(0)))
     this.points.forEach(([x, y]) =>
       path.add(new Point(this.normalizeX(x), this.normalizeY(y)))
     )
@@ -99,8 +99,14 @@ export class PaperChart {
 
   private drawAxisText() {
     const points = [
-      new Point(this.normalizeX(0), this.normalizeY(this.rect.maxY) - 7),
-      new Point(this.normalizeX(0), this.normalizeY(this.rect.minY) + 17),
+      new Point(
+        this.normalizeX(this.rect.minX),
+        this.normalizeY(this.rect.maxY) - 7
+      ),
+      new Point(
+        this.normalizeX(this.rect.minX),
+        this.normalizeY(this.rect.minY) + 17
+      ),
     ]
 
     const values = points.map((point) => new PointText(point))
