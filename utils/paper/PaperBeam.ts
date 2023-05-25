@@ -30,7 +30,7 @@ interface DrawProps {
 }
 
 function getNumberFrom(value: number | number[]) {
-  return Array.isArray(value) ? value[0] : value
+  return Array.isArray(value) ? (value[0] + value[1]) / 2 : value
 }
 
 export class PaperBeam {
@@ -119,12 +119,35 @@ export class PaperBeam {
     this.points.forEach((a) => {
       const point = new Point(this.normalize(a), CANVAS_HEIGHT / 2 + 50)
       const text = new PointText(point)
-      text.content = Number(Number(a).toPrecision(2)).toString()
+
+      text.content = formatNumber(a)
 
       text.style = {
         fontWeight: 'bold',
         fontSize: 14,
         fillColor: COLORS.text,
+        justification: 'center',
+      } as typeof Style.prototype
+    })
+  }
+
+  private drawValuesText() {
+    const typesWithValues = ['force', 'moment', 'distload']
+
+    this.units.forEach((unit) => {
+      if (!typesWithValues.includes(unit.type)) return
+
+      const x = getNumberFrom(unit.x)
+      const value = getNumberFrom(unit.value!)
+      const point = new Point(this.normalize(x), CANVAS_HEIGHT / 2 - 45)
+      const text = new PointText(point)
+
+      text.content = formatNumber(value)
+
+      text.style = {
+        fontWeight: 'bold',
+        fontSize: 14,
+        fillColor: COLORS[unit.type as 'force' | 'moment' | 'distload'],
         justification: 'center',
       } as typeof Style.prototype
     })
@@ -214,6 +237,7 @@ export class PaperBeam {
     this.drawSimple()
     this.drawDistloads()
     this.drawPointsText()
+    this.drawValuesText()
 
     // layer 2
     this.drawLines()
