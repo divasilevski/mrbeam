@@ -16,13 +16,13 @@ const COLORS = {
   hinge: new Color('#33475b'),
 }
 
-const CANVAS_HEIGHT = 150
+const CANVAS_HEIGHT = 198 + 30
 const POINT_RADIUS = 3
 const FORCE_HEIGHT = 34
 const SIMPLE_HEIGHT = 24
 const FIXED_HEIGHT = 24
 const DISTLOAD_HEIGHT = 24
-const PADDING = 24
+const PADDING_X = 32
 
 interface DrawProps {
   units: Unit[]
@@ -53,7 +53,7 @@ export class PaperBeam {
     const points = uniqPositions.sort((a, b) => a - b)
 
     const length = points[points.length - 1] - points[0]
-    const scale = (canvas.offsetWidth - PADDING * 2) / length
+    const scale = (canvas.offsetWidth - PADDING_X * 2) / length
 
     this.points = points
     this.units = units
@@ -72,7 +72,7 @@ export class PaperBeam {
   }
 
   private normalize(point: number) {
-    return (point - this.points[0]) * this.scale + PADDING
+    return (point - this.points[0]) * this.scale + PADDING_X
   }
 
   private drawLines() {
