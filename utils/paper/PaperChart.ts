@@ -5,6 +5,7 @@ const { Color, Path, Point, PointText, Project, Group } = paper
 const CANVAS_HEIGHT = 198
 const PADDING_X = 32
 const PADDING_Y = 48
+const PADDING_BOTTOM = 42
 const PATTERN_SPACE = 10
 const TIP_SIZE = 12
 
@@ -84,7 +85,7 @@ export class PaperChart {
 
   private normalizeY(point: number) {
     const height = this.canvas?.offsetHeight || 0
-    return height - ((point - this.rect.minY) * this.scale.y + PADDING_Y)
+    return height - ((point - this.rect.minY) * this.scale.y + PADDING_BOTTOM)
   }
 
   private getPointBy(x: number) {
@@ -152,7 +153,7 @@ export class PaperChart {
     const defaultStyles = {
       fontSize: 14,
       fontWeight: 'bold',
-      fillColor: COLORS.text,
+      fillColor: COLORS.line,
       justification: 'left',
     }
 
@@ -197,7 +198,7 @@ export class PaperChart {
     }
 
     const pointTextX = new PointText({
-      point: new Point(0, CANVAS_HEIGHT - 20),
+      point: new Point(0, 25),
       fillColor: COLORS.text,
       ...defaultSettings,
     })
