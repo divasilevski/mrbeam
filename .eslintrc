@@ -5,7 +5,8 @@
     "prettier/prettier": 2,
     "vue/multi-word-component-names": "off", // conflicts with nuxt nested components
     "vue/no-multiple-template-root": "off", // fragments were added to the vue 3
-    "vue/no-v-html": "off"
+    "vue/no-v-html": "off",
+    "no-new": "off" // conflict with paper classes
   },
   "overrides": [
     {

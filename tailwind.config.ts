@@ -6,7 +6,7 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       height: {
-        canvas: '150px',
+        canvas: '198px',
       },
       colors: {
         bg: '#ffffff',

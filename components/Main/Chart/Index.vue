@@ -5,12 +5,12 @@
         <MainChartSection
           v-if="shearPoints.length > 1"
           :points="shearPoints"
-          title="Forces"
+          title="Shear Force Diagram"
         />
         <MainChartSection
           v-if="momentPoints.length > 1"
           :points="momentPoints"
-          title="Moments"
+          title="Bending Moment Diagram"
         />
       </div>
     </MainChartBottomSheet>

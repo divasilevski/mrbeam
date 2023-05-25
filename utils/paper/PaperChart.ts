@@ -1,9 +1,13 @@
 import paper from 'paper'
 
-const { Color, Path, Point, PointText, Project, Style, Group } = paper
+const { Color, Path, Point, PointText, Project, Group } = paper
 
-const PADDING = 24
+const CANVAS_HEIGHT = 198
+const PADDING_X = 32
+const PADDING_Y = 48
+const PADDING_BOTTOM = 42
 const PATTERN_SPACE = 10
+const TIP_SIZE = 12
 
 const COLORS = {
   background: new Color('#fff'),
@@ -11,6 +15,30 @@ const COLORS = {
   line: new Color('#ef476f'),
   axis: new Color('#33475b'),
   text: new Color('#33475b'),
+}
+
+function createArrowTip() {
+  const segments = [
+    [TIP_SIZE, 0],
+    [TIP_SIZE / 2, TIP_SIZE / 3],
+    [0, 0],
+  ]
+
+  const arrowFill = new Path({ segments, fillColor: COLORS.background })
+
+  const arrowStroke = new Path({
+    strokeColor: COLORS.line,
+    strokeWidth: 2,
+    segments,
+  })
+
+  arrowFill.bounds.top = -2
+
+  return new Group([arrowFill, arrowStroke])
+}
+
+function formatValue(value: number) {
+  return formatNumber(parseFloat(value.toFixed(6)))
 }
 
 interface DrawProps {
@@ -42,8 +70,8 @@ export class PaperChart {
     const differenceX = maxX - minX
     const differenceY = Math.max(maxY - minY, 0.1) // Can be zero!
 
-    const scaleX = (canvas.offsetWidth - PADDING * 2) / differenceX
-    const scaleY = (canvas.offsetHeight - PADDING * 2) / differenceY
+    const scaleX = (canvas.offsetWidth - PADDING_X * 2) / differenceX
+    const scaleY = (canvas.offsetHeight - PADDING_Y * 2) / differenceY
 
     this.canvas = canvas
     this.points = [...points]
@@ -52,12 +80,31 @@ export class PaperChart {
   }
 
   private normalizeX(point: number) {
-    return (point - this.rect.minX) * this.scale.x + PADDING
+    return (point - this.rect.minX) * this.scale.x + PADDING_X
   }
 
   private normalizeY(point: number) {
     const height = this.canvas?.offsetHeight || 0
-    return height - ((point - this.rect.minY) * this.scale.y + PADDING)
+    return height - ((point - this.rect.minY) * this.scale.y + PADDING_BOTTOM)
+  }
+
+  private getPointBy(x: number) {
+    const point = x / this.scale.x + this.rect.minX - PADDING_X / this.scale.x
+
+    let closestCoord = this.points[0]
+    let closestDist = Math.abs(point - closestCoord[0])
+
+    for (let i = 1; i < this.points.length; i++) {
+      const coord = this.points[i]
+      const dist = Math.abs(point - coord[0])
+
+      if (dist < closestDist) {
+        closestCoord = coord
+        closestDist = dist
+      }
+    }
+
+    return closestCoord
   }
 
   private drawPattern() {
@@ -100,34 +147,117 @@ export class PaperChart {
   }
 
   private drawAxisText() {
-    const max = Number(this.rect.maxY.toFixed(7)).toString()
-    const min = Number(this.rect.minY.toFixed(7)).toString()
+    const max = formatValue(this.rect.maxY)
+    const min = formatValue(this.rect.minY)
 
-    const content = max === min ? [max] : [max, min]
+    const defaultStyles = {
+      fontSize: 14,
+      fontWeight: 'bold',
+      fillColor: COLORS.line,
+      justification: 'left',
+    }
 
-    const points = [
-      new Point(
-        this.normalizeX(this.rect.minX),
+    new PointText({
+      content: max,
+      point: new Point(
+        this.normalizeX(this.rect.minX) - 20,
         this.normalizeY(this.rect.maxY) - 7
       ),
-      new Point(
-        this.normalizeX(this.rect.minX),
-        this.normalizeY(this.rect.minY) + 17
-      ),
-    ]
-
-    const values = content.map((_, index) => new PointText(points[index]))
-
-    values.forEach((value, index) => {
-      value.content = content[index]
-
-      value.style = {
-        fontWeight: 'bold',
-        fontSize: 14,
-        fillColor: COLORS.text,
-        justification: 'left',
-      } as typeof Style.prototype
+      ...defaultStyles,
     })
+
+    new PointText({
+      content: min,
+      visible: max !== min,
+      point: new Point(
+        this.normalizeX(this.rect.minX) - 20,
+        this.normalizeY(this.rect.minY) + 14
+      ),
+      ...defaultStyles,
+    })
+  }
+
+  private drawSliderAxis() {
+    const view = this.project?.view
+    const minX = this.normalizeX(this.rect.minX)
+    const maxX = this.normalizeX(this.rect.maxX)
+
+    const line = new Path.Line({
+      from: new Point(0, 10),
+      to: new Point(0, CANVAS_HEIGHT - 10),
+      strokeColor: COLORS.axis,
+      strokeWidth: 0.15,
+      dashArray: [4, 2],
+      strokeCap: 'round',
+    })
+
+    const defaultSettings = {
+      justification: 'center',
+      fontWeight: 'bold',
+      fontSize: 14,
+    }
+
+    const pointTextX = new PointText({
+      point: new Point(0, 25),
+      fillColor: COLORS.text,
+      ...defaultSettings,
+    })
+
+    const pointTextValue = new PointText({
+      point: new Point(0, 0),
+      fillColor: COLORS.line,
+      ...defaultSettings,
+    })
+
+    const rect = new Path.Rectangle({
+      rectangle: pointTextValue.bounds.expand(12, 5),
+      fillColor: COLORS.background,
+      strokeColor: COLORS.line,
+      strokeJoin: 'round',
+      strokeWidth: 2,
+      radius: 1,
+    })
+    const tip = createArrowTip()
+
+    pointTextValue.insertAbove(rect)
+
+    const group = new Group({
+      children: [line, rect, tip, pointTextX, pointTextValue],
+      visible: false,
+    })
+
+    if (this.canvas && view) {
+      view.onMouseMove = (event: paper.MouseEvent) => {
+        const mouseX = event.point.x
+
+        if (mouseX > minX && mouseX < maxX) {
+          group.visible = true
+
+          const [pointX, pointValue] = this.getPointBy(mouseX)
+          const bottom = this.normalizeY(pointValue) - 8
+          pointTextValue.content = formatValue(pointValue)
+          pointTextX.content = formatValue(pointX)
+
+          group.bounds.center.x = mouseX
+          pointTextValue.bounds.bottom = bottom
+          rect.bounds = pointTextValue.bounds.expand(12, 5)
+          tip.bounds.top = rect.bounds.bottom - 2
+          tip.bounds.center.x = rect.bounds.center.x
+
+          return
+        }
+
+        group.visible = false
+      }
+
+      view.onMouseEnter = () => {
+        group.visible = true
+      }
+
+      this.canvas.onmouseleave = () => {
+        group.visible = false
+      }
+    }
   }
 
   private drawLine() {
@@ -155,6 +285,8 @@ export class PaperChart {
 
     this.drawAxis()
     this.drawLine()
+
     this.drawAxisText()
+    this.drawSliderAxis()
   }
 }

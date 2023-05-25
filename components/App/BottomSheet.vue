@@ -166,4 +166,8 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
 [data-simplebar].сollapsed :deep(.simplebar-track) {
   @apply opacity-0;
 }
+
+[data-simplebar]:deep(.simplebar-track) {
+  @apply z-10;
+}
 </style>

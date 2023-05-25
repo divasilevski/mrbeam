@@ -29,7 +29,7 @@ const props = defineProps({
   }
 
   .canvas {
-    @apply px-2 py-6 border border-dashed;
+    @apply border border-dashed;
   }
 }
 </style>
