@@ -11,7 +11,7 @@
       <button
         type="button"
         class="float-button"
-        :style="`transform: translateY(${translate}px)`"
+        :style="floatStyle"
         @click="onClick()"
       >
         <span class="sr-only">Calculate</span>
@@ -41,7 +41,12 @@ const store = useSolutionStore()
 
 const hasIdent = computed(() => store.hasSolution)
 const isDownward = computed(() => bsRef.value?.isChangeToMax)
-const translate = computed(() => (store.isCalculated ? 0 : minHeight + 48 / 2))
+
+const floatStyle = computed(() => {
+  const translate = store.isCalculated ? 0 : minHeight + 48 / 2
+  const pointerEvents = store.isCalculated ? 'auto' : 'none'
+  return `transform: translateY(${translate}px); pointer-events: ${pointerEvents};`
+})
 
 const onClick = () => {
   if (store.hasSolution) {
