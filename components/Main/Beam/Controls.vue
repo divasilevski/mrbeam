@@ -1,12 +1,12 @@
 <template>
   <div v-if="store.units.length" class="controls right">
     <AppIconButton name="dice" @click="store.generateAsync">
-      RANDOMIZE
+      randomize
     </AppIconButton>
   </div>
 
   <div v-else class="controls center">
-    <AppButton size="small" @click="store.generateAsync">
+    <AppButton @click="store.generateAsync">
       RANDOMIZE
       <AppIcon name="dice" />
     </AppButton>
