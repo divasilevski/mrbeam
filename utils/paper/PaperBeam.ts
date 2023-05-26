@@ -35,6 +35,7 @@ function getNumberFrom(value: number | number[]) {
 
 export class PaperBeam {
   private project: typeof Project.prototype | null = null
+  private canvas: HTMLCanvasElement | null = null
   private points: number[] = []
   private units: Unit[] = []
   private scale = 1
@@ -55,6 +56,7 @@ export class PaperBeam {
     const length = points[points.length - 1] - points[0]
     const scale = (canvas.offsetWidth - PADDING_X * 2) / length
 
+    this.canvas = canvas
     this.points = points
     this.units = units
     this.scale = scale
@@ -72,6 +74,9 @@ export class PaperBeam {
   }
 
   private normalize(point: number) {
+    if (this.canvas && this.points.length === 1) {
+      return this.canvas.offsetWidth / 2
+    }
     return (point - this.points[0]) * this.scale + PADDING_X
   }
 
