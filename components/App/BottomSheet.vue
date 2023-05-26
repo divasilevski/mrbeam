@@ -1,5 +1,5 @@
 <template>
-  <div class="sheet">
+  <div class="sheet" :style="sheetStyle">
     <div class="float-button">
       <slot name="float">
         <span @click="toggleStatus">Toggle</span>
@@ -81,6 +81,10 @@ const heightStyle = computed(() => {
   return status.value === Status.MaxHeight
     ? `height: ${props.maxHeight}px`
     : `height: ${props.minHeight}px`
+})
+
+const sheetStyle = computed(() => {
+  return props.hasIdent ? 'pointer-events: auto' : 'pointer-events: none'
 })
 
 const transformStyle = computed(() => {
