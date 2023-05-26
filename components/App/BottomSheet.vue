@@ -119,7 +119,7 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
 
 <style lang="postcss" scoped>
 .sheet {
-  @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none;
+  @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none z-20;
 
   .float-button {
     @apply absolute right-10 -translate-y-[50%] z-10;

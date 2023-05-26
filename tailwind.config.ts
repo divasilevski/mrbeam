@@ -8,6 +8,7 @@ export default <Partial<Config>>{
     extend: {
       height: {
         canvas: `${constants.canvasHeight}px`,
+        header: `${constants.headerHeight}px`,
       },
       colors: {
         background: constants.background,
