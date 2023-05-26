@@ -30,7 +30,7 @@ import { useSolutionStore } from '~/stores/useSolutionStore'
 // heights
 const { height } = useWindowSize()
 
-const topIdent = constants.canvasSize + constants.header + constants.padding * 3
+const topIdent = constants.canvasHeight + constants.header
 const minHeight = constants.bottomSheetMinHeight
 const maxHeight = computed(() => height.value - topIdent)
 
@@ -61,7 +61,7 @@ watch(toRef(store, 'solution'), () => {
 
 <style lang="postcss" scoped>
 .float-button {
-  @apply flex items-center justify-center h-12 w-12 rounded-full text-bg bg-accent shadow-md cursor-pointer hover:bg-accent-dark transition-colors;
+  @apply flex items-center justify-center h-12 w-12 rounded-full text-background bg-primary shadow-md cursor-pointer hover:bg-primaryDark transition-colors;
   @apply transition-transform duration-500;
 
   .icon {

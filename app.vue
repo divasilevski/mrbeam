@@ -12,8 +12,12 @@
 <script lang="ts" setup></script>
 
 <style lang="postcss">
+html {
+  @apply bg-background;
+}
+
 main {
-  @apply m-auto max-w-4xl px-4 pb-16 text-primary;
+  @apply m-auto max-w-4xl px-4 pb-16 text-secondary font-sans;
 }
 
 /* Fix simplebar */

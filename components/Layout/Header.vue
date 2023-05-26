@@ -24,19 +24,19 @@
     @apply relative font-bold text-xl py-1 pl-8;
 
     .icon {
-      @apply absolute left-0 bottom-[11px] h-3 text-accent;
+      @apply absolute left-0 bottom-[11px] h-3 text-primary;
     }
   }
 
   .header-right {
-    @apply flex items-center gap-4 text-accent;
+    @apply flex items-center gap-4 text-primary;
 
     a {
-      @apply px-3 py-1 rounded-md font-medium hover:bg-secondary-light hover:text-accent-dark visited:text-accent;
+      @apply px-3 py-1 rounded-md font-medium hover:bg-complementary hover:text-primaryDark visited:text-primary;
     }
 
     .router-link-active {
-      @apply bg-secondary-light;
+      @apply bg-complementary;
     }
   }
 }

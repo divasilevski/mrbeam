@@ -126,7 +126,7 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
   }
 
   .content {
-    @apply flex flex-col rounded-t-2xl bg-bg shadow-bottomSheet;
+    @apply flex flex-col rounded-t-2xl bg-background shadow-bottomSheet;
 
     .controls {
       @apply flex;
@@ -136,7 +136,7 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
       }
 
       .draggable-thumb {
-        @apply w-12 h-1 bg-secondary rounded-sm;
+        @apply w-12 h-1 bg-tertiaryLight rounded-sm;
       }
 
       .close-sheet {

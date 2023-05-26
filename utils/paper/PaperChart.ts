@@ -1,4 +1,5 @@
 import paper from 'paper'
+import constants from '~/constants'
 
 const { Color, Path, Point, PointText, Project, Group } = paper
 
@@ -11,11 +12,11 @@ const TIP_SIZE = 12
 const SLIDER_TOP_IDENT = 24
 
 const COLORS = {
-  background: new Color('#fff'),
-  pattern: new Color('#33475b'),
-  line: new Color('#ef476f'),
-  axis: new Color('#33475b'),
-  text: new Color('#33475b'),
+  background: new Color(constants.background),
+  pattern: new Color(constants.secondary),
+  line: new Color(constants.accent),
+  axis: new Color(constants.secondary),
+  text: new Color(constants.secondary),
 }
 
 function createArrowTip() {

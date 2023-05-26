@@ -22,7 +22,7 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 .section {
-  @apply border border-bg;
+  @apply border border-background;
 
   .title {
     @apply px-6 mb-2 text-lg font-bold;

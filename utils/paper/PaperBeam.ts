@@ -1,19 +1,20 @@
 import paper from 'paper'
 import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
+import constants from '~/constants'
 
 const { Path, Color, Point, PointText, Project, Style } = paper
 
 const COLORS = {
-  background: new Color('#fff'),
-  point: new Color('#b1cefb'),
-  line: new Color('#b1cefb'),
-  distload: new Color('#b1cefb'),
-  moment: new Color('#ef476f'),
-  force: new Color('#ef476f'),
-  text: new Color('#33475b'),
-  simple: new Color('#33475b'),
-  fixed: new Color('#33475b'),
-  hinge: new Color('#33475b'),
+  background: new Color(constants.background),
+  point: new Color(constants.tertiaryLight),
+  line: new Color(constants.tertiaryLight),
+  distload: new Color(constants.tertiaryLight),
+  moment: new Color(constants.accent),
+  force: new Color(constants.accent),
+  text: new Color(constants.secondary),
+  simple: new Color(constants.secondary),
+  fixed: new Color(constants.secondary),
+  hinge: new Color(constants.secondary),
 }
 
 const CANVAS_HEIGHT = 198 + 30
