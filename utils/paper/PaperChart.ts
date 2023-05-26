@@ -163,7 +163,7 @@ export class PaperChart {
       content: max,
       point: new Point(
         this.normalizeX(this.rect.minX) - 20,
-        this.normalizeY(this.rect.maxY) - 7
+        this.normalizeY(this.rect.maxY) - 10
       ),
       ...defaultStyles,
     })
@@ -173,7 +173,7 @@ export class PaperChart {
       visible: max !== min,
       point: new Point(
         this.normalizeX(this.rect.minX) - 20,
-        this.normalizeY(this.rect.minY) + 14
+        this.normalizeY(this.rect.minY) + 20
       ),
       ...defaultStyles,
     })
