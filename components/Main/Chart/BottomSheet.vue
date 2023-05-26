@@ -67,8 +67,9 @@ watch(toRef(store, 'solution'), () => {
 
 <style lang="postcss" scoped>
 .float-button {
-  @apply flex items-center justify-center h-12 w-12 rounded-full text-background bg-primary shadow-md cursor-pointer hover:bg-primaryDark transition-colors;
-  @apply transition-transform duration-500;
+  @apply flex items-center justify-center h-12 w-12 rounded-full
+    text-background bg-primary shadow-md cursor-pointer hover:bg-primaryDark
+    transition-all duration-500;
 
   .icon {
     @apply transition-transform duration-500;

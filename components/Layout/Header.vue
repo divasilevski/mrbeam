@@ -54,7 +54,8 @@ const props = defineProps({
     @apply flex items-center gap-4;
 
     a {
-      @apply px-3 py-1 rounded-md font-medium hover:bg-complementary hover:text-primaryDark text-secondary;
+      @apply px-3 py-1 rounded-md font-medium text-secondary
+        hover:bg-complementary hover:text-primaryDark;
     }
 
     .router-link-active {

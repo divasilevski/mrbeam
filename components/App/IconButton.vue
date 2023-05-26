@@ -16,6 +16,7 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 button {
-  @apply flex items-center justify-center w-8 h-8 rounded-full text-tertiary transition-colors hover:text-primary;
+  @apply flex items-center justify-center w-8 h-8 rounded-full
+    text-tertiary transition-colors hover:text-primary;
 }
 </style>
