@@ -2,7 +2,7 @@
   <VitePwaManifest />
   <LayoutPWAToast />
   <Simplebar id="main-scroll" style="height: 100vh">
-    <LayoutHeader :floating="isFloating" />
+    <LayoutHeader :floating="isFloating" :back-button="hasBackButton" />
     <main>
       <NuxtPage />
     </main>
@@ -13,6 +13,7 @@
 const route = useRoute()
 
 const isFloating = computed(() => route.path !== '/')
+const hasBackButton = computed(() => route.path !== '/')
 </script>
 
 <style lang="postcss">

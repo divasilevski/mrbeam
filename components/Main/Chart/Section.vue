@@ -25,7 +25,7 @@ const props = defineProps({
   @apply border border-background;
 
   .title {
-    @apply px-6 mb-2 text-lg font-bold;
+    @apply px-4 mb-2 text-lg font-bold;
   }
 
   .canvas {
