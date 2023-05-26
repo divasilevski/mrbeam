@@ -45,7 +45,7 @@ onClickOutside(hintRef, () => {
   @apply relative flex items-center justify-center w-8 h-8 rounded-full;
 
   .icon {
-    @apply transition-colors text-secondary cursor-pointer hover:text-accent;
+    @apply transition-colors text-primaryLight cursor-pointer hover:text-primary;
   }
 
   .content {

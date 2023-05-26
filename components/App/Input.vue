@@ -49,11 +49,11 @@ const onInput = (event: Event) => {
   @apply relative flex items-baseline gap-2 w-full;
 
   label {
-    @apply font-medium text-primary w-5;
+    @apply font-medium text-secondary w-5;
   }
 
   input {
-    @apply mt-1 w-full rounded-full border-secondary shadow-sm sm:text-sm;
+    @apply mt-1 w-full rounded-full border-primaryLight bg-background shadow-sm sm:text-sm;
   }
 
   .error {

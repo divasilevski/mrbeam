@@ -11,7 +11,7 @@
       <button
         type="button"
         class="float-button"
-        :style="`transform: translateY(${translate}px)`"
+        :style="floatStyle"
         @click="onClick()"
       >
         <span class="sr-only">Calculate</span>
@@ -30,7 +30,8 @@ import { useSolutionStore } from '~/stores/useSolutionStore'
 // heights
 const { height } = useWindowSize()
 
-const topIdent = constants.canvasSize + constants.header + constants.padding * 3
+const topIdent =
+  constants.canvasHeight + constants.headerHeight + constants.padding
 const minHeight = constants.bottomSheetMinHeight
 const maxHeight = computed(() => height.value - topIdent)
 
@@ -40,7 +41,12 @@ const store = useSolutionStore()
 
 const hasIdent = computed(() => store.hasSolution)
 const isDownward = computed(() => bsRef.value?.isChangeToMax)
-const translate = computed(() => (store.isCalculated ? 0 : minHeight + 48 / 2))
+
+const floatStyle = computed(() => {
+  const translate = store.isCalculated ? 0 : minHeight + 48 / 2
+  const pointerEvents = store.isCalculated ? 'auto' : 'none'
+  return `transform: translateY(${translate}px); pointer-events: ${pointerEvents};`
+})
 
 const onClick = () => {
   if (store.hasSolution) {
@@ -61,8 +67,9 @@ watch(toRef(store, 'solution'), () => {
 
 <style lang="postcss" scoped>
 .float-button {
-  @apply flex items-center justify-center h-12 w-12 rounded-full text-bg bg-accent shadow-md cursor-pointer hover:bg-accent-dark transition-colors;
-  @apply transition-transform duration-500;
+  @apply flex items-center justify-center h-12 w-12 rounded-full
+    text-background bg-primary shadow-md cursor-pointer hover:bg-primaryDark
+    transition-all duration-500;
 
   .icon {
     @apply transition-transform duration-500;

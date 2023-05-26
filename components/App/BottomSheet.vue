@@ -1,5 +1,5 @@
 <template>
-  <div class="sheet">
+  <div class="sheet" :style="sheetStyle">
     <div class="float-button">
       <slot name="float">
         <span @click="toggleStatus">Toggle</span>
@@ -83,6 +83,10 @@ const heightStyle = computed(() => {
     : `height: ${props.minHeight}px`
 })
 
+const sheetStyle = computed(() => {
+  return props.hasIdent ? 'pointer-events: auto' : 'pointer-events: none'
+})
+
 const transformStyle = computed(() => {
   return `transform: translateY(${props.hasIdent ? 0 : props.minHeight}px)`
 })
@@ -119,14 +123,14 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
 
 <style lang="postcss" scoped>
 .sheet {
-  @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none;
+  @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none z-20;
 
   .float-button {
     @apply absolute right-10 -translate-y-[50%] z-10;
   }
 
   .content {
-    @apply flex flex-col rounded-t-2xl bg-bg shadow-bottomSheet;
+    @apply flex flex-col rounded-t-2xl bg-background shadow-bottomSheet;
 
     .controls {
       @apply flex;
@@ -136,7 +140,7 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
       }
 
       .draggable-thumb {
-        @apply w-12 h-1 bg-secondary rounded-sm;
+        @apply w-12 h-1 bg-tertiaryLight rounded-sm;
       }
 
       .close-sheet {

@@ -1,20 +1,22 @@
 import paper from 'paper'
+import constants from '~/constants'
 
 const { Color, Path, Point, PointText, Project, Group } = paper
 
 const CANVAS_HEIGHT = 198
 const PADDING_X = 32
 const PADDING_Y = 48
-const PADDING_BOTTOM = 42
+const PADDING_BOTTOM = 38
 const PATTERN_SPACE = 10
 const TIP_SIZE = 12
+const SLIDER_TOP_IDENT = 24
 
 const COLORS = {
-  background: new Color('#fff'),
-  pattern: new Color('#33475b'),
-  line: new Color('#ef476f'),
-  axis: new Color('#33475b'),
-  text: new Color('#33475b'),
+  background: new Color(constants.background),
+  pattern: new Color(constants.secondary),
+  line: new Color(constants.accent),
+  axis: new Color(constants.secondary),
+  text: new Color(constants.secondary),
 }
 
 function createArrowTip() {
@@ -161,7 +163,7 @@ export class PaperChart {
       content: max,
       point: new Point(
         this.normalizeX(this.rect.minX) - 20,
-        this.normalizeY(this.rect.maxY) - 7
+        this.normalizeY(this.rect.maxY) - 10
       ),
       ...defaultStyles,
     })
@@ -171,7 +173,7 @@ export class PaperChart {
       visible: max !== min,
       point: new Point(
         this.normalizeX(this.rect.minX) - 20,
-        this.normalizeY(this.rect.minY) + 14
+        this.normalizeY(this.rect.minY) + 20
       ),
       ...defaultStyles,
     })
@@ -198,7 +200,7 @@ export class PaperChart {
     }
 
     const pointTextX = new PointText({
-      point: new Point(0, 25),
+      point: new Point(0, SLIDER_TOP_IDENT),
       fillColor: COLORS.text,
       ...defaultSettings,
     })
@@ -210,7 +212,7 @@ export class PaperChart {
     })
 
     const rect = new Path.Rectangle({
-      rectangle: pointTextValue.bounds.expand(12, 5),
+      rectangle: pointTextValue.bounds.expand(12, 4),
       fillColor: COLORS.background,
       strokeColor: COLORS.line,
       strokeJoin: 'round',
@@ -240,7 +242,7 @@ export class PaperChart {
 
           group.bounds.center.x = mouseX
           pointTextValue.bounds.bottom = bottom
-          rect.bounds = pointTextValue.bounds.expand(12, 5)
+          rect.bounds = pointTextValue.bounds.expand(12, 4)
           tip.bounds.top = rect.bounds.bottom - 2
           tip.bounds.center.x = rect.bounds.center.x
 

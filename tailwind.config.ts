@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import constants from './constants'
 
 export default <Partial<Config>>{
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
@@ -6,16 +7,23 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       height: {
-        canvas: '198px',
+        canvas: `${constants.canvasHeight}px`,
+        header: `${constants.headerHeight}px`,
       },
       colors: {
-        bg: '#ffffff',
-        primary: '#33475b',
-        accent: '#3b82f6',
-        'accent-dark': '#2876f5',
-        secondary: '#b1cefb',
-        'secondary-light': '#e9eef6',
-        error: '#ff3333',
+        background: constants.background,
+        error: constants.error,
+
+        primaryDark: constants.primaryDark,
+        primary: constants.primary,
+        primaryLight: constants.primaryLight,
+
+        tertiary: constants.tertiary,
+        tertiaryLight: constants.tertiaryLight,
+
+        accent: constants.accent,
+        secondary: constants.secondary,
+        complementary: constants.complementary,
       },
       boxShadow: {
         bottomSheet: '0px -2px 20px -12px rgba(0,0,0,0.4)',

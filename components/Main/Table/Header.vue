@@ -27,7 +27,8 @@ const onRemove = () => {
 
 <style lang="postcss" scoped>
 .header {
-  @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto] gap-4 w-full px-3;
+  @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto]
+    gap-4 w-full px-3;
 
   div {
     @apply flex items-center;

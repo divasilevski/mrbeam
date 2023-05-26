@@ -53,10 +53,11 @@ const onRemove = () => {
 
 <style lang="postcss" scoped>
 .item {
-  @apply flex items-center py-1 px-3 rounded-full border border-secondary-light;
+  @apply flex items-center py-1 px-3 rounded-full border border-dashed border-complementary;
 
   .values {
-    @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto] gap-4 items-center w-full;
+    @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto]
+      gap-4 items-center w-full;
 
     .icon {
       @apply flex items-center w-12;

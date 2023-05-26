@@ -7,10 +7,6 @@
 <script lang="ts" setup>
 import MarkdownIt from 'markdown-it'
 
-useHead({
-  title: 'MrBeam | Docs',
-})
-
 const md = new MarkdownIt()
 
 const html = md.render(

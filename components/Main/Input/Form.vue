@@ -27,11 +27,7 @@
       <AppNumberInput id="def:x" v-model="models.x0" label="X" />
     </div>
 
-    <AppButton type="submit" @click="addUnit">
-      <AppIcon name="plus" />
-      Add element
-      <AppIcon name="plus" />
-    </AppButton>
+    <AppButton type="submit" @click="addUnit">ADD ELEMENT</AppButton>
   </form>
 </template>
 

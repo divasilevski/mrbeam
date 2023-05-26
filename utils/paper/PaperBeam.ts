@@ -1,19 +1,20 @@
 import paper from 'paper'
 import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
+import constants from '~/constants'
 
 const { Path, Color, Point, PointText, Project, Style } = paper
 
 const COLORS = {
-  background: new Color('#fff'),
-  point: new Color('#b1cefb'),
-  line: new Color('#b1cefb'),
-  distload: new Color('#b1cefb'),
-  moment: new Color('#ef476f'),
-  force: new Color('#ef476f'),
-  text: new Color('#33475b'),
-  simple: new Color('#33475b'),
-  fixed: new Color('#33475b'),
-  hinge: new Color('#33475b'),
+  background: new Color(constants.background),
+  point: new Color(constants.tertiaryLight),
+  line: new Color(constants.tertiaryLight),
+  distload: new Color(constants.tertiaryLight),
+  moment: new Color(constants.accent),
+  force: new Color(constants.accent),
+  text: new Color(constants.secondary),
+  simple: new Color(constants.secondary),
+  fixed: new Color(constants.secondary),
+  hinge: new Color(constants.secondary),
 }
 
 const CANVAS_HEIGHT = 198 + 30
@@ -35,6 +36,7 @@ function getNumberFrom(value: number | number[]) {
 
 export class PaperBeam {
   private project: typeof Project.prototype | null = null
+  private canvas: HTMLCanvasElement | null = null
   private points: number[] = []
   private units: Unit[] = []
   private scale = 1
@@ -55,6 +57,7 @@ export class PaperBeam {
     const length = points[points.length - 1] - points[0]
     const scale = (canvas.offsetWidth - PADDING_X * 2) / length
 
+    this.canvas = canvas
     this.points = points
     this.units = units
     this.scale = scale
@@ -72,6 +75,9 @@ export class PaperBeam {
   }
 
   private normalize(point: number) {
+    if (this.canvas && this.points.length === 1) {
+      return this.canvas.offsetWidth / 2
+    }
     return (point - this.points[0]) * this.scale + PADDING_X
   }
 

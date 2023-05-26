@@ -33,21 +33,21 @@ const emit = defineEmits(['update:modelValue'])
   @apply flex items-center justify-center h-[42px];
 
   nav {
-    @apply flex gap-2 px-2 border-secondary-light border rounded-full shadow-sm;
+    @apply flex gap-2 px-2 border-complementary border rounded-full shadow-sm;
 
     span {
       @apply flex items-center justify-center p-2 cursor-pointer rounded-full;
 
       svg {
-        @apply text-secondary;
+        @apply text-primaryLight;
       }
       svg:hover {
-        @apply text-accent;
+        @apply text-primary;
       }
     }
 
     .active svg {
-      @apply text-accent;
+      @apply text-primary;
     }
   }
 }
