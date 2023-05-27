@@ -1,5 +1,6 @@
 import svgLoader from 'vite-svg-loader'
 import inheritAttrs from 'vite-plugin-vue-setup-inherit-attrs'
+import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -24,6 +25,7 @@ export default defineNuxtConfig({
           ],
         },
       }),
+      mdPlugin({ mode: [Mode.VUE] }),
       inheritAttrs(),
     ],
   },
