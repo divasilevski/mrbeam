@@ -40,8 +40,9 @@ export default defineNuxtConfig({
       title: 'MrBeam',
       htmlAttrs: { lang: 'en' },
       link: [
-        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
-        { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' },
+        { rel: 'icon', href: '/favicon.svg', sizes: 'any' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'mask-icon', href: '/mask-icon.svg', color: '#1b8cff' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta: [
