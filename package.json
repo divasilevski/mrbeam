@@ -44,7 +44,6 @@
     "typescript": "^5.0.4",
     "unplugin-auto-import": "^0.15.3",
     "vite-plugin-markdown": "^2.1.0",
-    "vite-plugin-vue-setup-inherit-attrs": "^1.0.8",
     "vite-svg-loader": "^4.0.0",
     "vitest": "^0.30.1"
   },
