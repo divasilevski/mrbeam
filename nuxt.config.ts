@@ -1,5 +1,6 @@
 import svgLoader from 'vite-svg-loader'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
+import constants from './constants'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -42,7 +43,7 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', href: '/favicon.svg', sizes: 'any' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'mask-icon', href: '/mask-icon.svg', color: '#1b8cff' },
+        { rel: 'mask-icon', href: '/mask-icon.svg', color: constants.primary },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta: [
@@ -74,7 +75,7 @@ export default defineNuxtConfig({
       name: 'MrBeam',
       short_name: 'MrBeam',
       description: 'MrBeam - blazingly fast beam calculator',
-      theme_color: '#ffffff',
+      theme_color: constants.background,
       orientation: 'portrait',
       lang: 'en',
       icons: [

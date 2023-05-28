@@ -1,10 +1,10 @@
 <template>
-  <header class="header" :class="{ floating: props.floating }">
+  <header class="header" :class="{ floating: !isIndexPage }">
     <nav class="navigation">
       <NuxtLink class="logo" to="/">
         MrBeam
         <Transition mode="out-in">
-          <AppIcon v-if="props.backButton" name="arrow" class="arrow-icon" />
+          <AppIcon v-if="!isIndexPage" name="arrow" class="arrow-icon" />
           <AppIcon v-else name="logo" class="logo-icon" />
         </Transition>
       </NuxtLink>
@@ -18,15 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  floating: {
-    type: Boolean,
-    default: false,
-  },
-  backButton: {
-    type: Boolean,
-    default: false,
-  },
+const route = useRoute()
+
+const isIndexPage = computed(() => {
+  return route.name === 'index'
 })
 </script>
 
