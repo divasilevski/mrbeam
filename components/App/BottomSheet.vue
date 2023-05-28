@@ -172,6 +172,6 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
 }
 
 [data-simplebar]:deep(.simplebar-track) {
-  @apply z-10;
+  @apply w-[9px] z-10;
 }
 </style>

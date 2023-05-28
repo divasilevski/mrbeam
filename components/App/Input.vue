@@ -12,7 +12,9 @@
   </div>
 </template>
 
-<script lang="ts" inherit-attrs="false" setup>
+<script lang="ts" setup>
+defineOptions({ inheritAttrs: false })
+
 const props = defineProps({
   id: {
     type: String,

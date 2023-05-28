@@ -1,5 +1,6 @@
 import svgLoader from 'vite-svg-loader'
-import inheritAttrs from 'vite-plugin-vue-setup-inherit-attrs'
+import mdPlugin, { Mode } from 'vite-plugin-markdown'
+import constants from './constants'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -24,7 +25,7 @@ export default defineNuxtConfig({
           ],
         },
       }),
-      inheritAttrs(),
+      mdPlugin({ mode: [Mode.VUE] }),
     ],
   },
   htmlValidator: {
@@ -40,8 +41,9 @@ export default defineNuxtConfig({
       title: 'MrBeam',
       htmlAttrs: { lang: 'en' },
       link: [
-        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
-        { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' },
+        { rel: 'icon', href: '/favicon.svg', sizes: 'any' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'mask-icon', href: '/mask-icon.svg', color: constants.primary },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta: [
@@ -73,7 +75,7 @@ export default defineNuxtConfig({
       name: 'MrBeam',
       short_name: 'MrBeam',
       description: 'MrBeam - blazingly fast beam calculator',
-      theme_color: '#ffffff',
+      theme_color: constants.background,
       orientation: 'portrait',
       lang: 'en',
       icons: [
@@ -91,13 +93,11 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,ico}'],
+      globPatterns: ['**/*.{js,css,html,png,svg}'],
     },
     client: {
       installPrompt: true,
-      // you don't need to include this: only for testing purposes
-      // if enabling periodic sync for update use 1 hour or so (periodicSyncForUpdates: 3600)
-      periodicSyncForUpdates: 20,
+      periodicSyncForUpdates: 3600,
     },
     devOptions: {
       enabled: true,

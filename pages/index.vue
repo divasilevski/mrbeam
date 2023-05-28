@@ -7,7 +7,7 @@
   </article>
 </template>
 
-<style lang="postcss" scope>
+<style lang="postcss" scoped>
 article {
   @apply flex flex-col gap-4;
 }

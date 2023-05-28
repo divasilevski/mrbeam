@@ -1,32 +1,16 @@
 <template>
   <VitePwaManifest />
-  <LayoutPWAToast />
-  <Simplebar id="main-scroll" style="height: 100vh">
-    <LayoutHeader :floating="isFloating" :back-button="hasBackButton" />
+  <LayoutToasts />
+  <LayoutScroll>
+    <LayoutHeader />
     <main>
       <NuxtPage />
     </main>
-  </Simplebar>
+  </LayoutScroll>
 </template>
 
-<script lang="ts" setup>
-const route = useRoute()
-
-const isFloating = computed(() => route.path !== '/')
-const hasBackButton = computed(() => route.path !== '/')
-</script>
-
-<style lang="postcss">
-html {
-  @apply bg-background;
-}
-
+<style lang="postcss" scoped>
 main {
   @apply m-auto max-w-4xl px-4 pt-4 pb-16 text-secondary font-sans;
-}
-
-/* Fix simplebar */
-[data-simplebar] .simplebar-track {
-  @apply opacity-30 w-[9px];
 }
 </style>

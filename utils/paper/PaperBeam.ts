@@ -15,6 +15,9 @@ const COLORS = {
   simple: new Color(constants.secondary),
   fixed: new Color(constants.secondary),
   hinge: new Color(constants.secondary),
+  forceText: new Color(constants.accent),
+  momentText: new Color(constants.accent),
+  distloadText: new Color(constants.tertiary),
 }
 
 const CANVAS_HEIGHT = 198 + 30
@@ -138,6 +141,11 @@ export class PaperBeam {
   }
 
   private drawValuesText() {
+    const colorMap: Record<string, paper.Color> = {
+      force: COLORS.forceText,
+      moment: COLORS.momentText,
+      distload: COLORS.distloadText,
+    }
     const typesWithValues = ['force', 'moment', 'distload']
 
     this.units.forEach((unit) => {
@@ -153,7 +161,7 @@ export class PaperBeam {
       text.style = {
         fontWeight: 'bold',
         fontSize: 14,
-        fillColor: COLORS[unit.type as 'force' | 'moment' | 'distload'],
+        fillColor: colorMap[unit.type],
         justification: 'center',
       } as typeof Style.prototype
     })
