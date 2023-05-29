@@ -11,7 +11,9 @@
 
       <div class="header-right">
         <NuxtLink to="/docs">Docs</NuxtLink>
-        <NuxtLink to="/about">About</NuxtLink>
+        <NuxtLink to="https://github.com/divasilevski/mrbeam" target="_blank">
+          Github
+        </NuxtLink>
       </div>
     </nav>
   </header>
