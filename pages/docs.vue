@@ -1,9 +1,7 @@
 <template>
-  <div class="flex flex-row justify-between">
-    <article class="prose prose-slate">
-      <VueComponent />
-    </article>
-  </div>
+  <article class="prose prose-slate max-w-2xl">
+    <VueComponent />
+  </article>
 </template>
 
 <script lang="ts" setup>
