@@ -4,6 +4,18 @@
   </Simplebar>
 </template>
 
+<script lang="ts" setup>
+const router = useRouter()
+const { scrollTo } = useMainScroll()
+
+onMounted(() => {
+  router.options.scrollBehavior = () => {
+    scrollTo({ top: 0 })
+    return false
+  }
+})
+</script>
+
 <style lang="postcss" scoped>
 [data-simplebar] {
   @apply bg-background;
