@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useUnitsStore } from '~/stores/useUnitsStore'
+import useMainScroll from '~/composables/useMainScroll'
 
 import calculate from '~/utils/fem/calculate'
 import checkUnits from '~/utils/fem/checkUnits'
@@ -24,7 +25,7 @@ export const useSolutionStore = defineStore('solution-store', () => {
     errorMessage.value = null
   }
 
-  const calculateAsync = () => {
+  const calculateSolution = () => {
     if (store.units.length > 0) {
       try {
         const data = calculate(store.units)
@@ -50,6 +51,6 @@ export const useSolutionStore = defineStore('solution-store', () => {
     errorMessage,
 
     resetSolution,
-    calculateAsync,
+    calculateSolution,
   }
 })
