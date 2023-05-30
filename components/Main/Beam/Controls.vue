@@ -1,7 +1,7 @@
 <template>
   <div v-if="store.units.length" class="controls right">
     <AppIconButton name="dice" @click="store.generateUnits">
-      randomize
+      RANDOMIZE
     </AppIconButton>
   </div>
 

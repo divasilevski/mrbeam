@@ -1,4 +1,4 @@
-import { elements } from './helpers'
+import { elements } from '../helpers'
 
 import { createGraph } from '~/utils/fem/core/graph'
 
