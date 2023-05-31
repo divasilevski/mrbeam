@@ -1,4 +1,4 @@
-import paper from 'paper'
+import paper from 'paper/dist/paper-core'
 
 const { Point, Path, Group, SymbolDefinition } = paper
 
