@@ -2,7 +2,8 @@ import paper from 'paper/dist/paper-core'
 
 import { PaperCanvas } from './PaperCanvas'
 import { tipGroup } from './symbols'
-import constants from '~/constants'
+
+import colors from '~/constants/palette'
 
 const { Color, Path, Point, PointText, Group } = paper
 
@@ -15,11 +16,11 @@ const PATTERN_SPACE = 10
 const SLIDER_TOP_IDENT = 24
 
 const COLORS = {
-  background: new Color(constants.background),
-  pattern: new Color(constants.secondary),
-  line: new Color(constants.accent),
-  axis: new Color(constants.secondary),
-  text: new Color(constants.secondary),
+  background: new Color(colors.background),
+  pattern: new Color(colors.secondary),
+  line: new Color(colors.accent),
+  axis: new Color(colors.secondary),
+  text: new Color(colors.secondary),
 }
 
 interface DrawProps {

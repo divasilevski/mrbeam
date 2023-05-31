@@ -2,7 +2,8 @@ import paper from 'paper/dist/paper-core'
 
 import { PaperCanvas } from './PaperCanvas'
 import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
-import constants from '~/constants'
+
+import colors from '~/constants/palette'
 
 const { Path, Color, Point, PointText } = paper
 
@@ -15,19 +16,19 @@ const DISTLOAD_HEIGHT = 24
 const PADDING_X = 32
 
 const COLORS = {
-  background: new Color(constants.background),
-  point: new Color(constants.tertiaryLight),
-  line: new Color(constants.tertiaryLight),
-  distload: new Color(constants.tertiaryLight),
-  moment: new Color(constants.accent),
-  force: new Color(constants.accent),
-  text: new Color(constants.secondary),
-  simple: new Color(constants.secondary),
-  fixed: new Color(constants.secondary),
-  hinge: new Color(constants.secondary),
-  forceText: new Color(constants.accent),
-  momentText: new Color(constants.accent),
-  distloadText: new Color(constants.tertiary),
+  background: new Color(colors.background),
+  point: new Color(colors.tertiaryLight),
+  line: new Color(colors.tertiaryLight),
+  distload: new Color(colors.tertiaryLight),
+  moment: new Color(colors.accent),
+  force: new Color(colors.accent),
+  text: new Color(colors.secondary),
+  simple: new Color(colors.secondary),
+  fixed: new Color(colors.secondary),
+  hinge: new Color(colors.secondary),
+  forceText: new Color(colors.accent),
+  momentText: new Color(colors.accent),
+  distloadText: new Color(colors.tertiary),
 }
 
 interface DrawProps {
