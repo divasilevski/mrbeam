@@ -24,15 +24,14 @@
 </template>
 
 <script lang="ts" setup>
-import constants from '~/constants'
+import layout from '~/constants/layout'
 import { useSolutionStore } from '~/stores/useSolutionStore'
 
 // heights
 const { height } = useWindowSize()
 
-const topIdent =
-  constants.canvasHeight + constants.headerHeight + constants.padding
-const minHeight = constants.bottomSheetMinHeight
+const topIdent = layout.canvasHeight + layout.headerHeight + layout.padding
+const minHeight = layout.bottomSheetMinHeight
 const maxHeight = computed(() => height.value - topIdent)
 
 // logic

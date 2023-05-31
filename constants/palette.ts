@@ -6,7 +6,7 @@ export default {
   primary: '#1b8cff',
   primaryDark: '#007eff',
 
-  tertiary: '#5faeff',
+  tertiary: '#49a3ff',
   tertiaryLight: '#a9d4ff',
 
   accent: '#ef476f',

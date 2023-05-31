@@ -1,6 +1,8 @@
 import svgLoader from 'vite-svg-loader'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
-import constants from './constants'
+
+import manifest from './constants/manifest'
+import colors from './constants/palette'
 import meta from './constants/meta'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -44,7 +46,7 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', href: '/favicon.svg', sizes: 'any' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'mask-icon', href: '/mask-icon.svg', color: constants.primary },
+        { rel: 'mask-icon', href: '/mask-icon.svg', color: colors.primary },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta,
@@ -67,26 +69,6 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: 'autoUpdate',
-    manifest: {
-      name: 'MrBeam',
-      short_name: 'MrBeam',
-      description: 'MrBeam - blazingly fast beam calculator',
-      theme_color: constants.background,
-      orientation: 'portrait',
-      lang: 'en',
-      icons: [
-        {
-          src: 'pwa-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-        },
-      ],
-    },
     workbox: {
       navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg}'],
@@ -99,5 +81,6 @@ export default defineNuxtConfig({
       enabled: true,
       type: 'module',
     },
+    manifest,
   },
 })
