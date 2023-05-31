@@ -1,5 +1,3 @@
-import colors from './palette'
-
 const meta = {
   title: 'MrBeam',
   description: 'MrBeam - blazingly fast beam calculator.',
@@ -10,7 +8,7 @@ const meta = {
 export default [
   // Main
   { name: 'description', content: meta.description },
-  { name: 'theme-color', content: colors.primary },
+  { name: 'theme-color', content: 'transparent' },
 
   // Facebook Meta Tags
   { property: 'og:url', content: meta.url },
@@ -31,5 +29,9 @@ export default [
   {
     name: 'apple-mobile-web-app-capable',
     content: 'yes',
+  },
+  {
+    name: 'apple-mobile-web-app-status-bar-style',
+    content: 'white-translucent',
   },
 ]
