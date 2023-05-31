@@ -66,7 +66,7 @@ export default defineNuxtConfig({
       },
     },
     prerender: {
-      routes: ['/', '/docs', '/about'],
+      routes: ['/', '/docs'],
     },
   },
   pwa: {
