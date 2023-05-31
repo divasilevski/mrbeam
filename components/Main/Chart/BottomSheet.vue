@@ -52,7 +52,7 @@ const onClick = () => {
   if (store.hasSolution) {
     bsRef.value?.toggleStatus()
   } else {
-    store.calculateAsync()
+    store.calculateSolution()
   }
 }
 

@@ -30,7 +30,7 @@ const emit = defineEmits(['update:modelValue'])
 
 <style lang="postcss">
 .defenitions {
-  @apply flex items-center justify-center h-[42px];
+  @apply flex items-center justify-center h-[46px] md:h-[42px];
 
   nav {
     @apply flex gap-2 px-2 border-complementary border rounded-full shadow-sm;

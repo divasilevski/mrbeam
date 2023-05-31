@@ -1,4 +1,4 @@
-import { elements } from './helpers'
+import { elements } from '../helpers'
 import { shuffleArray } from '~/utils/fem/core/algebra'
 import { Elem, getDistInCoord } from '~/utils/fem/core/Elem'
 

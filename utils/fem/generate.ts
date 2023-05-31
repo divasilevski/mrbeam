@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import { Unit } from './types/unit'
 import { randInt } from './core/algebra'
 
-enum Type {
+export enum Type {
   Point = 'point',
   Fixed = 'fixed',
   Hinge = 'hinge',
@@ -14,50 +14,48 @@ enum Type {
   Distload = 'distload',
 }
 
+const EASY_PATTERNS = [
+  [Type.Fixed, Type.Force],
+  [Type.Fixed, Type.Moment],
+  [Type.Fixed, Type.Distload, Type.Point],
+
+  [Type.Fixed, Type.Moment, Type.Force],
+  [Type.Fixed, Type.Distload, Type.Moment],
+
+  [Type.Simple, Type.Distload, Type.Simple],
+  [Type.Simple, Type.Force, Type.Simple],
+  [Type.Simple, Type.Moment, Type.Simple],
+  [Type.Force, Type.Simple, Type.Simple],
+
+  [Type.Simple, Type.Force, Type.Force, Type.Simple],
+  [Type.Simple, Type.Moment, Type.Moment, Type.Simple],
+
+  [Type.Force, Type.Simple, Type.Simple, Type.Force],
+  [Type.Moment, Type.Simple, Type.Simple, Type.Moment],
+  [Type.Point, Type.Simple, Type.Simple, Type.Distload, Type.Point],
+]
+
+const HARD_PATTERNS = [
+  [Type.Fixed, Type.Force, Type.Hinge, Type.Force, Type.Fixed],
+  [Type.Fixed, Type.Force, Type.Hinge, Type.Force, Type.Simple],
+  [Type.Fixed, Type.Moment, Type.Hinge, Type.Moment, Type.Fixed],
+  [Type.Fixed, Type.Moment, Type.Hinge, Type.Moment, Type.Simple],
+
+  [Type.Fixed, Type.Hinge, Type.Distload, Type.Fixed],
+  [Type.Fixed, Type.Hinge, Type.Distload, Type.Simple],
+  [Type.Fixed, Type.Hinge, Type.Simple, Type.Distload],
+  [Type.Fixed, Type.Hinge, Type.Simple, Type.Distload],
+]
+
 export function getRandomStep() {
   const options = [2, 3, 4]
   return options[randInt(0, options.length - 1)]
 }
 
 export function getRandomPattern() {
-  const easyPatterns = [
-    [Type.Fixed, Type.Force],
-    [Type.Fixed, Type.Moment],
-    [Type.Fixed, Type.Distload, Type.Point],
-
-    [Type.Fixed, Type.Moment, Type.Force],
-    [Type.Fixed, Type.Distload, Type.Moment],
-
-    [Type.Simple, Type.Distload, Type.Simple],
-    [Type.Simple, Type.Force, Type.Simple],
-    [Type.Simple, Type.Moment, Type.Simple],
-    [Type.Force, Type.Simple, Type.Simple],
-
-    [Type.Simple, Type.Force, Type.Force, Type.Simple],
-    [Type.Simple, Type.Moment, Type.Moment, Type.Simple],
-
-    [Type.Force, Type.Simple, Type.Simple, Type.Force],
-    [Type.Moment, Type.Simple, Type.Simple, Type.Moment],
-    [Type.Point, Type.Simple, Type.Simple, Type.Distload, Type.Point],
-  ]
-
-  const hardPatterns = [
-    [Type.Fixed, Type.Force, Type.Hinge, Type.Force, Type.Fixed],
-    [Type.Fixed, Type.Force, Type.Hinge, Type.Force, Type.Simple],
-    [Type.Fixed, Type.Moment, Type.Hinge, Type.Moment, Type.Fixed],
-    [Type.Fixed, Type.Moment, Type.Hinge, Type.Moment, Type.Simple],
-
-    [Type.Fixed, Type.Hinge, Type.Distload, Type.Fixed],
-    [Type.Fixed, Type.Hinge, Type.Distload, Type.Simple],
-    [Type.Fixed, Type.Hinge, Type.Simple, Type.Distload],
-    [Type.Fixed, Type.Hinge, Type.Simple, Type.Distload],
-  ]
-
-  if (randInt(0, 100) > 15) {
-    return easyPatterns[randInt(0, easyPatterns.length - 1)] // 85%
-  } else {
-    return hardPatterns[randInt(0, hardPatterns.length - 1)] // 15%
-  }
+  return randInt(0, 100) > 15
+    ? EASY_PATTERNS[randInt(0, EASY_PATTERNS.length - 1)] // 85%
+    : HARD_PATTERNS[randInt(0, HARD_PATTERNS.length - 1)] // 15%
 }
 
 export function appendReversal(pattern: Type[]) {

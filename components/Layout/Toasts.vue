@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 const pwa = useVitePwa()
 
-const isInstallNeeded = computed(
-  () => pwa.showInstallPrompt && !pwa.offlineReady && !pwa.needRefresh
-)
+const isInstallNeeded = computed(() => {
+  return pwa.showInstallPrompt && !pwa.offlineReady && !pwa.needRefresh
+})
 </script>

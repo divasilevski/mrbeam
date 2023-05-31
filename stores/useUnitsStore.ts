@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useIDBKeyval } from '@vueuse/integrations/useIDBKeyval'
+
 import { useSolutionStore } from '~/stores/useSolutionStore'
 import generate from '~/utils/fem/generate'
 
@@ -23,12 +24,12 @@ export const useUnitsStore = defineStore('units-store', () => {
     store.resetSolution()
   }
 
-  const generateAsync = () => {
+  const generateUnits = () => {
     const data = generate()
 
     if (data) {
       units.value = data
-      store.calculateAsync()
+      store.calculateSolution()
     }
   }
 
@@ -38,6 +39,6 @@ export const useUnitsStore = defineStore('units-store', () => {
     add,
     clear,
     removeById,
-    generateAsync,
+    generateUnits,
   }
 })

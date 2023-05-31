@@ -1,4 +1,4 @@
-import { elements } from './helpers'
+import { elements } from '../helpers'
 import { fragmentation } from '~/utils/fem/core/fragmentation'
 
 describe('function fragmentation', () => {
