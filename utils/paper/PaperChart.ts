@@ -1,14 +1,17 @@
 import paper from 'paper'
+
+import { PaperCanvas } from './PaperCanvas'
+import { tipGroup } from './symbols'
 import constants from '~/constants'
 
-const { Color, Path, Point, PointText, Project, Group } = paper
+const { Color, Path, Point, PointText, Group } = paper
 
 const CANVAS_HEIGHT = 198
 const PADDING_X = 32
 const PADDING_Y = 48
 const PADDING_BOTTOM = 38
 const PATTERN_SPACE = 10
-const TIP_SIZE = 12
+
 const SLIDER_TOP_IDENT = 24
 
 const COLORS = {
@@ -19,58 +22,29 @@ const COLORS = {
   text: new Color(constants.secondary),
 }
 
-function createArrowTip() {
-  const segments = [
-    [TIP_SIZE, 0],
-    [TIP_SIZE / 2, TIP_SIZE / 3],
-    [0, 0],
-  ]
-
-  const arrowFill = new Path({ segments, fillColor: COLORS.background })
-
-  const arrowStroke = new Path({
-    strokeColor: COLORS.line,
-    strokeWidth: 2,
-    segments,
-  })
-
-  arrowFill.bounds.top = -2
-
-  return new Group([arrowFill, arrowStroke])
-}
-
-function formatValue(value: number) {
-  return formatNumber(parseFloat(value.toFixed(6)))
-}
-
 interface DrawProps {
   points: number[][]
   canvas: HTMLCanvasElement
   hasPattern?: boolean
 }
 
-export class PaperChart {
-  private project: typeof Project.prototype | null = null
+function formatValue(value: number) {
+  return formatNumber(parseFloat(value.toFixed(6)))
+}
+
+export class PaperChart extends PaperCanvas {
   private canvas: HTMLCanvasElement | null = null
   private points: number[][] = []
   private rect = { maxX: 0, minX: 0, maxY: 0, minY: 0 }
   private scale = { x: 1, y: 1 }
 
-  private initProject(canvas: HTMLCanvasElement) {
-    if (!this.project) {
-      this.project = new Project(canvas)
-    }
-    this.project.activate()
-    this.project.clear()
-  }
-
-  private initProperties({ points, canvas }: DrawProps) {
+  private init({ points, canvas }: DrawProps) {
     const pointsX = points.map(([x, _]) => x)
     const pointsY = points.map(([_, y]) => y)
     const [maxX, minX] = [Math.max(...pointsX), Math.min(...pointsX)]
     const [maxY, minY] = [Math.max(...pointsY, 0), Math.min(...pointsY, 0)]
     const differenceX = maxX - minX
-    const differenceY = Math.max(maxY - minY, 0.1) // Can be zero!
+    const differenceY = Math.max(maxY - minY, 0.1) // Can`t be zero!
 
     const scaleX = (canvas.offsetWidth - PADDING_X * 2) / differenceX
     const scaleY = (canvas.offsetHeight - PADDING_Y * 2) / differenceY
@@ -80,6 +54,8 @@ export class PaperChart {
     this.rect = { maxX, minX, maxY, minY }
     this.scale = { x: scaleX, y: scaleY }
   }
+
+  // --- HELPERS ---
 
   private normalizeX(point: number) {
     return (point - this.rect.minX) * this.scale.x + PADDING_X
@@ -109,43 +85,55 @@ export class PaperChart {
     return closestCoord
   }
 
+  // --- DRAW ---
+
+  private drawLine() {
+    new Path({
+      segments: this.points.map(([x, y]) => [
+        this.normalizeX(x),
+        this.normalizeY(y),
+      ]),
+      strokeColor: COLORS.line,
+      strokeWidth: 4,
+    })
+  }
+
   private drawPattern() {
-    const pattern = new Group()
-    let x = this.normalizeX(this.rect.minX)
+    const start = this.normalizeX(this.rect.minX)
+    const end = this.normalizeX(this.rect.maxX)
+    const count = Math.ceil((start + end) / PATTERN_SPACE)
 
-    while (x < this.normalizeX(this.rect.maxX)) {
-      const startPoint = new Point(x, this.normalizeY(this.rect.minY))
-      const endPoint = new Point(x, this.normalizeY(this.rect.maxY))
-      pattern.addChild(new Path.Line(startPoint, endPoint))
+    const children = Array.from({ length: count }, (_, index) => {
+      const x = start + index * PATTERN_SPACE
+      return new Path.Line({
+        from: [x, this.normalizeY(this.rect.minY)],
+        to: [x, this.normalizeY(this.rect.maxY)],
+      })
+    })
 
-      x += PATTERN_SPACE
-    }
+    const path = new Path({
+      segments: [
+        [this.normalizeX(this.rect.minX), this.normalizeY(0)],
+        ...this.points.map(([x, y]) => [
+          this.normalizeX(x),
+          this.normalizeY(y),
+        ]),
+        [this.normalizeX(this.rect.maxX), this.normalizeY(0)],
+      ],
+    })
 
-    pattern.strokeColor = COLORS.pattern
-    pattern.strokeWidth = 1
-
-    // ---
-    const path = new Path()
-
-    path.add(new Point(this.normalizeX(this.rect.minX), this.normalizeY(0)))
-    this.points.forEach(([x, y]) =>
-      path.add(new Point(this.normalizeX(x), this.normalizeY(y)))
-    )
-    path.add(new Point(this.normalizeX(this.rect.maxX), this.normalizeY(0)))
-    // ---
-
+    const pattern = new Group({ children, strokeColor: COLORS.pattern })
     const maskGroup = new Group([path, pattern])
     maskGroup.clipped = true
   }
 
   private drawAxis() {
-    const line = new Path.Line(
-      new Point(this.normalizeX(this.rect.minX), this.normalizeY(0)),
-      new Point(this.normalizeX(this.rect.maxX), this.normalizeY(0))
-    )
-
-    line.strokeColor = COLORS.axis
-    line.strokeWidth = 1
+    new Path.Line({
+      from: [this.normalizeX(this.rect.minX), this.normalizeY(0)],
+      to: [this.normalizeX(this.rect.maxX), this.normalizeY(0)],
+      strokeColor: COLORS.axis,
+      strokeWidth: 1,
+    })
   }
 
   private drawAxisText() {
@@ -219,7 +207,12 @@ export class PaperChart {
       strokeWidth: 2,
       radius: 1,
     })
-    const tip = createArrowTip()
+
+    const tip = tipGroup({
+      fillColor: COLORS.background,
+      strokeColor: COLORS.line,
+      size: 12,
+    })
 
     pointTextValue.insertAbove(rect)
 
@@ -262,24 +255,12 @@ export class PaperChart {
     }
   }
 
-  private drawLine() {
-    const path = new Path()
-    this.points.forEach(([x, y]) => {
-      path.add(new Point(this.normalizeX(x), this.normalizeY(y)))
-    })
-
-    path.strokeColor = COLORS.line
-    path.strokeWidth = 4
-  }
-
   draw({ points, canvas, hasPattern }: DrawProps) {
-    this.initProject(canvas)
+    super.draw({ canvas })
 
-    if (!points.length) {
-      return false
-    }
+    if (!points.length) return false
 
-    this.initProperties({ points, canvas })
+    this.init({ points, canvas })
 
     if (hasPattern) {
       this.drawPattern()
