@@ -29,7 +29,7 @@ export default [
 
   // other
   {
-    name: 'apple-mobile-web-app-status-bar-style',
-    content: 'white-translucent',
+    name: 'apple-mobile-web-app-capable',
+    content: 'yes',
   },
 ]
