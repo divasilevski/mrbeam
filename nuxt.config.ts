@@ -1,6 +1,7 @@
 import svgLoader from 'vite-svg-loader'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 import constants from './constants'
+import meta from './constants/meta'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -46,12 +47,7 @@ export default defineNuxtConfig({
         { rel: 'mask-icon', href: '/mask-icon.svg', color: constants.primary },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
-      meta: [
-        {
-          name: 'apple-mobile-web-app-status-bar-style',
-          content: 'white-translucent',
-        },
-      ],
+      meta,
     },
   },
 
