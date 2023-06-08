@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   ],
   purgecss: {
     enabled: true,
-    safelist: [/simplebar/],
+    safelist: { greedy: [/v-/, /simplebar/] },
   },
   tailwindcss: {
     viewer: false, // doesn't work without ssr
