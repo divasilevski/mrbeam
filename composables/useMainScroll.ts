@@ -9,5 +9,5 @@ export default function () {
     el?.scrollTo(options)
   }
 
-  return { scrollTo }
+  return { scrollTo, getScrollElement }
 }
