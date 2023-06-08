@@ -12,8 +12,8 @@ const props = defineProps({
   },
 })
 
+const route = useRoute()
 const beam = new PaperChart()
-
 const canvasRef = ref<HTMLCanvasElement>()
 
 useResizeObserver(canvasRef, () => {
@@ -35,6 +35,16 @@ watchEffect(() => {
     })
   }
 })
+
+const updateCanvasWidth = () => {
+  const el = document.getElementById('beam')
+
+  if (el?.clientWidth && canvasRef.value) {
+    canvasRef.value.width = el?.clientWidth
+  }
+}
+
+watch(route, updateCanvasWidth, { flush: 'post' })
 </script>
 
 <style lang="postcss" scoped>
