@@ -20,6 +20,9 @@ export default defineNuxtConfig({
     enabled: true,
     safelist: [/simplebar/],
   },
+  tailwindcss: {
+    viewer: false, // doesn't work without ssr
+  },
   vite: {
     plugins: [
       svgLoader({
