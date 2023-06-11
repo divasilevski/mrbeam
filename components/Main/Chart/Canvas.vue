@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvasRef" resize />
+  <AppCanvas @update="onUpdate" />
 </template>
 
 <script lang="ts" setup>
@@ -12,43 +12,13 @@ const props = defineProps({
   },
 })
 
-const route = useRoute()
 const beam = new PaperChart()
-const canvasRef = ref<HTMLCanvasElement>()
 
-useResizeObserver(canvasRef, () => {
-  if (canvasRef.value) {
-    beam.draw({
-      points: props.points,
-      canvas: canvasRef.value,
-      hasPattern: true,
-    })
-  }
-})
-
-watchEffect(() => {
-  if (canvasRef.value) {
-    beam.draw({
-      points: props.points,
-      canvas: canvasRef.value,
-      hasPattern: true,
-    })
-  }
-})
-
-const updateCanvasWidth = () => {
-  const el = document.getElementById('beam')
-
-  if (el?.clientWidth && canvasRef.value) {
-    canvasRef.value.width = el?.clientWidth
-  }
+const onUpdate = (canvasElement: HTMLCanvasElement) => {
+  beam.draw({
+    points: props.points,
+    canvas: canvasElement,
+    hasPattern: true,
+  })
 }
-
-watch(route, updateCanvasWidth, { flush: 'post' })
 </script>
-
-<style lang="postcss" scoped>
-canvas {
-  @apply w-full h-canvas;
-}
-</style>
