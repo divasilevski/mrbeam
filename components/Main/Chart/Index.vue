@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useSolutionStore } from '~/stores/useSolutionStore'
+import { useMainStore } from '~/stores/useMainStore'
 
-const store = useSolutionStore()
+const store = useMainStore()
 
 const shearPoints = computed(() => {
   if (store.solution?.labels) {

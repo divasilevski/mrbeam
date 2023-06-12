@@ -3,10 +3,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useMainStore } from '~/stores/useMainStore'
 import { PaperBeam } from '~/utils/paper/PaperBeam'
 
-const store = useUnitsStore()
+const store = useMainStore()
 const beam = new PaperBeam()
 
 const onUpdate = (canvasElement: HTMLCanvasElement) => {

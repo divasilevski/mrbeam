@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useMainStore } from '~/stores/useMainStore'
 
 const props = defineProps({
   unit: {
@@ -29,7 +29,7 @@ const props = defineProps({
   },
 })
 
-const store = useUnitsStore()
+const store = useMainStore()
 
 const symbol = computed(() => {
   switch (props.unit.type) {
@@ -47,7 +47,7 @@ const symbol = computed(() => {
 })
 
 const onRemove = () => {
-  store.removeById(props.unit.id)
+  store.removeUnit(props.unit.id)
 }
 </script>
 

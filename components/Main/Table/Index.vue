@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useMainStore } from '~/stores/useMainStore'
 
 type NumberUnit = Unit & { x: number }
 
-const store = useUnitsStore()
+const store = useMainStore()
 
 const sorted = computed(() => {
   const byArray = (unit: Unit) => Array.isArray(unit.x)

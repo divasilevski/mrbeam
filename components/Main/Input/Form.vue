@@ -33,9 +33,9 @@
 
 <script lang="ts" setup>
 import { nanoid } from 'nanoid'
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useMainStore } from '~/stores/useMainStore'
 
-const store = useUnitsStore()
+const store = useMainStore()
 
 const props = defineProps({
   tab: {
@@ -57,7 +57,7 @@ const addUnit = () => {
 
   const add = (unit: Unit) => {
     const pointUnit: Unit = { id: unit.id, type: 'point', x: unit.x }
-    store.add(unit.value ? unit : pointUnit)
+    store.addUnit(unit.value ? unit : pointUnit)
   }
 
   switch (props.tab) {
@@ -86,7 +86,7 @@ const addUnit = () => {
       })
       break
     case 'defenition':
-      store.add({
+      store.addUnit({
         id: nanoid(8),
         type: defenition.value,
         x: values.x0,

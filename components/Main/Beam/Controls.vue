@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useUnitsStore } from '~/stores/useUnitsStore'
+import { useMainStore } from '~/stores/useMainStore'
 
-const store = useUnitsStore()
+const store = useMainStore()
 </script>
 
 <style lang="postcss" scoped>
