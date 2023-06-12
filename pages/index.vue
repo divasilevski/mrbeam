@@ -3,7 +3,10 @@
     <MainBeam />
     <MainInput />
     <MainTable />
-    <MainChart />
+
+    <Teleport to="body" :disabled="$route.name !== 'index'">
+      <MainChart />
+    </Teleport>
   </article>
 </template>
 
