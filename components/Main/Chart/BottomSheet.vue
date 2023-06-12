@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import layout from '~/constants/layout'
-import { useSolutionStore } from '~/stores/useSolutionStore'
+import { useMainStore } from '~/stores/useMainStore'
 
 // heights
 const { height } = useWindowSize()
@@ -36,14 +36,14 @@ const maxHeight = computed(() => height.value - topIdent)
 
 // logic
 const bsRef = ref()
-const store = useSolutionStore()
+const store = useMainStore()
 
 const hasIdent = computed(() => store.hasSolution)
 const isDownward = computed(() => bsRef.value?.isChangeToMax)
 
 const floatStyle = computed(() => {
-  const translate = store.isCalculated ? 0 : minHeight + 48 / 2
-  const pointerEvents = store.isCalculated ? 'auto' : 'none'
+  const translate = store.hasHint ? 0 : minHeight + 48 / 2
+  const pointerEvents = store.hasHint ? 'auto' : 'none'
   return `transform: translateY(${translate}px); pointer-events: ${pointerEvents};`
 })
 

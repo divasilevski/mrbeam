@@ -1,36 +1,18 @@
 <template>
-  <canvas id="beam" ref="canvasRef" resize />
+  <AppCanvas id="beam" @update="onUpdate" />
 </template>
 
 <script lang="ts" setup>
+import { useMainStore } from '~/stores/useMainStore'
 import { PaperBeam } from '~/utils/paper/PaperBeam'
-import { useUnitsStore } from '~/stores/useUnitsStore'
 
+const store = useMainStore()
 const beam = new PaperBeam()
-const store = useUnitsStore()
-const canvasRef = ref<HTMLCanvasElement>()
 
-useResizeObserver(canvasRef, () => {
-  if (canvasRef.value) {
-    beam.draw({
-      units: store.units,
-      canvas: canvasRef.value,
-    })
-  }
-})
-
-watchEffect(() => {
-  if (canvasRef.value) {
-    beam.draw({
-      units: store.units,
-      canvas: canvasRef.value,
-    })
-  }
-})
-</script>
-
-<style lang="postcss" scoped>
-canvas {
-  @apply w-full h-canvas;
+const onUpdate = (canvasElement: HTMLCanvasElement) => {
+  beam.draw({
+    units: store.units,
+    canvas: canvasElement,
+  })
 }
-</style>
+</script>

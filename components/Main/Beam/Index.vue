@@ -1,6 +1,8 @@
 <template>
   <section class="box">
-    <MainBeamCanvas />
+    <SharedForceAlive>
+      <MainBeamCanvas />
+    </SharedForceAlive>
     <MainBeamControls />
   </section>
 </template>

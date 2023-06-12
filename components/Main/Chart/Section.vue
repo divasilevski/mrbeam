@@ -2,7 +2,9 @@
   <section class="section">
     <h2 class="title">{{ props.title }}</h2>
     <div class="canvas">
-      <MainChartCanvas :points="props.points" />
+      <SharedForceAlive>
+        <MainChartCanvas :points="props.points" />
+      </SharedForceAlive>
     </div>
   </section>
 </template>

@@ -12,9 +12,17 @@ export default defineNuxtConfig({
     '@nuxtjs/html-validator',
     '@nuxtjs/tailwindcss',
     '@vite-pwa/nuxt',
+    'nuxt-purgecss',
     '@vueuse/nuxt',
     '@pinia/nuxt',
   ],
+  purgecss: {
+    enabled: true,
+    safelist: { greedy: [/v-/, /simplebar/] },
+  },
+  tailwindcss: {
+    viewer: false, // doesn't work without ssr
+  },
   vite: {
     plugins: [
       svgLoader({

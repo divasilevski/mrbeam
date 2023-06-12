@@ -8,6 +8,7 @@
     @update:model-value="onInput"
     @keyup.space="onKeySpace"
     @keypress="onKeypress"
+    @paste="onPaste"
     @focus="onFocus"
     @blur="onBlur"
   />
@@ -50,13 +51,32 @@ const calculate = () => {
   return false
 }
 
+const isValidChar = (char: string) => {
+  return [...DIGITS, ...ALLOWED_SIGNS].includes(char)
+}
+
+const getFiltered = (str: string) => {
+  return str.split('').filter(isValidChar).join('')
+}
+
 const onInput = (value: string) => {
   emit('update:modelValue', value)
 }
 
 const onKeypress = (event: KeyboardEvent) => {
-  if (![...DIGITS, ...ALLOWED_SIGNS].includes(event.key)) {
+  if (!isValidChar(event.key)) {
     event.preventDefault()
+  }
+}
+
+const onPaste = (event: ClipboardEvent) => {
+  event.preventDefault()
+
+  const data = event.clipboardData
+  const value = data?.getData('text')
+
+  if (value) {
+    emit('update:modelValue', getFiltered(value))
   }
 }
 
