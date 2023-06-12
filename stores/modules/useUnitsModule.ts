@@ -25,8 +25,6 @@ export const useUnitsModule = defineStore('units-module', () => {
       units.value = data
       return data
     }
-
-    return null
   }
 
   return {

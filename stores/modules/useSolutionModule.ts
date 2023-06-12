@@ -11,7 +11,7 @@ export const useSolutionModule = defineStore('solution-module', () => {
   const solution = ref<Solution | null>(null)
 
   const setHint = (units: Unit[]) => {
-    hint.value = checkUnits(units || [])
+    hint.value = checkUnits(units)
   }
 
   const resetSolution = () => {
