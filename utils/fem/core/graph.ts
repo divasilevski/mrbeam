@@ -37,7 +37,7 @@ export function createGraph(props: GraphProps): Graph {
     slopeRadians.push(localSolutions[index][1], localSolutions[index][3])
     slopeDegrees.push(
       (localSolutions[index][1] * 180) / Math.PI,
-      (localSolutions[index][3] * 180) / Math.PI
+      (localSolutions[index][3] * 180) / Math.PI,
     )
   }
 

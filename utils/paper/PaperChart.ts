@@ -152,7 +152,7 @@ export class PaperChart extends PaperCanvas {
       content: max,
       point: new Point(
         this.normalizeX(this.rect.minX) - 20,
-        this.normalizeY(this.rect.maxY) - 10
+        this.normalizeY(this.rect.maxY) - 10,
       ),
       ...defaultStyles,
     })
@@ -162,7 +162,7 @@ export class PaperChart extends PaperCanvas {
       visible: max !== min,
       point: new Point(
         this.normalizeX(this.rect.minX) - 20,
-        this.normalizeY(this.rect.minY) + 20
+        this.normalizeY(this.rect.minY) + 20,
       ),
       ...defaultStyles,
     })

@@ -7,7 +7,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && husky install",
-    "lint": "yarn eslint *.{ts,vue}",
+    "lint": "yarn eslint **/*.{ts,vue}",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },

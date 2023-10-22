@@ -74,7 +74,7 @@ describe('skeleton function', () => {
 
   it('should be have right counter', () => {
     expect(someResult.counter).toBe(
-      someResult.indexMatrix[someResult.indexMatrix.length - 1][3] + 1
+      someResult.indexMatrix[someResult.indexMatrix.length - 1][3] + 1,
     )
     expect(skeleton.counter).toBe(9)
   })
