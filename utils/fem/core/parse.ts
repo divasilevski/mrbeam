@@ -15,7 +15,7 @@ export function decryption(unit: Unit, elem: Element) {
     case 'distload':
       elem.addDistload(
         unit.x as [number, number],
-        unit.value as number | [number, number]
+        unit.value as number | [number, number],
       )
       break
     case 'material':
@@ -31,7 +31,7 @@ export function decryption(unit: Unit, elem: Element) {
 export function parse(units: Array<Unit>): Array<Element> {
   const setOfCoords: Set<number> = new Set(units.map((unit) => unit.x).flat(2))
   const sortedCoords: Array<number> = Array.from(setOfCoords).sort(
-    (a, b) => a - b
+    (a, b) => a - b,
   )
 
   const nodes: Array<Node> = sortedCoords.map((coord) => ({
@@ -40,7 +40,7 @@ export function parse(units: Array<Unit>): Array<Element> {
     moment: 0,
   }))
   const elems: Array<Element> = nodes.map(
-    (node, i) => new Elem([node, nodes[i + 1]])
+    (node, i) => new Elem([node, nodes[i + 1]]),
   )
 
   for (const unit of units) {

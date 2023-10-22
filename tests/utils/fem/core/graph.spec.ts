@@ -4,7 +4,7 @@ import { createGraph } from '~/utils/fem/core/graph'
 
 function generateMatrix(length: number) {
   return Array.from(new Array(length)).map(() =>
-    Array.from(new Array(length).fill(1))
+    Array.from(new Array(length).fill(1)),
   )
 }
 

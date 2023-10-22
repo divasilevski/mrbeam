@@ -17,10 +17,10 @@ export function buildSkeleton(elems: Element[]): Skeleton {
     for (let j = 0; j < 4; j++) {
       // definition vector building
       const isIncludesNodeOne = ['fixed', 'simple'].includes(
-        elems[i].nodes[0].support || ''
+        elems[i].nodes[0].support || '',
       )
       const isIncludesNodeTwo = ['fixed', 'simple'].includes(
-        elems[i].nodes[1].support || ''
+        elems[i].nodes[1].support || '',
       )
 
       if (j === 0 && isIncludesNodeOne) sups.add(counter)
@@ -47,7 +47,7 @@ export function buildGlobalM(elems: Element[], skeleton: Skeleton) {
   const { indexMatrix, sups, counter } = skeleton
 
   const matrix = Array.from(Array(counter), () =>
-    Array.from(Array(counter), () => 0)
+    Array.from(Array(counter), () => 0),
   )
 
   for (let i = 0; i < elems.length; i++) {
@@ -103,7 +103,7 @@ export function buildGlobalV(elems: Element[], skeleton: Skeleton) {
 
 export default function calculate(
   units: Unit[],
-  options: CalculateOptions = { count: 100 }
+  options: CalculateOptions = { count: 100 },
 ) {
   const elements = fragmentation(parse(units), options)
 
@@ -121,8 +121,8 @@ export default function calculate(
 
     localReactions.push(
       multiply(elements[i].localMatrix, localSolution).map(
-        (element, index) => element - elements[i].distVector[index]
-      )
+        (element, index) => element - elements[i].distVector[index],
+      ),
     )
   }
 

@@ -62,7 +62,7 @@ export function momentSymbol(height: number, color: paper.Color) {
 
   const translatePoint = new Point(
     center.x + radius * Math.sin((120 / 180) * Math.PI),
-    center.y + radius * Math.cos((120 / 180) * Math.PI) + 5
+    center.y + radius * Math.cos((120 / 180) * Math.PI) + 5,
   )
 
   tip.rotate(-45)

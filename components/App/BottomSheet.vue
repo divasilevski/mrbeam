@@ -154,7 +154,9 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
   }
 
   .content:not(.dragging) {
-    transition: height 0.5s, transform 0.5s;
+    transition:
+      height 0.5s,
+      transform 0.5s;
   }
 }
 
