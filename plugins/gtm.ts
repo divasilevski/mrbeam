@@ -6,6 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     createGtm({
       id: 'GTM-KV6RHZS',
       vueRouter: useRouter() as VueGtmUseOptions['vueRouter'],
+      enabled: process.env.NODE_ENV === 'production',
     }),
   )
 })
