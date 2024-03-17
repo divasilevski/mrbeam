@@ -8,7 +8,7 @@
 const emit = defineEmits(['image'])
 
 const { open, reset, onChange } = useFileDialog({
-  accept: '.jpeg,.png',
+  accept: '.jpeg,.png,.jpg',
 })
 
 onChange((files) => {

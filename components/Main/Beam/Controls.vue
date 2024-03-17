@@ -1,7 +1,7 @@
 <template>
   <div v-if="store.units.length" class="controls right">
     <AppUploadImage @image="predictByImage">
-      <AppIconButton name="image"> IMAGE&nbsp;AI </AppIconButton>
+      <AppIconButton name="image"> SCAN&nbsp;IMAGE </AppIconButton>
     </AppUploadImage>
 
     <AppIconButton name="dice" @click="store.generateUnits">
@@ -11,7 +11,7 @@
 
   <div v-else class="controls center">
     <AppUploadImage @image="predictByImage">
-      <AppButton> IMAGE&nbsp;AI <AppIcon name="image" /></AppButton>
+      <AppButton> SCAN&nbsp;IMAGE <AppIcon name="image" /></AppButton>
     </AppUploadImage>
 
     <AppButton @click="store.generateUnits">

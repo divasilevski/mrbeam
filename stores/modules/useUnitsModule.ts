@@ -10,6 +10,10 @@ export const useUnitsModule = defineStore('units-module', () => {
     units.value = [...units.value, unit]
   }
 
+  const set = (newUnits: Unit[]) => {
+    units.value = newUnits
+  }
+
   const clear = () => {
     units.value = []
   }
@@ -31,6 +35,7 @@ export const useUnitsModule = defineStore('units-module', () => {
     units,
 
     add,
+    set,
     clear,
     removeById,
     generateUnits,

@@ -12,6 +12,17 @@ export const useMainStore = defineStore('main-store', () => {
     solutionModule.resetSolution()
   }
 
+  const setUnits = (units: Unit[]) => {
+    unitsModule.set(units)
+    solutionModule.resetSolution()
+
+    nextTick(() => {
+      if (!solutionModule.hint) {
+        solutionModule.calculateSolution(units)
+      }
+    })
+  }
+
   const clearUnits = () => {
     unitsModule.clear()
     solutionModule.resetSolution()
@@ -46,6 +57,7 @@ export const useMainStore = defineStore('main-store', () => {
     hasHint: computed(() => !solutionModule.hint),
 
     addUnit,
+    setUnits,
     clearUnits,
     removeUnit,
     generateUnits,
