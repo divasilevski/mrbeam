@@ -13,10 +13,10 @@
 onMounted(() => {
   // Fake events
   setTimeout(() => {
-    window.GTMDataLayer = window.GTMDataLayer || []
-    window.GTMDataLayer.push({
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
       event: 'fake_app_event',
-      source: 'GTMDataLayer',
+      source: 'dataLayer',
     })
 
     window.gtag?.('event', 'fake_app_event', { source: 'gtag' })
