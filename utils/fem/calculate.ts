@@ -1,6 +1,6 @@
-import { CalculateOptions, Skeleton } from './types/calculate'
-import { Element } from './types/element'
-import { Unit } from './types/unit'
+import type { CalculateOptions, Skeleton } from './types/calculate'
+import type { Element } from './types/element'
+import type { Unit } from './types/unit'
 
 import { fragmentation } from './core/fragmentation'
 import { multiply, solve } from './core/algebra'

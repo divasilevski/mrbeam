@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 
-import { Unit } from './types/unit'
+import type { Unit } from './types/unit'
 import { randInt } from './core/algebra'
 
 export enum Type {

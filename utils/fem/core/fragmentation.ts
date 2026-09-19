@@ -1,5 +1,5 @@
-import { Node, Element } from '../types/element'
-import { CalculateOptions } from '../types/calculate'
+import type { Node, Element } from '../types/element'
+import type { CalculateOptions } from '../types/calculate'
 
 import { Elem } from './Elem'
 

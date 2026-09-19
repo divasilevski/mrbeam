@@ -1,4 +1,4 @@
-import { Graph, GraphProps } from '../types/graph'
+import type { Graph, GraphProps } from '../types/graph'
 
 function calculateDeviation(array: number[]) {
   const n = array.length

@@ -1,4 +1,4 @@
-import { Node, Dist, Element, ElementLength } from '../types/element'
+import type { Node, Dist, Element, ElementLength } from '../types/element'
 
 export function getDistInCoord(dist: Dist, x: number): number {
   const [x1, x2] = dist.x

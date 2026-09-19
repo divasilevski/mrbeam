@@ -7,6 +7,7 @@ import meta from './constants/meta'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2026-09-19',
   ssr: false,
   devServer: {
     port: 2023,
