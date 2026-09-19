@@ -7,13 +7,13 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && husky install",
-    "lint": "yarn eslint **/*.{ts,vue}",
+    "lint": "eslint \"**/*.{ts,vue}\"",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "lint-staged": {
     "*.{ts,vue}": [
-      "yarn eslint"
+      "bun eslint"
     ]
   },
   "resolutions": {
