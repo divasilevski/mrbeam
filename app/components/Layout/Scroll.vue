@@ -1,6 +1,6 @@
 <template>
   <Simplebar id="main-scroll" style="height: 100vh">
-    <slot></slot>
+    <slot />
   </Simplebar>
 </template>
 

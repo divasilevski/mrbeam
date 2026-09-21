@@ -15,7 +15,6 @@ export class Elem implements Element {
   public distload: Array<Dist> = []
   public material: [number, number, number] = [1, 1, 1]
 
-  // eslint-disable-next-line no-useless-constructor
   constructor(public nodes: [Node, Node]) {}
 
   // SETTERS

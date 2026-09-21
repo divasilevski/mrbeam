@@ -42,10 +42,9 @@ const calculate = () => {
       .replace(/\^/g, '**')
       .replace(/,/g, '.')
 
-    // eslint-disable-next-line no-eval
     emit('update:modelValue', eval(value))
     return true
-  } catch (error) {
+  } catch {
     setError()
   }
   return false

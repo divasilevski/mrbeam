@@ -28,7 +28,7 @@ export const useSolutionModule = defineStore('solution-module', () => {
           scrollTo({ top: 0, behavior: 'smooth' })
           solution.value = data
         }
-      } catch (error) {
+      } catch {
         hint.value = 'Woops!'
       }
     }

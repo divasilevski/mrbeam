@@ -19,7 +19,7 @@
 
       <div class="body">
         <Simplebar style="height: 100%" :class="{ collapsed: isCollapsed }">
-          <slot></slot>
+          <slot />
         </Simplebar>
       </div>
     </div>

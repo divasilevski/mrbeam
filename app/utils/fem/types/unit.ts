@@ -1,4 +1,4 @@
-import { unitsTypes } from '../config/units'
+import type { unitsTypes } from '../config/units'
 
 export type UnitType = (typeof unitsTypes)[number]
 

@@ -1,4 +1,4 @@
-import { Element } from './element'
+import type { Element } from './element'
 
 export interface GraphProps {
   elements: Element[]

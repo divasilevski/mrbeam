@@ -1,6 +1,6 @@
 <template>
   <div class="toast" role="alert">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

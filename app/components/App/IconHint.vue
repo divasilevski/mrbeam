@@ -7,7 +7,7 @@
     />
 
     <div class="content" :class="{ opened: isOpened }">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>
