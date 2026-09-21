@@ -5,5 +5,5 @@
 </template>
 
 <script lang="ts" setup>
-import { VueComponent } from '~/content/docs.md'
+import { VueComponent } from '~~/content/docs.md'
 </script>
