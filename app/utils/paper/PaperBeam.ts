@@ -3,7 +3,7 @@ import paper from 'paper/dist/paper-core'
 import { PaperCanvas } from './PaperCanvas'
 import { forceSymbol, momentSymbol, simpleSymbol, fixedSymbol } from './symbols'
 
-import colors from '~/constants/palette'
+import colors from '~~/constants/palette'
 
 const { Path, Color, Point, PointText } = paper
 

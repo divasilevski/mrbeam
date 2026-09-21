@@ -1,4 +1,4 @@
-interface Solution {
+export interface Solution {
   labels: number[]
   shear: number[]
   moment: number[]

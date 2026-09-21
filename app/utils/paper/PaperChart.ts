@@ -3,7 +3,7 @@ import paper from 'paper/dist/paper-core'
 import { PaperCanvas } from './PaperCanvas'
 import { tipGroup } from './symbols'
 
-import colors from '~/constants/palette'
+import colors from '~~/constants/palette'
 
 const { Color, Path, Point, PointText, Group } = paper
 

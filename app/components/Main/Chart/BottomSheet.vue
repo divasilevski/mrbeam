@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import layout from '~/constants/layout'
+import layout from '~~/constants/layout'
 import { useMainStore } from '~/stores/useMainStore'
 
 // heights

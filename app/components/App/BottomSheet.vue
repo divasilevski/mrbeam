@@ -18,7 +18,7 @@
       </header>
 
       <div class="body">
-        <Simplebar style="height: 100%" :class="{ сollapsed: isСollapsed }">
+        <Simplebar style="height: 100%" :class="{ collapsed: isCollapsed }">
           <slot></slot>
         </Simplebar>
       </div>
@@ -71,7 +71,7 @@ const { y, isDragging } = useDraggable(draggableRef, {
 })
 
 // to template
-const isСollapsed = computed(() => {
+const isCollapsed = computed(() => {
   return status.value === Status.MinHeight
 })
 
@@ -161,15 +161,15 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
 }
 
 /* Fix simplebar */
-[data-simplebar].сollapsed {
+[data-simplebar].collapsed {
   overflow: hidden;
 }
 
-[data-simplebar]:not(.сollapsed) :deep(.simplebar-track) {
+[data-simplebar]:not(.collapsed) :deep(.simplebar-track) {
   @apply opacity-30 transition-opacity delay-500;
 }
 
-[data-simplebar].сollapsed :deep(.simplebar-track) {
+[data-simplebar].collapsed :deep(.simplebar-track) {
   @apply opacity-0;
 }
 

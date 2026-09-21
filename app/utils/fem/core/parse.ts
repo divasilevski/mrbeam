@@ -1,5 +1,5 @@
-import type { Node, Element } from './../types/element'
-import type { Unit } from './../types/unit'
+import type { Node, Element } from '../types/element'
+import type { Unit } from '../types/unit'
 import { Elem } from './Elem'
 
 export function decryption(unit: Unit, elem: Element) {
