@@ -63,6 +63,13 @@ export default defineNuxtConfig({
       meta,
     },
   },
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        noUncheckedIndexedAccess: false,
+      },
+    },
+  },
 
   // pwa settings
   experimental: {

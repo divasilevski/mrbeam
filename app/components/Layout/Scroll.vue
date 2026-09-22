@@ -20,6 +20,7 @@ onMounted(() => {
   scrollElement.value = useMainScroll().getScrollElement()
 })
 
+// Save scroll positions
 watch(routeName, (to, from) => {
   if (from in pageScroll) {
     pageScroll[from] = y.value

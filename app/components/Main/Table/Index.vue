@@ -6,8 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from '~/stores/useMainStore'
-
 type NumberUnit = Unit & { x: number }
 
 const store = useMainStore()

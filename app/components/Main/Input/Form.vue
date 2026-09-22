@@ -33,7 +33,8 @@
 
 <script lang="ts" setup>
 import { nanoid } from 'nanoid'
-import { useMainStore } from '~/stores/useMainStore'
+
+type ModelsKeys = keyof typeof models
 
 const store = useMainStore()
 
@@ -48,12 +49,11 @@ const models = reactive({ x0: '0', x1: '0', p: '0', q: '0', m: '0' })
 const defenition = ref<'simple' | 'hinge' | 'fixed'>('simple')
 
 const addUnit = () => {
-  const values: Record<string, number> = {}
+  const values = {} as Record<ModelsKeys, number>
 
-  Object.keys(models).forEach((key) => {
-    const modelsKey = key as keyof typeof models
-    values[key] = Number.parseFloat(models[modelsKey])
-  })
+  for (const key of Object.keys(models) as ModelsKeys[]) {
+    values[key] = Number.parseFloat(models[key])
+  }
 
   const add = (unit: Unit) => {
     const pointUnit: Unit = { id: unit.id, type: 'point', x: unit.x }

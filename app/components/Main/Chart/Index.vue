@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from '~/stores/useMainStore'
-
 const store = useMainStore()
 
 const shearPoints = computed(() => {

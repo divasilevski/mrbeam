@@ -7,7 +7,7 @@ export const useUnitsModule = defineStore('units-module', () => {
   const { data: units } = useIDBKeyval<Unit[]>('units-store', [])
 
   const add = (unit: Unit) => {
-    units.value = [...units.value, unit]
+    units.value = [...toRaw(units.value), unit]
   }
 
   const clear = () => {
@@ -15,7 +15,7 @@ export const useUnitsModule = defineStore('units-module', () => {
   }
 
   const removeById = (id: string) => {
-    units.value = units.value.filter((unit: Unit) => unit.id !== id)
+    units.value = toRaw(units.value).filter((unit: Unit) => unit.id !== id)
   }
 
   const generateUnits = () => {

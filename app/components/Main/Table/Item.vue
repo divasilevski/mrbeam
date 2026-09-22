@@ -20,8 +20,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from '~/stores/useMainStore'
-
 const props = defineProps({
   unit: {
     type: Object as () => Unit,

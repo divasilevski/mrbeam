@@ -1,6 +1,8 @@
 <template>
   <AppInput
-    v-bind="$attrs.data"
+    v-bind="$attrs"
+    :id="props.id"
+    :label="props.label"
     :model-value="props.modelValue"
     :error="error"
     autocomplete="off"
@@ -24,6 +26,18 @@ const props = defineProps({
   modelValue: {
     type: [String, Number],
     default: '',
+  },
+  id: {
+    type: String,
+    required: true,
+  },
+  label: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    default: 'text',
   },
 })
 
@@ -58,6 +72,7 @@ const getFiltered = (str: string) => {
   return str.split('').filter(isValidChar).join('')
 }
 
+// Handlers
 const onInput = (value: string) => {
   emit('update:modelValue', value)
 }

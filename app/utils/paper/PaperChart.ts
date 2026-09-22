@@ -256,7 +256,7 @@ export class PaperChart extends PaperCanvas {
     }
   }
 
-  draw({ points, canvas, hasPattern }: DrawProps) {
+  override draw({ points, canvas, hasPattern }: DrawProps) {
     super.draw({ canvas })
 
     if (!points.length) return false

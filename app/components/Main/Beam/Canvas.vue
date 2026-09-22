@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from '~/stores/useMainStore'
 import { PaperBeam } from '~/utils/paper/PaperBeam'
 
 const store = useMainStore()

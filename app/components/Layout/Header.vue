@@ -21,10 +21,7 @@
 
 <script lang="ts" setup>
 const route = useRoute()
-
-const isIndexPage = computed(() => {
-  return route.name === 'index'
-})
+const isIndexPage = computed(() => route.name === 'index')
 </script>
 
 <style lang="postcss" scoped>

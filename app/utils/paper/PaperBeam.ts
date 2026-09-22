@@ -229,7 +229,7 @@ export class PaperBeam extends PaperCanvas {
     })
   }
 
-  draw({ units, canvas }: DrawProps) {
+  override draw({ units, canvas }: DrawProps) {
     super.draw({ canvas })
 
     if (!units.length) return false
