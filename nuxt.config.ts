@@ -7,24 +7,41 @@ import meta from './constants/meta'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2026-09-19',
-  future: {
-    compatibilityVersion: 4,
-  },
   ssr: false,
-  devServer: {
-    port: 2023,
+  compatibilityDate: '2026-09-19',
+  devServer: { port: 2023 },
+  app: {
+    keepalive: true,
+    head: {
+      title: 'MrBeam',
+      htmlAttrs: { lang: 'en' },
+      link: [
+        { rel: 'icon', href: '/favicon.svg', sizes: 'any' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'mask-icon', href: '/mask-icon.svg', color: colors.primary },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+      meta,
+    },
   },
   modules: [
-    '@nuxtjs/html-validator',
     '@nuxtjs/tailwindcss',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@pinia/nuxt',
-    '@nuxt/eslint',
   ],
-  tailwindcss: {
-    viewer: false, // doesn't work without ssr
+  $production: {
+    devtools: { enabled: false },
+  },
+  $development: {
+    modules: ['@nuxtjs/html-validator', '@nuxt/eslint'],
+    htmlValidator: {
+      options: {
+        rules: {
+          'prefer-native-element': 'off', // Conflict with Simplebar
+        },
+      },
+    },
   },
   vite: {
     plugins: [
@@ -42,26 +59,8 @@ export default defineNuxtConfig({
       mdPlugin({ mode: [Mode.VUE] }),
     ],
   },
-  htmlValidator: {
-    options: {
-      rules: {
-        'prefer-native-element': 'off', // Conflict with Simplebar
-      },
-    },
-  },
-  app: {
-    keepalive: true,
-    head: {
-      title: 'MrBeam',
-      htmlAttrs: { lang: 'en' },
-      link: [
-        { rel: 'icon', href: '/favicon.svg', sizes: 'any' },
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'mask-icon', href: '/mask-icon.svg', color: colors.primary },
-        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
-      ],
-      meta,
-    },
+  tailwindcss: {
+    viewer: false, // doesn't work without ssr
   },
   typescript: {
     tsConfig: {
