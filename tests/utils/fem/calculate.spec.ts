@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 
-import { Unit } from '~/utils/fem/types/unit'
+import type { Unit } from '~/utils/fem/types/unit'
 
 import { parse } from '~/utils/fem/core/parse'
 import generate from '~/utils/fem/generate'

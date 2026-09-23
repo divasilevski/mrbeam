@@ -3,8 +3,8 @@ import { nanoid } from 'nanoid'
 import { Elem } from '~/utils/fem/core/Elem'
 import { decryption, parse } from '~/utils/fem/core/parse'
 
-import { Node } from '~/utils/fem/types/element'
-import { Unit } from '~/utils/fem/types/unit'
+import type { Node } from '~/utils/fem/types/element'
+import type { Unit } from '~/utils/fem/types/unit'
 
 describe('decription function and Elem class setters', () => {
   const node1: Node = { x: 0, force: 0, moment: 0 }
@@ -56,6 +56,7 @@ describe('parse function create elems from units', () => {
 
   const units2: Unit[] = [
     { id: nanoid(), type: 'material', x: [0, 11], value: [33, 33, 33] },
+
     { id: nanoid(), type: 'simple', x: 0 },
     { id: nanoid(), type: 'moment', x: 8, value: 80 },
     { id: nanoid(), type: 'hinge', x: 6 },

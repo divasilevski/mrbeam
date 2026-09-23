@@ -3,21 +3,21 @@ import { setActivePinia, createPinia } from 'pinia'
 import { useUnitsModule } from '~/stores/modules/useUnitsModule'
 import { useSolutionModule } from '~/stores/modules/useSolutionModule'
 
+vi.mock('@vueuse/integrations/useIDBKeyval', () => {
+  const useIDBKeyval = () => {
+    return { data: ref([]) }
+  }
+  return { useIDBKeyval }
+})
+
+vi.mock('~/composables/useMainScroll', () => {
+  const useMainScroll = () => ({ scrollTo: () => ({}) })
+  return { default: useMainScroll }
+})
+
 describe('useSolutionModule', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-
-    vi.mock('@vueuse/integrations/useIDBKeyval', () => {
-      const useIDBKeyval = () => {
-        return { data: ref([]) }
-      }
-      return { useIDBKeyval }
-    })
-
-    vi.mock('~/composables/useMainScroll', () => {
-      const useMainScroll = () => ({ scrollTo: () => ({}) })
-      return { default: useMainScroll }
-    })
   })
 
   it('should set hint', () => {

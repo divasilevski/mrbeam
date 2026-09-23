@@ -1,4 +1,4 @@
-import { ModuleOptions } from '@vite-pwa/nuxt'
+import type { ModuleOptions } from '@vite-pwa/nuxt'
 import colors from './palette'
 
 export default <ModuleOptions['manifest']>{

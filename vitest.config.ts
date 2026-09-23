@@ -13,15 +13,23 @@ export default defineConfig({
   ],
   test: {
     threads: false,
-    environmentMatchGlobs: [['./tests/**', 'jsdom']],
     coverage: {
       reportsDirectory: './tests/coverage',
     },
+    projects: [
+      {
+        test: {
+          name: 'tests',
+          environment: 'jsdom',
+          include: ['./tests/**/*.spec.ts'],
+        },
+      },
+    ],
   },
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, './'),
-      '@': path.resolve(__dirname, './'),
+      '~': path.resolve(import.meta.dirname, './app/'),
+      '@': path.resolve(import.meta.dirname, './app/'),
     },
   },
 })

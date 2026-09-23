@@ -2,8 +2,11 @@ import type { Config } from 'tailwindcss'
 import colors from './constants/palette'
 import layout from './constants/layout'
 
+import forms from '@tailwindcss/forms'
+import typography from '@tailwindcss/typography'
+
 export default <Partial<Config>>{
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [forms, typography],
 
   theme: {
     extend: {

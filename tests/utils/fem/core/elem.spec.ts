@@ -2,7 +2,7 @@ import { elements } from '../helpers'
 import { shuffleArray } from '~/utils/fem/core/algebra'
 import { Elem, getDistInCoord } from '~/utils/fem/core/Elem'
 
-import { Element } from '~/utils/fem/types/element'
+import type { Element } from '~/utils/fem/types/element'
 
 describe('class Elem: getDistInCoord', () => {
   it('should be return 1 if value 0, 2 or 1 on 0, 2', () => {

@@ -28,7 +28,7 @@ Please keep in mind that our calculator has a limitation in terms of its solutio
 
 ## Under the hood
 
-To calculate beams, we use the [finite element method](https://en.wikipedia.org/wiki/Finite_element_method). Here is a brief algorithm for solving this problem:
+To calculate beams, we use the <a href="https://en.wikipedia.org/wiki/Finite_element_method" target="_blank">finite element method</a>. Here is a brief algorithm for solving this problem:
 
 1. Acceptance of the finite element method computational model
 2. Formation of stiffness matrix and load vector of elements in a local coordinate system
