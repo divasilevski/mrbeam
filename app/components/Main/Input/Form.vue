@@ -12,10 +12,10 @@
 
     <div v-show="props.tab === 'distload'" class="inputs">
       <div class="row">
-        <AppNumberInput id="dist:x" v-model="models.x0" label="X<sub>0</sub>" />
+        <AppNumberInput id="dist:x" v-model="models.x1" label="X<sub>0</sub>" />
         <AppNumberInput
           id="dist:x1"
-          v-model="models.x1"
+          v-model="models.x0"
           label="X<sub>1</sub>"
         />
       </div>
