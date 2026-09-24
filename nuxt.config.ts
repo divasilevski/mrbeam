@@ -29,12 +29,13 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@pinia/nuxt',
+    '@nuxt/eslint',
   ],
   $production: {
     devtools: { enabled: false },
   },
   $development: {
-    modules: ['@nuxtjs/html-validator', '@nuxt/eslint'],
+    modules: ['@nuxtjs/html-validator'],
     htmlValidator: {
       options: {
         rules: {
