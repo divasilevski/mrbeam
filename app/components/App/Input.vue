@@ -1,11 +1,17 @@
 <template>
   <div class="input-container">
-    <label :for="`id:${props.id}`" v-html="props.label" />
+    <AppHint v-if="hint">
+      <label :for="`id:${id}`" v-html="label" />
+      <template #hint>{{ hint }}</template>
+    </AppHint>
+
+    <label v-else :for="`id:${id}`" v-html="label" />
+
     <input
       v-bind="$attrs"
-      :id="`id:${props.id}`"
-      :type="props.type"
-      :value="props.modelValue"
+      :id="`id:${id}`"
+      :type="type"
+      :value="modelValue"
       @input="onInput"
     />
     <div v-if="error" class="error">{{ error }}</div>
@@ -15,7 +21,7 @@
 <script lang="ts" setup>
 defineOptions({ inheritAttrs: false })
 
-const props = defineProps({
+defineProps({
   id: {
     type: String,
     required: true,
@@ -31,6 +37,10 @@ const props = defineProps({
   type: {
     type: String,
     default: 'text',
+  },
+  hint: {
+    type: String,
+    default: undefined,
   },
   error: {
     type: String,
@@ -51,7 +61,7 @@ const onInput = (event: Event) => {
   @apply relative flex items-baseline gap-2 w-full;
 
   label {
-    @apply font-medium text-secondary w-5;
+    @apply text-secondary text-[18px];
   }
 
   input {

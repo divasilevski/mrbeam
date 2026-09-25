@@ -1,30 +1,61 @@
 <template>
   <form @submit.prevent>
     <div v-show="props.tab === 'force'" class="inputs">
-      <AppNumberInput id="force:x" v-model="models.x0" label="X" />
-      <AppNumberInput id="force:p" v-model="models.p" label="P" />
+      <AppNumberInput
+        id="force:x"
+        v-model="models.X0"
+        :label="toMathSymbol('x')"
+      />
+      <AppNumberInput
+        id="force:p"
+        v-model="models.F"
+        :label="toMathSymbol('F')"
+        hint="Concentrated force"
+      />
     </div>
 
     <div v-show="props.tab === 'moment'" class="inputs">
-      <AppNumberInput id="moment:x" v-model="models.x0" label="X" />
-      <AppNumberInput id="moment:m" v-model="models.m" label="M" />
+      <AppNumberInput
+        id="moment:x"
+        v-model="models.X0"
+        :label="toMathSymbol('x')"
+      />
+      <AppNumberInput
+        id="moment:m"
+        v-model="models.M"
+        :label="toMathSymbol('M')"
+        hint="Bending moment"
+      />
     </div>
 
     <div v-show="props.tab === 'distload'" class="inputs">
       <div class="row">
-        <AppNumberInput id="dist:x" v-model="models.x1" label="X<sub>0</sub>" />
+        <AppNumberInput
+          id="dist:x"
+          v-model="models.X1"
+          :label="toMathSymbol('x') + '&#x2080;'"
+        />
         <AppNumberInput
           id="dist:x1"
-          v-model="models.x0"
-          label="X<sub>1</sub>"
+          v-model="models.X0"
+          :label="toMathSymbol('x') + '&#x2081;'"
         />
       </div>
-      <AppNumberInput id="dist:q0" v-model="models.q" label="Q" />
+      <AppNumberInput
+        id="dist:q0"
+        v-model="models.Q"
+        :label="toMathSymbol('q')"
+        hint="Distributed load"
+      />
     </div>
 
     <div v-show="props.tab == 'defenition'" class="inputs">
       <MainInputDefenitions v-model="defenition" />
-      <AppNumberInput id="def:x" v-model="models.x0" label="X" />
+      <AppNumberInput
+        id="def:x"
+        v-model="models.X0"
+        :label="toMathSymbol('x')"
+      />
     </div>
 
     <AppButton type="submit" @click="addUnit">ADD ELEMENT</AppButton>
@@ -45,7 +76,7 @@ const props = defineProps({
   },
 })
 
-const models = reactive({ x0: '0', x1: '0', p: '0', q: '0', m: '0' })
+const models = reactive({ X0: '0', X1: '0', F: '0', Q: '0', M: '0' })
 const defenition = ref<'simple' | 'hinge' | 'fixed'>('simple')
 
 const addUnit = () => {
@@ -65,31 +96,31 @@ const addUnit = () => {
       add({
         id: nanoid(8),
         type: 'force',
-        x: values.x0,
-        value: values.p,
+        x: values.X0,
+        value: values.F,
       })
       break
     case 'moment':
       add({
         id: nanoid(8),
         type: 'moment',
-        x: values.x0,
-        value: values.m,
+        x: values.X0,
+        value: values.M,
       })
       break
     case 'distload':
       add({
         id: nanoid(8),
         type: 'distload',
-        x: [values.x0, values.x1].sort((a, b) => a - b),
-        value: values.q,
+        x: [values.X0, values.X1].sort((a, b) => a - b),
+        value: values.Q,
       })
       break
     case 'defenition':
       store.addUnit({
         id: nanoid(8),
         type: defenition.value,
-        x: values.x0,
+        x: values.X0,
       })
       break
     default:
