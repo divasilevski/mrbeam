@@ -1,8 +1,12 @@
 <template>
-  <div ref="hintRef" class="hint" @touchstart="onTouchstart">
-    <div @mouseenter="onMouseenter" @mouseleave="onMouseleave">
-      <slot />
-    </div>
+  <div
+    ref="hintRef"
+    class="hint"
+    @touchstart="onTouchstart"
+    @mouseenter="onMouseenter"
+    @mouseleave="onMouseleave"
+  >
+    <slot />
 
     <div class="content" :class="{ opened: isOpened }">
       <slot name="hint" />

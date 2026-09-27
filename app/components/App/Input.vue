@@ -61,7 +61,7 @@ const onInput = (event: Event) => {
   @apply relative flex items-baseline gap-2 w-full;
 
   label {
-    @apply text-secondary text-[18px];
+    @apply text-secondary text-[18px] min-w-4 text-right;
   }
 
   input {
