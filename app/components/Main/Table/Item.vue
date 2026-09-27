@@ -9,7 +9,7 @@
 
       <div>
         <template v-if="props.unit.value && symbol">
-          <span class="symbol">{{ symbol + '&nbsp;&nbsp;' }}</span>
+          <span class="symbol" v-html="symbol + '&nbsp;&nbsp;'" />
           <AppNumber :value="props.unit.value" />
         </template>
       </div>
@@ -32,13 +32,13 @@ const store = useMainStore()
 const symbol = computed(() => {
   switch (props.unit.type) {
     case 'force':
-      return 'P'
+      return toMathSymbol('F')
     case 'moment':
-      return 'M'
+      return toMathSymbol('M')
     case 'distload':
-      return 'Q'
+      return toMathSymbol('q')
     case 'material':
-      return 'EJ'
+      return toMathSymbol('EI')
     default:
       return ''
   }
@@ -57,16 +57,16 @@ const onRemove = () => {
     @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto]
       gap-4 items-center w-full;
 
+    .symbol {
+      @apply text-[18px];
+    }
+
     .icon {
       @apply flex items-center w-12;
 
       svg {
         @apply h-6 w-8;
       }
-    }
-
-    .symbol {
-      @apply font-semibold;
     }
   }
 }
