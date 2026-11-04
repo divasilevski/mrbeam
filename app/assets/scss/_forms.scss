@@ -1,0 +1,13 @@
+input:where([type='text']) {
+  --form-focus: #2563eb;
+
+  appearance: none;
+  border-width: 1px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+
+  &:focus {
+    outline: 1px solid var(--form-focus);
+  }
+}
