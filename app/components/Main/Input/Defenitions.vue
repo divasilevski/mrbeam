@@ -9,7 +9,7 @@
         @keypress.enter="emit('update:modelValue', defenition)"
         @click="emit('update:modelValue', defenition)"
       >
-        <AppIcon :name="defenition" />
+        <AppIcon :class="`icon-${defenition}`" :name="defenition" size="30" />
       </span>
     </nav>
   </div>
@@ -36,17 +36,23 @@ const emit = defineEmits(['update:modelValue'])
     @apply flex gap-2 px-2 border-complementary border rounded-full shadow-sm;
 
     span {
-      @apply flex items-center justify-center p-2 cursor-pointer rounded-full;
+      @apply flex items-center justify-center p-2 cursor-pointer;
 
-      svg {
+      .icon {
         @apply text-primaryLight;
       }
-      svg:hover {
+
+      .icon-simple {
+        --icon-width: 35px;
+        --icon-height: 35px;
+      }
+
+      .icon:hover {
         @apply text-primary;
       }
     }
 
-    .active svg {
+    .active .icon {
       @apply text-primary;
     }
   }

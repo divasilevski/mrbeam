@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.units.length" class="controls right">
-    <AppIconButton name="dice" @click="store.generateUnits">
+    <AppIconButton name="dice" size="20" @click="store.generateUnits">
       RANDOMIZE
     </AppIconButton>
   </div>
@@ -8,7 +8,7 @@
   <div v-else class="controls center">
     <AppButton @click="store.generateUnits">
       RANDOMIZE
-      <AppIcon name="dice" />
+      <AppIcon class="dice-icon" name="dice" size="20" />
     </AppButton>
   </div>
 </template>

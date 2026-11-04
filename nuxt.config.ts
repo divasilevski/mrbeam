@@ -1,4 +1,3 @@
-import svgLoader from 'vite-svg-loader'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 import manifest from './constants/manifest'
@@ -45,20 +44,7 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    plugins: [
-      svgLoader({
-        defaultImport: 'component',
-        svgoConfig: {
-          plugins: [
-            {
-              name: 'preset-default',
-              params: { overrides: { removeViewBox: false } },
-            },
-          ],
-        },
-      }),
-      mdPlugin({ mode: [Mode.VUE] }),
-    ],
+    plugins: [mdPlugin({ mode: [Mode.VUE] })],
   },
   tailwindcss: {
     viewer: false, // doesn't work without ssr

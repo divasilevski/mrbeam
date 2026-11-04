@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <div class="values">
-      <div class="icon">
+      <div class="unit-icon">
         <AppIcon :name="props.unit.type" />
       </div>
 
@@ -61,10 +61,10 @@ const onRemove = () => {
       @apply text-[18px];
     }
 
-    .icon {
+    .unit-icon {
       @apply flex items-center w-12;
 
-      svg {
+      .icon {
         @apply h-6 w-8;
       }
     }

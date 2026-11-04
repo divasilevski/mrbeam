@@ -16,8 +16,13 @@
       >
         <span class="sr-only">Calculate</span>
 
-        <AppIcon v-if="!hasIdent" name="equals" />
-        <AppIcon v-else name="arrow" :class="{ downward: isDownward }" />
+        <AppIcon v-if="!hasIdent" class="equals-icon" name="equals" />
+        <AppIcon
+          v-else
+          :class="{ downward: isDownward }"
+          name="arrow"
+          size="40"
+        />
       </button>
     </template>
   </AppBottomSheet>

@@ -10,7 +10,7 @@
         @keypress.enter="emit('update:modelValue', tab)"
         @click="emit('update:modelValue', tab)"
       >
-        <AppIcon :name="tab" />
+        <AppIcon :class="`icon-${tab}`" :name="tab" size="30" />
       </span>
     </div>
   </div>
@@ -37,17 +37,27 @@ const emit = defineEmits(['update:modelValue'])
     @apply flex gap-2 px-2 border-complementary border rounded-full shadow-sm;
 
     span {
-      @apply flex items-center justify-center p-2 cursor-pointer rounded-full;
+      @apply flex items-center justify-center p-2 cursor-pointer;
 
-      svg {
+      .icon {
         @apply text-primaryLight;
       }
-      svg:hover {
+
+      .icon-defenition {
+        --icon-width: 35px;
+        --icon-height: 35px;
+      }
+
+      .icon-distload {
+        --icon-width: 40px;
+      }
+
+      .icon:hover {
         @apply text-primary;
       }
     }
 
-    .active svg {
+    .active .icon {
       @apply text-primary;
     }
   }

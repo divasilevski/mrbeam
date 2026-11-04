@@ -4,8 +4,13 @@
       <NuxtLink class="logo" to="/">
         MrBeam
         <Transition mode="out-in">
-          <AppIcon v-if="!isIndexPage" name="arrow" class="arrow-icon" />
-          <AppIcon v-else name="logo" class="logo-icon" />
+          <AppIcon
+            v-if="!isIndexPage"
+            class="arrow-icon"
+            name="arrow"
+            size="40"
+          />
+          <AppIcon v-else class="logo-icon" name="logo" size="33" />
         </Transition>
       </NuxtLink>
 

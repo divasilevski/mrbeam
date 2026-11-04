@@ -1,15 +1,19 @@
 <template>
   <button type="button">
-    <AppIcon :name="props.name" />
+    <AppIcon :name="name" :size="size" />
     <span class="sr-only"><slot /></span>
   </button>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   name: {
     type: String,
     required: true,
+  },
+  size: {
+    type: [String, Number],
+    default: 24,
   },
 })
 </script>

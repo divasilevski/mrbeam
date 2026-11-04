@@ -1,16 +1,39 @@
 <template>
-  <component :is="icon" class="icon" />
+  <span
+    class="icon"
+    :style="{
+      '--icon-url': `url(/icons/${name}.svg)`,
+      '--icon-size': `${size}px`,
+    }"
+    aria-hidden="true"
+  />
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   name: {
     type: String,
     required: true,
   },
+  size: {
+    type: [Number, String],
+    default: 24,
+  },
 })
-
-const icon = defineAsyncComponent(
-  () => import(`../../assets/svg/${props.name}.svg`),
-)
 </script>
+
+<style lang="postcss" scoped>
+.icon {
+  --icon-width: var(--icon-size);
+  --icon-height: var(--icon-size);
+
+  display: inline-block;
+  width: var(--icon-width);
+  height: var(--icon-height);
+  mask-image: var(--icon-url);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  background: currentColor;
+}
+</style>

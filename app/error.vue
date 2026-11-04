@@ -1,7 +1,7 @@
 <template>
   <NuxtLink to="/" class="error">
     MrBeam
-    <AppIcon name="logo" class="logo-icon" />
+    <AppIcon class="logo-icon" name="logo" size="33" />
     <div class="message">Error {{ statusCode }}</div>
     <div class="description">
       <div v-if="statusCode === 404">Page not found or no longer exist</div>
@@ -29,7 +29,7 @@ const statusCode = computed(() => {
     text-secondary font-sans font-bold text-3xl;
 
   .logo-icon {
-    @apply text-primary my-4;
+    @apply text-primary my-2;
   }
 
   .message {
