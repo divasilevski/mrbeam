@@ -8,14 +8,14 @@
 <script lang="ts" setup>
 type NumberUnit = Unit & { x: number }
 
-const store = useMainStore()
+const { units } = useBeam()
 
 const sorted = computed(() => {
   const byArray = (unit: Unit) => Array.isArray(unit.x)
   const byNumber = (unit: Unit) => !Array.isArray(unit.x)
 
-  const arrayUnits = store.units.filter(byArray)
-  const numberUnits = store.units.filter(byNumber) as NumberUnit[]
+  const arrayUnits = units.value.filter(byArray)
+  const numberUnits = units.value.filter(byNumber) as NumberUnit[]
   const sortedUnits = numberUnits.sort((a, b) => a.x - b.x)
 
   return [...sortedUnits, ...arrayUnits]

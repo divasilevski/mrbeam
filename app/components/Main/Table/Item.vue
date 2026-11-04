@@ -27,7 +27,7 @@ const props = defineProps({
   },
 })
 
-const store = useMainStore()
+const { removeUnit } = useBeam()
 
 const symbol = computed(() => {
   switch (props.unit.type) {
@@ -45,7 +45,7 @@ const symbol = computed(() => {
 })
 
 const onRemove = () => {
-  store.removeUnit(props.unit.id)
+  removeUnit(props.unit.id)
 }
 </script>
 

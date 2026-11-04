@@ -67,7 +67,7 @@ import { nanoid } from 'nanoid'
 
 type ModelsKeys = keyof typeof models
 
-const store = useMainStore()
+const { addUnit: addToBeam } = useBeam()
 
 const props = defineProps({
   tab: {
@@ -88,7 +88,7 @@ const addUnit = () => {
 
   const add = (unit: Unit) => {
     const pointUnit: Unit = { id: unit.id, type: 'point', x: unit.x }
-    store.addUnit(unit.value ? unit : pointUnit)
+    addToBeam(unit.value ? unit : pointUnit)
   }
 
   switch (props.tab) {
@@ -117,7 +117,7 @@ const addUnit = () => {
       })
       break
     case 'defenition':
-      store.addUnit({
+      addToBeam({
         id: nanoid(8),
         type: defenition.value,
         x: values.X0,

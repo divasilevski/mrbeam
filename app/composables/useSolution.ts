@@ -1,15 +1,15 @@
-import { defineStore } from 'pinia'
 import useMainScroll from '~/composables/useMainScroll'
 
 import calculate from '~/utils/fem/calculate'
 import checkUnits from '~/utils/fem/checkUnits'
 
-export const useSolutionModule = defineStore('solution-module', () => {
-  const { scrollTo } = useMainScroll()
+const { scrollTo } = useMainScroll()
 
-  const hint = ref<string | null>(null)
-  const solution = ref<Solution | null>(null)
+// Singleton pattern for a client
+const hint = ref<string | null>(null)
+const solution = ref<Solution | null>(null)
 
+export const useSolution = () => {
   const setHint = (units: Unit[]) => {
     hint.value = checkUnits(units)
   }
@@ -42,4 +42,4 @@ export const useSolutionModule = defineStore('solution-module', () => {
     resetSolution,
     calculateSolution,
   }
-})
+}

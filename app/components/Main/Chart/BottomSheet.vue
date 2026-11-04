@@ -1,7 +1,7 @@
 <template>
   <AppBottomSheet
     ref="bsRef"
-    :has-ident="hasIdent"
+    :has-ident="hasSolution"
     :min-height="minHeight"
     :max-height="maxHeight"
   >
@@ -16,7 +16,7 @@
       >
         <span class="sr-only">Calculate</span>
 
-        <AppIcon v-if="!hasIdent" class="equals-icon" name="equals" />
+        <AppIcon v-if="!hasSolution" class="equals-icon" name="equals" />
         <AppIcon
           v-else
           :class="{ downward: isDownward }"
@@ -40,29 +40,28 @@ const maxHeight = computed(() => height.value - topIdent)
 
 // logic
 const bsRef = ref()
-const store = useMainStore()
+const { solution, hasSolution, isUnitsValid, calculateSolution } = useBeam()
 
-const hasIdent = computed(() => store.hasSolution)
 const isDownward = computed(() => bsRef.value?.isChangeToMax)
 
 const floatStyle = computed(() => {
-  const translate = store.hasHint ? 0 : minHeight + 48 / 2
-  const pointerEvents = store.hasHint ? 'auto' : 'none'
+  const translate = isUnitsValid.value ? 0 : minHeight + 48 / 2
+  const pointerEvents = isUnitsValid.value ? 'auto' : 'none'
   return `transform: translateY(${translate}px); pointer-events: ${pointerEvents};`
 })
 
 const onClick = () => {
-  if (store.hasSolution) {
+  if (hasSolution.value) {
     bsRef.value?.toggleStatus()
   } else {
-    store.calculateSolution()
+    calculateSolution()
   }
 }
 
-watch(toRef(store, 'solution'), () => {
+watch(solution, () => {
   const { Status, status, toggleStatus } = bsRef.value
 
-  if (status === Status.MinHeight && store.hasSolution) {
+  if (status === Status.MinHeight && hasSolution.value) {
     toggleStatus()
   }
 })

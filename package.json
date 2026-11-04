@@ -45,11 +45,9 @@
     "vitest": "^5.0.1"
   },
   "dependencies": {
-    "@pinia/nuxt": "^1.0.2",
     "idb-keyval": "^6.3.0",
     "nanoid": "^6.0.1",
     "paper": "^0.12.18",
-    "pinia": "^4.0.3",
     "simplebar-vue": "^2.4.2"
   }
 }

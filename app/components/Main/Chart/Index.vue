@@ -18,12 +18,14 @@
 </template>
 
 <script lang="ts" setup>
-const store = useMainStore()
+const { solution } = useBeam()
 
 const shearPoints = computed(() => {
-  if (store.solution?.labels) {
-    return store.solution.labels.map((x, index) => {
-      const y = store.solution?.shear[index]
+  const data = solution.value
+
+  if (data) {
+    return data.labels.map((x, index) => {
+      const y = data.shear[index]
       return [Number(x), Number(y)]
     })
   }
@@ -31,9 +33,11 @@ const shearPoints = computed(() => {
 })
 
 const momentPoints = computed(() => {
-  if (store.solution?.labels) {
-    return store.solution.labels.map((x, index) => {
-      const y = store.solution?.moment[index]
+  const data = solution.value
+
+  if (data) {
+    return data.labels.map((x, index) => {
+      const y = data.moment[index]
       return [Number(x), Number(y)]
     })
   }

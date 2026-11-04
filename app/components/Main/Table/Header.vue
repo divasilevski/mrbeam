@@ -12,12 +12,10 @@
 </template>
 
 <script lang="ts" setup>
-const store = useMainStore()
-
-const hint = computed(() => store.solutionHint)
+const { hint, clearUnits } = useBeam()
 
 const onRemove = () => {
-  store.clearUnits()
+  clearUnits()
 }
 </script>
 

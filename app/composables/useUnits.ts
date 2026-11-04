@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia'
 import { useIDBKeyval } from '@vueuse/integrations/useIDBKeyval'
 
 import generate from '~/utils/fem/generate'
 
-export const useUnitsModule = defineStore('units-module', () => {
-  const { data: units } = useIDBKeyval<Unit[]>('units-store', [])
+// Singleton pattern for a client
+const { data: units } = useIDBKeyval<Unit[]>('units-store', [])
 
+export const useUnits = () => {
   const add = (unit: Unit) => {
     units.value = [...toRaw(units.value), unit]
   }
@@ -35,4 +35,4 @@ export const useUnitsModule = defineStore('units-module', () => {
     removeById,
     generateUnits,
   }
-})
+}

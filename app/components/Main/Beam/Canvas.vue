@@ -5,12 +5,12 @@
 <script lang="ts" setup>
 import { PaperBeam } from '~/utils/paper/PaperBeam'
 
-const store = useMainStore()
+const { units } = useBeam()
 const beam = new PaperBeam()
 
 const onUpdate = (canvasElement: HTMLCanvasElement) => {
   beam.draw({
-    units: store.units,
+    units: units.value,
     canvas: canvasElement,
   })
 }

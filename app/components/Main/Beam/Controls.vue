@@ -1,12 +1,12 @@
 <template>
-  <div v-if="store.units.length" class="controls right">
-    <AppIconButton name="dice" size="20" @click="store.generateUnits">
+  <div v-if="units.length" class="controls right">
+    <AppIconButton name="dice" size="20" @click="generateUnits">
       RANDOMIZE
     </AppIconButton>
   </div>
 
   <div v-else class="controls center">
-    <AppButton @click="store.generateUnits">
+    <AppButton @click="generateUnits">
       RANDOMIZE
       <AppIcon class="dice-icon" name="dice" size="20" />
     </AppButton>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-const store = useMainStore()
+const { units, generateUnits } = useBeam()
 </script>
 
 <style lang="postcss" scoped>

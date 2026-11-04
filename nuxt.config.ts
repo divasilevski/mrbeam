@@ -27,7 +27,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    '@pinia/nuxt',
     '@nuxt/eslint',
   ],
   $production: {
