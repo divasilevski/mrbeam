@@ -23,21 +23,36 @@ const statusCode = computed(() => {
 })
 </script>
 
-<style lang="postcss">
+<style lang="scss">
 .error {
-  @apply flex items-center justify-center flex-col gap-2 h-screen 
-    text-secondary font-sans font-bold text-3xl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100vh;
+  color: var(--color-secondary);
+  font-family: var(--font-sans);
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 2.25rem;
 
   .logo-icon {
-    @apply text-primary my-2;
+    margin: 0.5rem 0;
+    color: var(--color-primary);
   }
 
   .message {
-    @apply text-2xl;
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .description {
-    @apply text-base px-4 text-center max-w-sm;
+    padding: 0 1rem;
+    max-width: 24rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: center;
   }
 }
 </style>

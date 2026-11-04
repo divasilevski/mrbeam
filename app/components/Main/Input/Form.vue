@@ -129,17 +129,22 @@ const addUnit = () => {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 form,
 .inputs {
-  @apply flex flex-col items-center justify-center gap-4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .row {
-  @apply flex gap-4;
+  display: flex;
+  gap: 1rem;
 }
 
 button {
-  @apply mt-2;
+  margin-top: 0.5rem;
 }
 </style>

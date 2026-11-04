@@ -19,13 +19,21 @@ const onRemove = () => {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .header {
-  @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto]
-    gap-4 w-full px-3;
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr auto;
+  gap: 1rem;
+  width: 100%;
+  padding: 0 0.75rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 100px 1fr 1fr auto;
+  }
 
   div {
-    @apply flex items-center;
+    display: flex;
+    align-items: center;
   }
 }
 </style>

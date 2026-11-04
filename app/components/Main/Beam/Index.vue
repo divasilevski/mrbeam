@@ -7,8 +7,10 @@
   </section>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .box {
-  @apply relative border border-dashed;
+  position: relative;
+  border-width: 1px;
+  border-style: dashed;
 }
 </style>

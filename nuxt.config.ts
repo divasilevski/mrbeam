@@ -24,12 +24,7 @@ export default defineNuxtConfig({
       meta,
     },
   },
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@vite-pwa/nuxt',
-    '@vueuse/nuxt',
-    '@nuxt/eslint',
-  ],
+  modules: ['@vite-pwa/nuxt', '@vueuse/nuxt', '@nuxt/eslint'],
   $production: {
     devtools: { enabled: false },
   },
@@ -45,9 +40,6 @@ export default defineNuxtConfig({
   },
   vite: {
     plugins: [mdPlugin({ mode: [Mode.VUE] })],
-  },
-  tailwindcss: {
-    viewer: false, // doesn't work without ssr
   },
   typescript: {
     tsConfig: {

@@ -18,9 +18,20 @@ defineProps({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 button {
-  @apply flex items-center justify-center w-8 h-8 rounded-full
-    text-tertiary transition-colors hover:text-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  color: var(--color-tertiary);
+  transition: color var(--duration-fast) var(--ease-standard);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 </style>

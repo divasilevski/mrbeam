@@ -17,16 +17,22 @@
 const { units, generateUnits } = useBeam()
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .controls {
-  @apply absolute inset-0;
+  position: absolute;
+  inset: 0;
 }
 
 .center {
-  @apply flex items-center justify-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .right {
-  @apply flex items-start justify-end p-2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0.5rem;
 }
 </style>

@@ -45,8 +45,11 @@ const momentPoints = computed(() => {
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .charts {
-  @apply flex flex-col gap-4 pb-4;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 1rem;
 }
 </style>

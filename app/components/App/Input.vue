@@ -56,20 +56,42 @@ const onInput = (event: Event) => {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .input-container {
-  @apply relative flex items-baseline gap-2 w-full;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  width: 100%;
 
   label {
-    @apply text-secondary text-[18px] min-w-4 text-right;
+    min-width: 1rem;
+    font-size: 18px;
+    text-align: right;
+    color: var(--color-secondary);
   }
 
   input {
-    @apply mt-1 w-full rounded-full border-primaryLight bg-background shadow-sm sm:text-sm;
+    margin-top: 0.25rem;
+    width: 100%;
+    border-color: var(--color-primary-light);
+    border-radius: 9999px;
+    background: var(--color-background);
+    box-shadow: var(--shadow-sm);
+
+    @media (min-width: 640px) {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
   }
 
   .error {
-    @apply absolute -bottom-4 right-4 text-xs text-error;
+    position: absolute;
+    right: 1rem;
+    bottom: -1rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--color-error);
   }
 }
 </style>

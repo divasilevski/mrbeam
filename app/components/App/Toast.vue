@@ -4,14 +4,36 @@
   </div>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .toast {
-  @apply fixed bottom-4 right-4 p-4 flex flex-col gap-2 border rounded-lg
-    border-complementary text-secondary bg-background shadow-md z-50;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-width: 1px;
+  border-color: var(--color-complementary);
+  border-radius: 0.5rem;
+  background: var(--color-background);
+  color: var(--color-secondary);
+  box-shadow: var(--shadow-md);
 
   :deep(button) {
-    @apply border rounded-md border-complementary outline-none px-2 py-[0.25rem]
-      mr-2 shadow-sm hover:bg-complementary;
+    margin-right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-width: 1px;
+    border-color: var(--color-complementary);
+    border-radius: 0.375rem;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: var(--shadow-sm);
+
+    &:hover {
+      background: var(--color-complementary);
+    }
   }
 }
 </style>

@@ -29,42 +29,73 @@ const route = useRoute()
 const isIndexPage = computed(() => route.name === 'index')
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .header {
-  @apply bg-background border-b border-dashed border-complementary text-secondary z-10;
+  z-index: 10;
+  border-bottom: 1px dashed var(--color-complementary);
+  background: var(--color-background);
+  color: var(--color-secondary);
 
   .navigation {
-    @apply flex items-center justify-between h-header m-auto max-w-4xl px-4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--height-header);
+    margin: auto;
+    padding: 0 1rem;
+    max-width: 56rem;
   }
 
   .logo {
-    @apply relative font-bold text-lg py-1 pl-8;
+    position: relative;
+    padding: 0.25rem 0 0.25rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.75rem;
 
     .arrow-icon {
-      @apply absolute -left-1 -bottom-[2px] -rotate-90 text-primary;
+      position: absolute;
+      left: -0.25rem;
+      bottom: -2px;
+      color: var(--color-primary);
+      transform: rotate(-90deg);
     }
 
     .logo-icon {
-      @apply absolute left-0 bottom-[11px] h-3 text-primary;
+      position: absolute;
+      left: 0;
+      bottom: 11px;
+      height: 0.75rem;
+      color: var(--color-primary);
     }
   }
 
   .header-right {
-    @apply flex items-center gap-4;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
     a {
-      @apply px-3 py-1 rounded-md font-medium text-secondary
-        hover:bg-complementary hover:text-primaryDark;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      color: var(--color-secondary);
+
+      &:hover {
+        background: var(--color-complementary);
+        color: var(--color-primary-dark);
+      }
     }
 
     .router-link-active {
-      @apply bg-complementary;
+      background: var(--color-complementary);
     }
   }
 }
 
 .floating {
-  @apply sticky top-0;
+  position: sticky;
+  top: 0;
 }
 
 .v-enter-active,

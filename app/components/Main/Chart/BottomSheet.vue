@@ -67,18 +67,30 @@ watch(solution, () => {
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .float-button {
-  @apply flex items-center justify-center h-12 w-12 rounded-full
-    text-background bg-primary shadow-md cursor-pointer hover:bg-primaryDark
-    transition-all duration-500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: var(--color-background);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transition: all 500ms var(--ease-standard);
+
+  &:hover {
+    background: var(--color-primary-dark);
+  }
 
   .icon {
-    @apply transition-transform duration-500;
+    transition: transform 500ms var(--ease-standard);
   }
 
   .downward {
-    @apply -rotate-180;
+    transform: rotate(180deg);
   }
 }
 </style>

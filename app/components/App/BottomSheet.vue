@@ -121,35 +121,62 @@ watch(height, () => {
 defineExpose({ Status, status, toggleStatus, isChangeToMax })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .sheet {
-  @apply fixed bottom-0 left-0 right-0 m-auto max-w-4xl select-none touch-none z-20;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  margin: auto;
+  max-width: 56rem;
+  user-select: none;
+  touch-action: none;
 
   .float-button {
-    @apply absolute right-10 -translate-y-[50%] z-10;
+    position: absolute;
+    right: 2.5rem;
+    z-index: 10;
+    transform: translateY(-50%);
   }
 
   .content {
-    @apply flex flex-col rounded-t-2xl bg-background shadow-bottomSheet;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem 1rem 0 0;
+    background: var(--color-background);
+    box-shadow: var(--shadow-bottom-sheet);
 
     .controls {
-      @apply flex;
+      display: flex;
 
       .draggable-area {
-        @apply m-auto py-3 px-4 cursor-grab;
+        margin: auto;
+        padding: 0.75rem 1rem;
+        cursor: grab;
       }
 
       .draggable-thumb {
-        @apply w-12 h-1 bg-tertiaryLight rounded-sm;
+        width: 3rem;
+        height: 0.25rem;
+        border-radius: 0.125rem;
+        background: var(--color-tertiary-light);
       }
 
       .close-sheet {
-        @apply border-none p-3;
+        padding: 0.75rem;
+        border-style: none;
       }
     }
 
     .body {
-      @apply flex flex-col flex-grow gap-4 h-full px-4 pt-4 overflow-y-auto;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 1rem;
+      height: 100%;
+      padding: 1rem 1rem 0;
+      overflow-y: auto;
     }
   }
 
@@ -166,14 +193,16 @@ defineExpose({ Status, status, toggleStatus, isChangeToMax })
 }
 
 [data-simplebar]:not(.collapsed) :deep(.simplebar-track) {
-  @apply opacity-30 transition-opacity delay-500;
+  opacity: 0.3;
+  transition: opacity var(--duration-fast) var(--ease-standard) 500ms;
 }
 
 [data-simplebar].collapsed :deep(.simplebar-track) {
-  @apply opacity-0;
+  opacity: 0;
 }
 
 [data-simplebar]:deep(.simplebar-track) {
-  @apply w-[9px] z-10;
+  z-index: 10;
+  width: 9px;
 }
 </style>

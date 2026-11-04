@@ -16,12 +16,20 @@ const props = defineProps({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .hint {
-  @apply w-8 h-8 rounded-full;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
 
   .icon {
-    @apply transition-colors text-primaryLight cursor-pointer hover:text-primary;
+    cursor: pointer;
+    color: var(--color-primary-light);
+    transition: color var(--duration-fast) var(--ease-standard);
+
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 }
 </style>

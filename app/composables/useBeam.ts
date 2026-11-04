@@ -39,9 +39,10 @@ export const useBeam = () => {
   }
 
   return {
-    units: unitsModule.units,
-    solution: solutionModule.solution,
-    hint: solutionModule.hint,
+    // readonly
+    units: computed(() => unitsModule.units.value),
+    solution: computed(() => solutionModule.solution.value),
+    hint: computed(() => solutionModule.hint.value),
     hasSolution,
     isUnitsValid,
 

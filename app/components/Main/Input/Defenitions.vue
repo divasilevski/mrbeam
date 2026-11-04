@@ -6,7 +6,7 @@
         :key="defenition"
         :class="{ active: defenition === props.modelValue }"
         tabindex="0"
-        @keypress.enter="emit('update:modelValue', defenition)"
+        @keydown.enter="emit('update:modelValue', defenition)"
         @click="emit('update:modelValue', defenition)"
       >
         <AppIcon :class="`icon-${defenition}`" :name="defenition" size="30" />
@@ -28,18 +28,35 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 </script>
 
-<style lang="postcss">
+<style lang="scss">
 .defenitions {
-  @apply flex items-center justify-center h-[46px] md:h-[42px];
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+
+  @media (min-width: 768px) {
+    height: 42px;
+  }
 
   nav {
-    @apply flex gap-2 px-2 border-complementary border rounded-full shadow-sm;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+    border-width: 1px;
+    border-color: var(--color-complementary);
+    border-radius: 9999px;
+    box-shadow: var(--shadow-sm);
 
     span {
-      @apply flex items-center justify-center p-2 cursor-pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      cursor: pointer;
 
       .icon {
-        @apply text-primaryLight;
+        color: var(--color-primary-light);
       }
 
       .icon-simple {
@@ -48,12 +65,12 @@ const emit = defineEmits(['update:modelValue'])
       }
 
       .icon:hover {
-        @apply text-primary;
+        color: var(--color-primary);
       }
     }
 
     .active .icon {
-      @apply text-primary;
+      color: var(--color-primary);
     }
   }
 }

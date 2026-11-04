@@ -49,23 +49,39 @@ const onRemove = () => {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .item {
-  @apply flex items-center py-1 px-3 rounded-full border border-dashed border-complementary;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: var(--color-complementary);
+  border-radius: 9999px;
 
   .values {
-    @apply grid grid-cols-[50px,1fr,1fr,auto] sm:grid-cols-[100px,1fr,1fr,auto]
-      gap-4 items-center w-full;
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+
+    @media (min-width: 640px) {
+      grid-template-columns: 100px 1fr 1fr auto;
+    }
 
     .symbol {
-      @apply text-[18px];
+      font-size: 18px;
     }
 
     .unit-icon {
-      @apply flex items-center w-12;
+      display: flex;
+      align-items: center;
+      width: 3rem;
 
       .icon {
-        @apply h-6 w-8;
+        --icon-width: 2rem;
+        --icon-height: 1.5rem;
       }
     }
   }

@@ -14,8 +14,10 @@
 const { isDeactivated } = useKeepAlive()
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 article {
-  @apply flex flex-col gap-4;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>

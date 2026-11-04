@@ -27,8 +27,9 @@ watchEffect(() => {
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 canvas {
-  @apply w-full h-canvas;
+  width: 100%;
+  height: var(--height-canvas);
 }
 </style>

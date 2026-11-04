@@ -74,16 +74,25 @@ onClickOutside(valueRef, () => {
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .number {
-  @apply relative;
+  position: relative;
 
   .values {
-    @apply relative cursor-pointer;
+    position: relative;
+    cursor: pointer;
   }
 
   .tooltip {
-    @apply absolute top-0 -left-2 -translate-y-full px-2 py-1 text-sm bg-background border;
+    position: absolute;
+    top: 0;
+    left: -0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-width: 1px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background: var(--color-background);
+    transform: translateY(-100%);
   }
 }
 </style>

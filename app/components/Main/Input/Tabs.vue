@@ -7,7 +7,7 @@
         :class="{ active: tab === props.modelValue }"
         role="tab"
         tabindex="0"
-        @keypress.enter="emit('update:modelValue', tab)"
+        @keydown.enter="emit('update:modelValue', tab)"
         @click="emit('update:modelValue', tab)"
       >
         <AppIcon :class="`icon-${tab}`" :name="tab" size="30" />
@@ -29,18 +29,30 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .tabs {
-  @apply flex items-center justify-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .tablist {
-    @apply flex gap-2 px-2 border-complementary border rounded-full shadow-sm;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+    border-width: 1px;
+    border-color: var(--color-complementary);
+    border-radius: 9999px;
+    box-shadow: var(--shadow-sm);
 
     span {
-      @apply flex items-center justify-center p-2 cursor-pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      cursor: pointer;
 
       .icon {
-        @apply text-primaryLight;
+        color: var(--color-primary-light);
       }
 
       .icon-defenition {
@@ -53,12 +65,12 @@ const emit = defineEmits(['update:modelValue'])
       }
 
       .icon:hover {
-        @apply text-primary;
+        color: var(--color-primary);
       }
     }
 
     .active .icon {
-      @apply text-primary;
+      color: var(--color-primary);
     }
   }
 }

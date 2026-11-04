@@ -9,8 +9,11 @@
 const tab = ref('force')
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 section {
-  @apply flex flex-col gap-4 px-4 py-8;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 1rem;
 }
 </style>

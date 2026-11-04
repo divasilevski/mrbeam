@@ -22,7 +22,7 @@ defineProps({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .icon {
   --icon-width: var(--icon-size);
   --icon-height: var(--icon-size);

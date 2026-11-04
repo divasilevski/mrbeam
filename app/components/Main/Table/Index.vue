@@ -22,8 +22,10 @@ const sorted = computed(() => {
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 section {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>

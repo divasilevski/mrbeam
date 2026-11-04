@@ -30,12 +30,13 @@ watch(routeName, (to, from) => {
 })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 [data-simplebar] {
-  @apply bg-background;
+  background: var(--color-background);
 }
 
 [data-simplebar] :deep(.simplebar-track) {
-  @apply opacity-30 w-[9px];
+  opacity: 0.3;
+  width: 9px;
 }
 </style>

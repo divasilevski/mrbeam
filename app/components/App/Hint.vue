@@ -35,16 +35,27 @@ onClickOutside(hintRef, () => {
 })
 </script>
 
-<style lang="postcss">
+<style lang="scss">
 .hint {
-  @apply relative flex items-center justify-center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .content {
-    @apply absolute bottom-full left-0 hidden w-max px-2 py-1 bg-white border shadow-sm;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    display: none;
+    padding: 0.25rem 0.5rem;
+    width: max-content;
+    border-width: 1px;
+    background: var(--color-background);
+    box-shadow: var(--shadow-sm);
   }
 
   .content.opened {
-    @apply block;
+    display: block;
   }
 }
 </style>

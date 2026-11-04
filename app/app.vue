@@ -9,8 +9,12 @@
   </LayoutScroll>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 main {
-  @apply m-auto max-w-4xl px-4 pt-4 pb-16 text-secondary font-sans;
+  margin: auto;
+  padding: 1rem 1rem 4rem;
+  max-width: 56rem;
+  color: var(--color-secondary);
+  font-family: var(--font-sans);
 }
 </style>
