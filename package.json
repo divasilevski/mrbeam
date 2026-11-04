@@ -39,6 +39,7 @@
     "lint-staged": "^17.5.1",
     "nuxt": "4",
     "prettier": "^3.9.8",
+    "sass": "^1.107.1",
     "typescript": "^6.0.3",
     "unplugin-auto-import": "^21.1.0",
     "vite-plugin-markdown": "^2.2.0",

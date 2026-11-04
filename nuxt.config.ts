@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: '2026-09-19',
   devServer: { port: 2023 },
+  css: ['~/assets/scss/main.scss'],
   app: {
     keepalive: true,
     head: {

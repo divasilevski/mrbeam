@@ -3,10 +3,9 @@ import colors from './constants/palette'
 import layout from './constants/layout'
 
 import forms from '@tailwindcss/forms'
-import typography from '@tailwindcss/typography'
 
 export default <Partial<Config>>{
-  plugins: [forms, typography],
+  plugins: [forms],
 
   theme: {
     extend: {
