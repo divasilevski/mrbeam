@@ -9,7 +9,11 @@ export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: '2026-09-19',
   devServer: { port: 2023 },
-  css: ['~/assets/scss/main.scss'],
+  appConfig: {
+    ui: {
+      iconsUrl: '/icons', // Base URL for UI-layer icons (static assets)
+    },
+  },
   app: {
     keepalive: true,
     head: {

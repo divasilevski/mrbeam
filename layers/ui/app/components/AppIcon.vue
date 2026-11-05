@@ -2,7 +2,7 @@
   <span
     class="icon"
     :style="{
-      '--icon-url': `url(/icons/${name}.svg)`,
+      '--icon-url': `url(${iconUrl})`,
       '--icon-size': `${size}px`,
     }"
     aria-hidden="true"
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+const props = defineProps({
   name: {
     type: String,
     required: true,
@@ -19,6 +19,13 @@ defineProps({
     type: [Number, String],
     default: 24,
   },
+})
+
+const appConfig = useAppConfig()
+
+const iconUrl = computed(() => {
+  const base = appConfig.ui.iconsUrl.replace(/\/+$/, '')
+  return `${base}/${props.name}.svg`
 })
 </script>
 

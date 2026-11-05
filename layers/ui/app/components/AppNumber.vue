@@ -17,6 +17,8 @@
 </template>
 
 <script lang="ts" setup>
+import { formatNumber } from '../utils/formatNumber'
+
 type Value = number | number[]
 
 const props = defineProps<{ value: Value }>()
