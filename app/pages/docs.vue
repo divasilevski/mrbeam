@@ -1,5 +1,5 @@
 <template>
-  <article class="prose prose-slate max-w-2xl">
+  <article class="typography">
     <VueComponent />
   </article>
 </template>

@@ -1,4 +1,3 @@
-import svgLoader from 'vite-svg-loader'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 import manifest from './constants/manifest'
@@ -9,7 +8,15 @@ import meta from './constants/meta'
 export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: '2026-09-19',
+  components: {
+    dirs: [{ path: '~/components', pathPrefix: false }],
+  },
   devServer: { port: 2023 },
+  appConfig: {
+    ui: {
+      iconsUrl: '/icons', // Base URL for UI-layer icons (static assets)
+    },
+  },
   app: {
     keepalive: true,
     head: {
@@ -24,13 +31,7 @@ export default defineNuxtConfig({
       meta,
     },
   },
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@vite-pwa/nuxt',
-    '@vueuse/nuxt',
-    '@pinia/nuxt',
-    '@nuxt/eslint',
-  ],
+  modules: ['@vite-pwa/nuxt', '@vueuse/nuxt', '@nuxt/eslint'],
   $production: {
     devtools: { enabled: false },
   },
@@ -45,23 +46,7 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    plugins: [
-      svgLoader({
-        defaultImport: 'component',
-        svgoConfig: {
-          plugins: [
-            {
-              name: 'preset-default',
-              params: { overrides: { removeViewBox: false } },
-            },
-          ],
-        },
-      }),
-      mdPlugin({ mode: [Mode.VUE] }),
-    ],
-  },
-  tailwindcss: {
-    viewer: false, // doesn't work without ssr
+    plugins: [mdPlugin({ mode: [Mode.VUE] })],
   },
   typescript: {
     tsConfig: {

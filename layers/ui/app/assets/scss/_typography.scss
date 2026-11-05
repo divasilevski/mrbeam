@@ -1,0 +1,80 @@
+.typography {
+  --typo-body: #334155;
+  --typo-heading: #0f172a;
+  --typo-counter: #64748b;
+  --typo-bullet: #cbd5e1;
+
+  color: var(--typo-body);
+  max-width: 42rem;
+  line-height: 1.75;
+}
+
+.typography p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.typography a {
+  color: var(--typo-heading);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.typography strong {
+  color: var(--typo-heading);
+  font-weight: 600;
+}
+
+.typography h1 {
+  color: var(--typo-heading);
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 40px;
+  margin-bottom: 32px;
+}
+
+.typography h2 {
+  color: var(--typo-heading);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  margin-top: 48px;
+  margin-bottom: 24px;
+}
+
+.typography h2 + * {
+  margin-top: 0;
+}
+
+.typography ul,
+.typography ol {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-inline-start: 26px;
+}
+
+.typography ul {
+  list-style-type: disc;
+}
+
+.typography ol {
+  list-style-type: decimal;
+}
+
+.typography li {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-inline-start: 6px;
+}
+
+.typography ul > li::marker {
+  color: var(--typo-bullet);
+}
+
+.typography ol > li::marker {
+  color: var(--typo-counter);
+}
+
+.typography > :last-child {
+  margin-bottom: 0;
+}
