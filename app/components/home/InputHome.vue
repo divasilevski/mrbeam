@@ -1,7 +1,7 @@
 <template>
   <section>
-    <MainInputTabs v-model="tab" />
-    <MainInputForm :tab="tab" />
+    <InputTabs v-model="tab" />
+    <InputForm :tab="tab" />
   </section>
 </template>
 

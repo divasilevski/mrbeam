@@ -1,19 +1,19 @@
 <template>
   <article>
-    <MainChartBottomSheet>
+    <ChartBottomSheet>
       <div class="charts">
-        <MainChartSection
+        <ChartSection
           v-if="shearPoints.length > 1"
           :points="shearPoints"
           title="Shear Force Diagram"
         />
-        <MainChartSection
+        <ChartSection
           v-if="momentPoints.length > 1"
           :points="momentPoints"
           title="Bending Moment Diagram"
         />
       </div>
-    </MainChartBottomSheet>
+    </ChartBottomSheet>
   </article>
 </template>
 

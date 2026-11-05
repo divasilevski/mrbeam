@@ -3,7 +3,7 @@
     <h2 class="title">{{ props.title }}</h2>
     <div class="canvas">
       <SharedForceAlive>
-        <MainChartCanvas :points="props.points" />
+        <ChartCanvas :points="props.points" />
       </SharedForceAlive>
     </div>
   </section>

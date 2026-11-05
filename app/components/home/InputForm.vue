@@ -50,7 +50,7 @@
     </div>
 
     <div v-show="props.tab == 'defenition'" class="inputs">
-      <MainInputDefenitions v-model="defenition" />
+      <InputDefenitions v-model="defenition" />
       <AppNumberInput
         id="def:x"
         v-model="models.X0"

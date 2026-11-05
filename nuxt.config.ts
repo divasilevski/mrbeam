@@ -8,6 +8,9 @@ import meta from './constants/meta'
 export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: '2026-09-19',
+  components: {
+    dirs: [{ path: '~/components', pathPrefix: false }],
+  },
   devServer: { port: 2023 },
   appConfig: {
     ui: {

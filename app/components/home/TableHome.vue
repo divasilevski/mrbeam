@@ -1,7 +1,7 @@
 <template>
   <section>
-    <MainTableHeader v-if="sorted.length" />
-    <MainTableItem v-for="unit in sorted" :key="unit.id" :unit="unit" />
+    <TableHeader v-if="sorted.length" />
+    <TableItem v-for="unit in sorted" :key="unit.id" :unit="unit" />
   </section>
 </template>
 

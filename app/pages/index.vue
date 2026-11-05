@@ -1,11 +1,11 @@
 <template>
   <article>
-    <MainBeam />
-    <MainInput />
-    <MainTable />
+    <BeamHome />
+    <InputHome />
+    <TableHome />
 
     <Teleport to="body" :disabled="isDeactivated">
-      <MainChart />
+      <ChartHome />
     </Teleport>
   </article>
 </template>
