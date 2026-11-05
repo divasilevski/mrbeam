@@ -6,7 +6,6 @@ MrBeam Calculator is a free online beam calculator that allows engineers and stu
 
 - Nuxt 4
 - Vite PWA
-- Tailwind
 
 ## Features
 
