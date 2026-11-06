@@ -1,4 +1,4 @@
-import { formatNumber } from '../../layers/ui/app/utils/formatNumber'
+import { formatNumber } from '#layers/ui/app/utils/formatNumber'
 
 describe('formatNumber', () => {
   it('should return a small formatted number when value is less than 0.001', () => {

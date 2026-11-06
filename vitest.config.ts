@@ -8,11 +8,24 @@ export default defineConfig({
     vue(),
     AutoImport({
       dts: './tests/auto-imports.d.ts',
-      imports: ['vitest', 'vue', 'vue-router'],
+      imports: [
+        'vitest',
+        'vue',
+        'vue-router',
+        {
+          // UI components rely on Nuxt auto-imports: list every VueUse
+          // composable they use, otherwise specs fail on an undefined global.
+          '@vueuse/core': [
+            'onClickOutside',
+            'useResizeObserver',
+            'useWindowSize',
+            'useDraggable',
+          ],
+        },
+      ],
     }),
   ],
   test: {
-    threads: false,
     coverage: {
       reportsDirectory: './tests/coverage',
     },
@@ -30,6 +43,8 @@ export default defineConfig({
     alias: {
       '~': path.resolve(import.meta.dirname, './app/'),
       '@': path.resolve(import.meta.dirname, './app/'),
+      // Mirrors the Nuxt layer alias; keep in sync with layers/ui.
+      '#layers/ui': path.resolve(import.meta.dirname, './layers/ui/'),
     },
   },
 })

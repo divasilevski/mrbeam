@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  // Стили подключает сам слой; css-энтри резолвятся как module id,
-  // поэтому используем alias слоя, а не относительный путь.
+  // The layer loads its own styles; css entries resolve as module ids,
+  // so use the layer alias instead of a relative path.
   css: ['#layers/ui/app/assets/scss/main.scss'],
 })

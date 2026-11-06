@@ -1,0 +1,10 @@
+{
+  // Editor-only project: it mirrors Nuxt's paths for specs. It is not a CI
+  // gate, and plain `tsc -p tests` cannot resolve `.vue` imports without Volar.
+  "extends": "../.nuxt/tsconfig.app.json",
+  "include": [
+    "./**/*.ts",
+    "../app/types/**/*.d.ts",
+    "../.nuxt/nuxt.d.ts"
+  ]
+}

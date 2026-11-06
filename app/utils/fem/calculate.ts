@@ -8,9 +8,9 @@ import { createGraph } from './core/graph'
 import { parse } from './core/parse'
 
 export function buildSkeleton(elems: Element[]): Skeleton {
-  let counter = 0 // Общее кол-во элементов в матрице индексов
-  const indexMatrix = [] // Матрица индексов
-  const sups = new Set() // Запоминаем места с заделками
+  let counter = 0 // Total number of elements in the index matrix
+  const indexMatrix = [] // Index matrix
+  const sups = new Set() // Track positions that have supports
 
   const temp = []
   for (let i = 0; i < elems.length; i++) {
