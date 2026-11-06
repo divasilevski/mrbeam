@@ -76,12 +76,12 @@ describe('checkUnits', () => {
 })
 
 describe('getUnitValue', () => {
-  it('should be return positive value', () => {
+  it('should return the unit value', () => {
     const value = getUnitValue({ id: '0', x: 0, type: 'force', value: 10 })
     expect(value).toBe(10)
   })
 
-  it('should be return positive value', () => {
+  it('should return an absolute value', () => {
     const posValue = getUnitValue({ id: '0', x: 0, type: 'force', value: 10 })
     const negValue = getUnitValue({ id: '0', x: 0, type: 'force', value: -10 })
     expect(posValue).toBeGreaterThan(0)
