@@ -1,11 +1,11 @@
 <template>
   <article>
-    <BeamHome />
-    <InputHome />
-    <TableHome />
+    <BeamHome data-testid="beam" />
+    <InputHome data-testid="inputs" />
+    <TableHome data-testid="units" />
 
     <Teleport to="body" :disabled="isDeactivated">
-      <ChartHome />
+      <ChartHome data-testid="charts" />
     </Teleport>
   </article>
 </template>

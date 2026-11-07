@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <div class="item" data-testid="unit-row">
     <div class="values">
       <div class="unit-icon">
         <AppIcon :name="props.unit.type" />

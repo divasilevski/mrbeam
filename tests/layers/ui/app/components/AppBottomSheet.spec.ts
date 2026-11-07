@@ -29,6 +29,7 @@ describe('AppBottomSheet', () => {
 
     expect(content.style.height).toBe(`${MIN_HEIGHT}px`)
     expect(content.style.transform).toBe(`translateY(${MIN_HEIGHT}px)`)
+    expect(content.dataset.status).toBe('min')
   })
 
   it('switches between min and max through the exposed API', async () => {
@@ -44,6 +45,7 @@ describe('AppBottomSheet', () => {
     expect(vm.status).toBe(vm.Status.MaxHeight)
     expect(vm.isChangeToMax).toBe(true)
     expect(content.style.height).toBe(`${MAX_HEIGHT}px`)
+    expect(content.dataset.status).toBe('max')
   })
 
   it('keeps the sheet in place when it is identified', () => {

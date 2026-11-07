@@ -1,5 +1,5 @@
 <template>
-  <article class="typography">
+  <article class="typography" data-testid="docs">
     <VueComponent />
   </article>
 </template>

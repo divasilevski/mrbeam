@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare && husky",
     "lint": "eslint \"**/*.{ts,vue}\"",
     "test": "vitest",
+    "test:e2e": "playwright test",
     "coverage": "vitest run --coverage"
   },
   "lint-staged": {
@@ -20,6 +21,7 @@
     "@nuxt/eslint": "1.17.0",
     "@nuxt/test-utils": "^4.3.2",
     "@nuxtjs/html-validator": "^2.1.0",
+    "@playwright/test": "^1.65.0",
     "@types/node": "^20.19.43",
     "@vite-pwa/nuxt": "^1.1.1",
     "@vitejs/plugin-vue": "^6.0.9",

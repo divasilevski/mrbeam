@@ -12,6 +12,7 @@ bun install
 bun run dev
 bun run lint
 bun run test --run
+bun run test:e2e
 bun run build
 ```
 
@@ -23,7 +24,11 @@ Use Bun only.
 - `layers/ui/` — design system: `App*` components, SCSS variables, shared plugins and utils.
 - `constants/` — layout, PWA manifest, meta, palette; `public/` — static assets; `content/` — docs page source.
 - Imports: `~` and `@` resolve to `app/`, `~~` to the repository root.
-- `tests/` — Vitest specs mirroring `app/` and `layers/` (`tests/app/**`, `tests/layers/**`), typed by `tests/tsconfig.json`.
+- `tests/` — Vitest specs mirroring `app/` and `layers/` (`tests/app/**`, `tests/layers/**`).
+- `e2e/` — Playwright specs for user flows (`e2e/support/` holds shared locators and actions).
+
+Testing split: `tests/` is Vitest (plain units and components, run by `bun run test`), `e2e/` is Playwright (browser
+flows, run by `bun run test:e2e`). A browser spec goes to `e2e/`; `tests/` is not collected by Playwright and vice versa.
 
 ## Skills
 
@@ -41,6 +46,7 @@ source of truth, and its `description` frontmatter defines when it applies.
 - Use `<script lang="ts" setup>` and Composition API only.
 - Use scoped SCSS; take colors and sizes from the CSS variables in the UI layer.
 - Avoid single-word names (`Beam`, `Chart`, `Input`).
+- `data-testid` and `data-status` are a test contract: the `e2e/` and unit specs read them, so change an attribute together with the specs that use it.
 
 ## State and data
 
@@ -57,8 +63,9 @@ source of truth, and its `description` frontmatter defines when it applies.
 Do:
 - Reuse `App*` primitives and UI-layer CSS variables.
 - Test behavior and risky contracts, not every component; a spec must earn its place.
-- Run `bun run lint` and `bun run test --run` before handing off.
+- Run `bun run lint` before handing off; run the suites only when the user asks for a test run.
 
 Don't:
 - Add Tailwind, Pinia, or dependencies without a concrete need.
 - Edit gitignored or generated output (`.nuxt`, `.output`, `node_modules`, coverage and auto-imports output).
+- Write through git. It is read-only for agents: `status`, `diff`, `log`, `show` are fine; staging, committing, branching, checking out, resetting, stashing, pulling and pushing belong to the user.

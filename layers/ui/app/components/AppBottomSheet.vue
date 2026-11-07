@@ -10,6 +10,8 @@
       class="content"
       :class="{ dragging: isDragging }"
       :style="[heightStyle, transformStyle]"
+      :data-status="isCollapsed ? 'min' : 'max'"
+      data-testid="sheet"
     >
       <header ref="draggableRef" class="controls">
         <div class="draggable-area">
