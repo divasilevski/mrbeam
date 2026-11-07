@@ -12,6 +12,7 @@
         type="button"
         class="float-button"
         :style="floatStyle"
+        :disabled="!isUnitsValid"
         @click="onClick()"
       >
         <span class="sr-only">Calculate</span>

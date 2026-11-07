@@ -7,6 +7,8 @@ import generate, {
   Type,
 } from '~/utils/fem/generate'
 
+afterEach(() => vi.restoreAllMocks())
+
 describe('getRandomStep', () => {
   it('should be return number greater then 0', () => {
     const step = getRandomStep()
@@ -16,33 +18,29 @@ describe('getRandomStep', () => {
 })
 
 describe('getRandomPattern', () => {
-  const spyRandInt = vi.spyOn(Math, 'random')
-
   it('should be return easy pattern', () => {
-    spyRandInt.mockReturnValue(0.3)
+    vi.spyOn(Math, 'random').mockReturnValue(0.3)
     const pattern = getRandomPattern()
     expect(pattern).not.toContain(Type.Hinge)
   })
 
   it('should be return hard pattern', () => {
-    spyRandInt.mockReturnValue(0.1)
+    vi.spyOn(Math, 'random').mockReturnValue(0.1)
     const pattern = getRandomPattern()
     expect(pattern).toContain(Type.Hinge)
   })
 })
 
 describe('appendReversal', () => {
-  const spyRandInt = vi.spyOn(Math, 'random')
-
   it('should be reverse pattern', () => {
-    spyRandInt.mockReturnValue(0.1) // 0
+    vi.spyOn(Math, 'random').mockReturnValue(0.1) // 0
     const pattern = [Type.Fixed, Type.Force]
     const finalPattern = appendReversal(pattern)
     expect(finalPattern).toEqual([Type.Force, Type.Fixed])
   })
 
   it('should be not reverse pattern', () => {
-    spyRandInt.mockReturnValue(0.9) // 1
+    vi.spyOn(Math, 'random').mockReturnValue(0.9) // 1
     const pattern = [Type.Fixed, Type.Force]
     const finalPattern = appendReversal(pattern)
     expect(finalPattern).toEqual([Type.Fixed, Type.Force])

@@ -19,3 +19,13 @@ jobs:
         run: bun run test
       - name: Build App
         run: bun run build
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bunx playwright install --with-deps chromium --only-shell
+      - run: bun run test:e2e

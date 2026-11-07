@@ -46,23 +46,29 @@ describe('class Elem: distVector', () => {
 })
 
 describe('class Elem: static method getLength', () => {
-  const length = Elem.getLength(shuffleArray(elements))
+  const getLength = () => {
+    return Elem.getLength(shuffleArray(elements.map((el) => el.getClone())))
+  }
 
   it('should be right start', () => {
-    expect(length.start).toBe(0)
+    expect(getLength().start).toBe(0)
   })
 
   it('should be right end', () => {
-    expect(length.end).toBe(14)
+    expect(getLength().end).toBe(14)
   })
 
   it('should be right length', () => {
-    expect(length.length).toBe(14)
+    expect(getLength().length).toBe(14)
   })
 })
 
 describe('class Elem: local matrix', () => {
-  const elem = new Elem([{ x: 0, support: 'fixed' }, { x: 2 }])
+  let elem: Elem
+
+  beforeEach(() => {
+    elem = new Elem([{ x: 0, support: 'fixed' }, { x: 2 }])
+  })
 
   it('should be matrix', () => {
     expect(elem.localMatrix[0]).toBeTruthy()
@@ -81,23 +87,32 @@ describe('class Elem: local matrix', () => {
   })
 })
 
-describe('class Elem: getClone', () => {
+const createCloneFixture = () => {
   const elem = new Elem([{ x: 0, support: 'fixed' }, { x: 2 }])
   elem.addMaterial([1, 2, 1])
   elem.addDistload([1, 2], 10)
-  const clone = elem.getClone()
 
+  return { elem, clone: elem.getClone() }
+}
+
+describe('class Elem: getClone', () => {
   it('should be have same values', () => {
+    const { elem, clone } = createCloneFixture()
+
     expect(clone.material).toEqual([1, 2, 1])
     expect(clone.distload).toEqual(elem.distload)
   })
 
   it('should be change material', () => {
+    const { elem, clone } = createCloneFixture()
+
     elem.addMaterial([1, 3, 1])
     expect(clone.material).not.toEqual([1, 3, 1])
   })
 
   it('should be change distload', () => {
+    const { elem, clone } = createCloneFixture()
+
     elem.addDistload([1, 2], 10)
     expect(clone.distload).not.toEqual(elem.distload)
     clone.setDistload(elem.distload)

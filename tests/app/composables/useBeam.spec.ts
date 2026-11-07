@@ -13,7 +13,7 @@ vi.mock('~/composables/useMainScroll', () => {
   return { default: useMainScroll }
 })
 
-// point + fixed + force: минимальная корректная система
+// point + fixed + force: minimal valid system
 const validUnits: Unit[] = [
   { id: '1', type: 'point', x: 0 },
   { id: '2', type: 'fixed', x: 1 },

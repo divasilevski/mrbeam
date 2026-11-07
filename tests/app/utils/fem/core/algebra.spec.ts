@@ -31,24 +31,18 @@ describe('solve', () => {
 })
 
 describe('shuffleArray', () => {
-  it('shoud be the same length', () => {
+  it('should keep the same length', () => {
     const array = [3, 2, 3, 4, 5]
-    const shuffled = shuffleArray(array)
-    expect(shuffled.length).toBe(array.length)
-  })
-})
+    const shuffled = shuffleArray([...array])
 
-describe('shuffleArray', () => {
-  it('shoud be the same length', () => {
-    const array = [3, 2, 3, 4, 5]
-    const shuffled = shuffleArray(array)
     expect(shuffled.length).toBe(array.length)
   })
 
-  it('shoud be the same elements', () => {
+  it('should keep the same elements', () => {
     const array = [3, 2, 3, 4, 5]
-    const shuffled = shuffleArray(array)
-    expect([...new Set(array)]).toEqual([...new Set(shuffled)])
+    const shuffled = shuffleArray([...array])
+
+    expect([...shuffled].sort()).toEqual([...array].sort())
   })
 })
 

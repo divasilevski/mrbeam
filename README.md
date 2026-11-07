@@ -4,8 +4,12 @@ MrBeam Calculator is a free online beam calculator that allows engineers and stu
 
 ## Stack
 
-- Nuxt 4
+- Nuxt 4 (SPA)
+- Vue 3 + TypeScript
+- SCSS
+- Paper.js
 - Vite PWA
+- Bun
 
 ## Features
 
