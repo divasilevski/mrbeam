@@ -61,6 +61,7 @@ export default defineNuxtConfig({
     payloadExtraction: false,
   },
   nitro: {
+    preset: 'bun',
     esbuild: {
       options: {
         target: 'esnext',
