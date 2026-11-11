@@ -56,10 +56,9 @@ export default defineNuxtConfig({
     },
   },
 
-  // pwa settings
-  experimental: {
-    payloadExtraction: false,
-  },
+  // optimization
+  vue: { optionsApi: false },
+  experimental: { appManifest: false }, // no server routes
   nitro: {
     preset: 'bun',
     esbuild: {
@@ -71,6 +70,8 @@ export default defineNuxtConfig({
       routes: ['/', '/docs'],
     },
   },
+
+  // pwa settings
   pwa: {
     registerType: 'autoUpdate',
     workbox: {
