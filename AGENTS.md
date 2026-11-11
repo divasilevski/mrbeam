@@ -35,8 +35,8 @@ flows, run by `bun run test:e2e`). A browser spec goes to `e2e/`; `tests/` is no
 Project-local skills live in `.agents/skills/`; load the matching one before starting the task. The skill file is the
 source of truth, and its `description` frontmatter defines when it applies.
 
-| Skill | Use when |
-| --- | --- |
+| Skill                                | Use when                                                                                                                                              |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [test](.agents/skills/test/SKILL.md) | Adding or reviewing Vitest tests for plain units and Vue components: behavior contracts, mount vs stubs, auto-import seams, async/timers, jsdom gaps. |
 
 ## Components
@@ -61,11 +61,13 @@ source of truth, and its `description` frontmatter defines when it applies.
 ## Do / Don't
 
 Do:
+
 - Reuse `App*` primitives and UI-layer CSS variables.
 - Test behavior and risky contracts, not every component; a spec must earn its place.
 - Run `bun run lint` before handing off; run the suites only when the user asks for a test run.
 
 Don't:
+
 - Add Tailwind, Pinia, or dependencies without a concrete need.
 - Edit gitignored or generated output (`.nuxt`, `.output`, `node_modules`, coverage and auto-imports output).
 - Write through git. It is read-only for agents: `status`, `diff`, `log`, `show` are fine; staging, committing, branching, checking out, resetting, stashing, pulling and pushing belong to the user.

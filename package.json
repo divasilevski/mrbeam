@@ -13,8 +13,11 @@
     "coverage": "vitest run --coverage"
   },
   "lint-staged": {
-    "*.{ts,vue}": [
+    "*.{js,ts,vue}": [
       "bun eslint"
+    ],
+    "*.{css,scss,md,json}": [
+      "bun fmt --check"
     ]
   },
   "devDependencies": {
