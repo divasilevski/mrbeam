@@ -20,6 +20,9 @@
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 const ALLOWED_SIGNS = ['.', '+', '-', '*', '^', '/', '(', ')']
 
+// Indirect eval: no bundler warning; input is filtered to digits and operators.
+const evaluate = eval
+
 const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
@@ -56,7 +59,7 @@ const calculate = () => {
       .replace(/\^/g, '**')
       .replace(/,/g, '.')
 
-    emit('update:modelValue', eval(value))
+    emit('update:modelValue', evaluate(value))
     return true
   } catch {
     setError()

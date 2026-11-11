@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 import manifest from './constants/manifest'
@@ -69,6 +71,19 @@ export default defineNuxtConfig({
     prerender: {
       routes: ['/', '/docs'],
     },
+    rollupConfig: {
+      plugins: [
+        {
+          // Resolve paths for Windows
+          name: 'resolve-file-url-imports',
+          resolveId(id: string) {
+            if (id.startsWith('file://')) {
+              return { id: fileURLToPath(id) }
+            }
+          },
+        },
+      ],
+    },
   },
 
   // pwa settings
@@ -85,6 +100,7 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: true,
       type: 'module',
+      suppressWarnings: true,
     },
     manifest,
   },
