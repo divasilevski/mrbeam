@@ -1,6 +1,7 @@
 # MrBeam
+
 ![MrBeam](/public/og.png)
-MrBeam Calculator is a free online beam calculator that allows engineers and students to easily calculate bending moment diagrams and shear force diagrams for flat beam systems. 
+MrBeam Calculator is a free online beam calculator that allows engineers and students to easily calculate bending moment diagrams and shear force diagrams for flat beam systems.
 
 ## Stack
 
@@ -24,4 +25,4 @@ Try MrBeam Calculator today and make your beam system calculations simple and ac
 
 ## License
 
- [MIT License](LICENSE)
+[MIT License](LICENSE)

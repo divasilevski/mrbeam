@@ -10,13 +10,24 @@ TypeScript, SCSS, Bun, Paper.js, PWA. Source of truth: `package.json`,
 ```bash
 bun install
 bun run dev
+bun run build
 bun run lint
 bun run test --run
 bun run test:e2e
-bun run build
+bun fmt
 ```
 
 Use Bun only.
+
+## Checks
+
+- Always run `bun run lint`; also `bun run build` when the change can affect the build.
+- `bun fmt` covers the files ESLint does not format: `md`, `json`, `css`, `scss` (`bun fmt --check` is what the
+  pre-commit hook runs). `ts` and `vue` stay with ESLint.
+- Never run `bun run test`, `bun run test:e2e`, `vitest`, or `playwright` unless the current request explicitly asks
+  for a test run ("run the tests", "make the suite pass"). A bug report, a build error, or "verify" is not such a
+  request: leave the suites to the user and say you skipped them.
+- To suggest a run, name the exact command and ask first.
 
 ## Layout
 
@@ -35,8 +46,8 @@ flows, run by `bun run test:e2e`). A browser spec goes to `e2e/`; `tests/` is no
 Project-local skills live in `.agents/skills/`; load the matching one before starting the task. The skill file is the
 source of truth, and its `description` frontmatter defines when it applies.
 
-| Skill | Use when |
-| --- | --- |
+| Skill                                | Use when                                                                                                                                              |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [test](.agents/skills/test/SKILL.md) | Adding or reviewing Vitest tests for plain units and Vue components: behavior contracts, mount vs stubs, auto-import seams, async/timers, jsdom gaps. |
 
 ## Components
@@ -56,16 +67,20 @@ source of truth, and its `description` frontmatter defines when it applies.
 
 ## Code style
 
-- Comments are written in English.
+- Comments are written in English. Keep them short: one line where it fits, and say why, not what the code does.
 
 ## Do / Don't
 
 Do:
+
 - Reuse `App*` primitives and UI-layer CSS variables.
 - Test behavior and risky contracts, not every component; a spec must earn its place.
-- Run `bun run lint` before handing off; run the suites only when the user asks for a test run.
+- Run `bun run lint` for `ts`/`vue` and `bun fmt` for `md`/`json`/`css`/`scss` before handing off; add
+  `bun run build` when the build is affected.
 
 Don't:
+
+- Run test suites on your own initiative, even as a verification step; the user triggers them explicitly.
 - Add Tailwind, Pinia, or dependencies without a concrete need.
 - Edit gitignored or generated output (`.nuxt`, `.output`, `node_modules`, coverage and auto-imports output).
 - Write through git. It is read-only for agents: `status`, `diff`, `log`, `show` are fine; staging, committing, branching, checking out, resetting, stashing, pulling and pushing belong to the user.

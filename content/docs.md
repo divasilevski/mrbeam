@@ -1,4 +1,3 @@
-
 # MrBeam Calculator
 
 Our Free Online Beam Calculator is a powerful tool for engineers and students alike. With this calculator, you can easily calculate bending moment diagrams and shear force diagrams for flat beam systems. Whether you're designing new structures or analyzing existing ones, our calculator provides accurate results to help you make informed decisions. Try it today and see how it can simplify your calculations!

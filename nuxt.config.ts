@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 import manifest from './constants/manifest'
@@ -56,11 +58,11 @@ export default defineNuxtConfig({
     },
   },
 
-  // pwa settings
-  experimental: {
-    payloadExtraction: false,
-  },
+  // optimization
+  vue: { optionsApi: false },
+  experimental: { appManifest: false }, // no server routes
   nitro: {
+    preset: 'bun',
     esbuild: {
       options: {
         target: 'esnext',
@@ -69,7 +71,22 @@ export default defineNuxtConfig({
     prerender: {
       routes: ['/', '/docs'],
     },
+    rollupConfig: {
+      plugins: [
+        {
+          // Resolve paths for Windows
+          name: 'resolve-file-url-imports',
+          resolveId(id: string) {
+            if (id.startsWith('file://')) {
+              return { id: fileURLToPath(id) }
+            }
+          },
+        },
+      ],
+    },
   },
+
+  // pwa settings
   pwa: {
     registerType: 'autoUpdate',
     workbox: {
@@ -83,6 +100,7 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: true,
       type: 'module',
+      suppressWarnings: true,
     },
     manifest,
   },
