@@ -33,6 +33,7 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
+          # Public repo: anonymous fetch works even though checkout keeps no credentials.
           git fetch --no-tags origin "$BASE_REF"
           git log -n 50 --oneline --no-decorate "origin/$BASE_REF..HEAD" > commits.txt
           git diff "origin/$BASE_REF...HEAD" -- . ':(exclude)bun.lock' > diff.full
@@ -40,7 +41,7 @@ jobs:
           if [ "$(wc -c < diff.full)" -gt 100000 ]; then
             printf '\n... diff обрезан на 100000 байт ...\n' >> diff.patch
           fi
-          # Правила берём из базовой ветки: версия AGENTS.md из PR-ветки не используется.
+          # Project rules come from the base branch; the PR's AGENTS.md is never used as instructions.
           if git cat-file -e "origin/$BASE_REF:AGENTS.md" 2>/dev/null; then
             git show "origin/$BASE_REF:AGENTS.md" > base-agents.md
           else
@@ -99,7 +100,7 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           set -euo pipefail
-          # PR-ветка не должна поставлять агенту инструкции: отключаем AGENTS/CLAUDE и skills из workspace.
+          # The PR branch must not supply agent instructions, so disable AGENTS/CLAUDE and workspace skills.
           cat > "$RUNNER_TEMP/dsh-review.patch.yml" <<'EOF'
           - id: agent-instructions
             config:
