@@ -1,3 +1,4 @@
+import type { Unit } from './types/unit'
 import { ErrorMessage } from './config/errors'
 
 // Load magnitude for the NoLoads check; non-load types count as 0.

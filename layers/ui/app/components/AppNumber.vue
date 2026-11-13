@@ -1,8 +1,7 @@
 <template>
-  <span class="number">
+  <span ref="valueRef" class="number">
     <span
       v-if="hasTooltip"
-      ref="valueRef"
       class="values"
       @mouseenter="onMouseenter"
       @mouseleave="onMouseleave"
@@ -89,11 +88,13 @@ onClickOutside(valueRef, () => {
     position: absolute;
     top: 0;
     left: -0.5rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.8rem;
     border-width: 1px;
+    border-radius: 6px;
     font-size: 0.875rem;
     line-height: 1.25rem;
     background: var(--color-background);
+    box-shadow: var(--shadow-sm);
     transform: translateY(-100%);
   }
 }
