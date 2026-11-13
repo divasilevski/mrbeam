@@ -60,6 +60,8 @@ const onClick = () => {
 }
 
 watch(solution, () => {
+  if (!bsRef.value) return
+
   const { Status, status, toggleStatus } = bsRef.value
 
   if (status === Status.MinHeight && hasSolution.value) {

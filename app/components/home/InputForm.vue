@@ -31,13 +31,13 @@
     <div v-show="props.tab === 'distload'" class="inputs">
       <div class="row">
         <AppNumberInput
-          id="dist:x"
-          v-model="models.X1"
+          id="dist:x0"
+          v-model="models.X0"
           :label="toMathSymbol('x') + '&#x2080;'"
         />
         <AppNumberInput
           id="dist:x1"
-          v-model="models.X0"
+          v-model="models.X1"
           :label="toMathSymbol('x') + '&#x2081;'"
         />
       </div>
@@ -58,7 +58,7 @@
       />
     </div>
 
-    <AppButton type="submit" @click="addUnit">ADD ELEMENT</AppButton>
+    <AppButton type="button" @click="addUnit">ADD ELEMENT</AppButton>
   </form>
 </template>
 

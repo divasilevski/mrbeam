@@ -135,10 +135,10 @@ export class PaperBeam extends PaperCanvas {
   private drawFixed() {
     this.getPointsBy('fixed').forEach((x) => {
       const symbol = fixedSymbol(FIXED_HEIGHT, COLORS.fixed)
-      const isLeftPoint = x === this.points[this.points.length - 1]
+      const isRightEnd = x === this.points[this.points.length - 1]
       symbol.place(new Point(this.normalize(x), CANVAS_HEIGHT / 2))
 
-      if (isLeftPoint) {
+      if (isRightEnd) {
         symbol.item.scaling = new Point(-1, 1)
         symbol.item.bounds.left = 0
       }
@@ -158,9 +158,10 @@ export class PaperBeam extends PaperCanvas {
       symbol.item.bounds.bottom = -POINT_RADIUS
 
       const width = Math.abs(b - a)
-      const count = Math.floor(width / 15)
+      // A short load still needs one arrow; zero would divide by zero below.
+      const count = Math.max(1, Math.floor(width / 15))
 
-      for (let i = 0; i < count + 1; i++) {
+      for (let i = 0; i <= count; i++) {
         symbol.place(new Point(a + (width / count) * i, CANVAS_HEIGHT / 2))
       }
 

@@ -20,4 +20,9 @@ export class PaperCanvas {
   draw({ canvas }: DrawProps) {
     this.initProject(canvas)
   }
+
+  dispose() {
+    this.project?.remove()
+    this.project = null
+  }
 }

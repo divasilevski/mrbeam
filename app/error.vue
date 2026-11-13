@@ -23,7 +23,7 @@ const statusCode = computed(() => {
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .error {
   display: flex;
   flex-direction: column;

@@ -94,4 +94,15 @@ describe('skeleton function', () => {
     expect(skeleton.sups).toContain(5)
     expect(skeleton.sups).toContain(7)
   })
+
+  it('should return finite diagrams when the first element starts with a hinge', () => {
+    const hinged: Unit[] = [
+      { id: nanoid(), x: 0, type: 'hinge' },
+      { id: nanoid(), x: 1, type: 'simple' },
+      { id: nanoid(), x: 2, type: 'fixed' },
+      { id: nanoid(), x: 1.5, type: 'force', value: -10 },
+    ]
+
+    expect(calculate(hinged).shear.every(Number.isFinite)).toBe(true)
+  })
 })

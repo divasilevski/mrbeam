@@ -35,7 +35,7 @@ onClickOutside(hintRef, () => {
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .hint {
   position: relative;
   display: flex;
@@ -47,9 +47,10 @@ onClickOutside(hintRef, () => {
     bottom: 100%;
     left: 0;
     display: none;
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.8rem;
     width: max-content;
     border-width: 1px;
+    border-radius: 6px;
     background: var(--color-background);
     box-shadow: var(--shadow-sm);
   }

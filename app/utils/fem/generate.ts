@@ -59,7 +59,7 @@ export function getRandomPattern() {
 }
 
 export function appendReversal(pattern: Type[]) {
-  return randInt(0, 1) ? pattern : pattern.reverse()
+  return randInt(0, 1) ? pattern : [...pattern].reverse()
 }
 
 export function getRandomLoad() {

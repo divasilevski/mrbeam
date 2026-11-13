@@ -102,7 +102,7 @@ export class PaperChart extends PaperCanvas {
   private drawPattern() {
     const start = this.normalizeX(this.rect.minX)
     const end = this.normalizeX(this.rect.maxX)
-    const count = Math.ceil((start + end) / PATTERN_SPACE)
+    const count = Math.ceil((end - start) / PATTERN_SPACE)
 
     const children = Array.from({ length: count }, (_, index) => {
       const x = start + index * PATTERN_SPACE

@@ -78,6 +78,17 @@ describe('AppNumberInput', () => {
     expect(getLastEmit(wrapper)).toEqual(['2+2'])
   })
 
+  it.each(['1/0', '2;3'])('does not evaluate %s', async (value) => {
+    const wrapper = mountNumberInput(value)
+    const input = wrapper.get('input')
+
+    await input.trigger('focus')
+    await input.trigger('blur')
+
+    expect(wrapper.text()).toContain("can't calculate")
+    expect(getLastEmit(wrapper)).toEqual([value])
+  })
+
   it('filters pasted characters', () => {
     const wrapper = mountNumberInput()
     const event = pasteText(wrapper.get('input').element, '12a.5')
@@ -89,6 +100,14 @@ describe('AppNumberInput', () => {
   it('evaluates the expression when space is pressed', async () => {
     const wrapper = mountNumberInput('2+2')
     await wrapper.get('input').trigger('keyup', { key: ' ' })
+    await nextTick()
+
+    expect(getLastEmit(wrapper)).toEqual([4])
+  })
+
+  it('evaluates the expression when Enter is pressed', async () => {
+    const wrapper = mountNumberInput('2+2')
+    await wrapper.get('input').trigger('keydown', { key: 'Enter' })
     await nextTick()
 
     expect(getLastEmit(wrapper)).toEqual([4])
