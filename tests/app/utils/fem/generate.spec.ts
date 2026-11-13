@@ -45,6 +45,13 @@ describe('appendReversal', () => {
     const finalPattern = appendReversal(pattern)
     expect(finalPattern).toEqual([Type.Fixed, Type.Force])
   })
+
+  it('should not mutate the source pattern', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.1) // reverse
+    const pattern = [Type.Fixed, Type.Force]
+    appendReversal(pattern)
+    expect(pattern).toEqual([Type.Fixed, Type.Force])
+  })
 })
 
 describe('getRandomLoad', () => {
