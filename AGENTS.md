@@ -68,6 +68,7 @@ source of truth, and its `description` frontmatter defines when it applies.
 ## Code style
 
 - Comments are written in English. Keep them short: one line where it fits, and say why, not what the code does.
+- Check what you write against SOLID, DRY, and KISS.
 
 ## Do / Don't
 

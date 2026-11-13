@@ -1,11 +1,14 @@
 import { ErrorMessage } from './config/errors'
 
+// Load magnitude for the NoLoads check; non-load types count as 0.
 export function getUnitValue(unit: Unit) {
   const unitsWithValue = ['moment', 'distload', 'force']
 
   if (unitsWithValue.includes(unit.type)) {
-    return Array.isArray(unit.value) ? 1 : Math.abs(unit.value || 0)
+    const values = Array.isArray(unit.value) ? unit.value : [unit.value || 0]
+    return values.reduce((sum, value) => sum + Math.abs(value), 0)
   }
+
   return 0
 }
 
@@ -18,9 +21,22 @@ export function isIntersect(array1: unknown[], array2: unknown[]) {
   return false
 }
 
+// NaN or Infinity in any unit turns the whole solution into NaN.
+export function hasInvalidValue(units: Unit[]) {
+  const isFinite = (value: number | number[] | undefined) => {
+    return value === undefined || [value].flat().every(Number.isFinite)
+  }
+
+  return units.some((unit) => !isFinite(unit.x) || !isFinite(unit.value))
+}
+
 export default function checkUnits(units: Unit[]) {
   if (units.length === 0 || units.length === 1) {
     return ErrorMessage.NotEnough
+  }
+
+  if (hasInvalidValue(units)) {
+    return ErrorMessage.InvalidValue
   }
 
   // Supports
@@ -59,6 +75,15 @@ export default function checkUnits(units: Unit[]) {
 
   if (positions.length !== new Set(positions).size) {
     return ErrorMessage.MultipleSupports
+  }
+
+  // Every unit at one coordinate leaves no elements to calculate.
+  const coordinates = units.flatMap((unit) =>
+    Array.isArray(unit.x) ? unit.x : [unit.x],
+  )
+
+  if (new Set(coordinates).size < 2) {
+    return ErrorMessage.NoLength
   }
 
   // Loads

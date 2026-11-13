@@ -1,4 +1,8 @@
-import checkUnits, { getUnitValue, isIntersect } from '~/utils/fem/checkUnits'
+import checkUnits, {
+  isIntersect,
+  getUnitValue,
+  hasInvalidValue,
+} from '~/utils/fem/checkUnits'
 import { ErrorMessage } from '~/utils/fem/config/errors'
 
 describe('checkUnits', () => {
@@ -54,6 +58,16 @@ describe('checkUnits', () => {
     expect(msg).toBe(ErrorMessage.NoLoads)
   })
 
+  it('should be return NoLoads for a zero array value', () => {
+    const units: Unit[] = [
+      { id: '0', x: 0, type: 'simple' },
+      { id: '1', x: [0, 10], type: 'distload', value: [0, 0] },
+      { id: '2', x: 10, type: 'simple' },
+    ]
+    const msg = checkUnits(units)
+    expect(msg).toBe(ErrorMessage.NoLoads)
+  })
+
   it('should be return SupportWithForce', () => {
     const units: Unit[] = [
       { id: '0', x: 0, type: 'simple' },
@@ -72,6 +86,24 @@ describe('checkUnits', () => {
     ]
     const msg = checkUnits(units)
     expect(msg).toBeNull()
+  })
+
+  it('should be return NoLength if every unit sits on one point', () => {
+    const units: Unit[] = [
+      { id: '0', x: 0, type: 'fixed' },
+      { id: '1', x: 0, type: 'moment', value: 10 },
+    ]
+    const msg = checkUnits(units)
+    expect(msg).toBe(ErrorMessage.NoLength)
+  })
+
+  it('should be return InvalidValue for non-finite values', () => {
+    const units: Unit[] = [
+      { id: '0', x: 0, type: 'fixed' },
+      { id: '1', x: 1, type: 'force', value: Infinity },
+    ]
+    const msg = checkUnits(units)
+    expect(msg).toBe(ErrorMessage.InvalidValue)
   })
 })
 
@@ -95,9 +127,32 @@ describe('getUnitValue', () => {
     expect(simpleValue).toBe(0)
   })
 
-  it('should be return 1 if units with Array value', () => {
+  it('should sum an array value', () => {
     const value = getUnitValue({ id: '0', x: 0, type: 'force', value: [5, 6] })
-    expect(value).toBe(1)
+    expect(value).toBe(11)
+  })
+})
+
+describe('hasInvalidValue', () => {
+  it('should be return false for finite values', () => {
+    const units: Unit[] = [
+      { id: '0', x: 0, type: 'fixed' },
+      { id: '1', x: [0, 10], type: 'distload', value: [0, -5] },
+      { id: '2', x: 10, type: 'force', value: 10 },
+    ]
+    expect(hasInvalidValue(units)).toBe(false)
+  })
+
+  it('should be return true for a non-finite coordinate', () => {
+    const units: Unit[] = [{ id: '0', x: NaN, type: 'point' }]
+    expect(hasInvalidValue(units)).toBe(true)
+  })
+
+  it('should be return true for a non-finite array value', () => {
+    const units: Unit[] = [
+      { id: '0', x: [0, 10], type: 'distload', value: [0, Infinity] },
+    ]
+    expect(hasInvalidValue(units)).toBe(true)
   })
 })
 

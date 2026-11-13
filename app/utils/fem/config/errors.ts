@@ -5,4 +5,6 @@ export enum ErrorMessage {
   MultipleSupports = 'Multiple supports at one point',
   SupportWithForce = 'Support and force at one point',
   NoLoads = 'No loads',
+  NoLength = 'Beam has no length',
+  InvalidValue = 'Values must be numbers',
 }
