@@ -87,7 +87,7 @@ const onInput = (event: Event) => {
 
   .error {
     position: absolute;
-    right: 1rem;
+    right: 0.8rem;
     bottom: -1rem;
     font-size: 0.75rem;
     line-height: 1rem;

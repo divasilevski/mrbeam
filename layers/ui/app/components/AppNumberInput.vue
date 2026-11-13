@@ -8,7 +8,8 @@
     autocomplete="off"
     inputmode="decimal"
     @update:model-value="onInput"
-    @keyup.space="onKeySpace"
+    @keydown.enter="onEvaluate"
+    @keyup.space="onEvaluate"
     @keypress="onKeypress"
     @paste="onPaste"
     @focus="onFocus"
@@ -17,12 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-const ALLOWED_SIGNS = ['.', '+', '-', '*', '^', '/', '(', ')']
-
-// Indirect eval: no bundler warning; input is filtered to digits and operators.
-const evaluate = eval
-
 const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
@@ -44,22 +39,41 @@ const props = defineProps({
   },
 })
 
-const prevValue = ref()
+/**
+ * Error logic
+ */
 const error = ref('')
+let errorTimeout: NodeJS.Timeout | undefined
 
 const setError = () => {
   error.value = "can't calculate"
-  setTimeout(() => (error.value = ''), 1000)
+
+  clearTimeout(errorTimeout)
+  errorTimeout = setTimeout(() => (error.value = ''), 1000)
 }
 
-const calculate = () => {
-  try {
-    const value = props.modelValue
-      .toString()
-      .replace(/\^/g, '**')
-      .replace(/,/g, '.')
+onUnmounted(() => clearTimeout(errorTimeout))
 
-    emit('update:modelValue', evaluate(value))
+/**
+ * Calculate logic
+ */
+const ARITHMETIC_ONLY = /^[\d.+\-*/()^\s]+$/
+const evaluate = eval // Indirect eval: no bundler warning;
+
+const calculate = () => {
+  const value = props.modelValue
+    .toString()
+    .replace(/\^/g, '**')
+    .replace(/,/g, '.')
+
+  try {
+    if (!ARITHMETIC_ONLY.test(value)) throw new Error('Not arithmetic')
+
+    const result = evaluate(value)
+
+    if (!Number.isFinite(result)) throw new Error('Not a finite number')
+
+    emit('update:modelValue', result)
     return true
   } catch {
     setError()
@@ -67,15 +81,17 @@ const calculate = () => {
   return false
 }
 
+/**
+ * Input handlers
+ */
 const isValidChar = (char: string) => {
-  return [...DIGITS, ...ALLOWED_SIGNS].includes(char)
+  return char !== ' ' && ARITHMETIC_ONLY.test(char)
 }
 
 const getFiltered = (str: string) => {
   return str.split('').filter(isValidChar).join('')
 }
 
-// Handlers
 const onInput = (value: string) => {
   emit('update:modelValue', value)
 }
@@ -97,13 +113,18 @@ const onPaste = (event: ClipboardEvent) => {
   }
 }
 
+/**
+ * Focus and cancellation logic
+ */
+const prevValue = ref()
+
 const onFocus = (event: FocusEvent) => {
   prevValue.value = props.modelValue
   const target = event.target as HTMLInputElement
   target.select()
 }
 
-const onKeySpace = () => {
+const onEvaluate = () => {
   if (calculate()) {
     nextTick(() => (prevValue.value = props.modelValue))
   }
