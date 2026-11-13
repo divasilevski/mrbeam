@@ -29,7 +29,9 @@ export function buildSkeleton(elems: Element[]): Skeleton {
       if (j === 3 && elems[i].nodes[1].support === 'fixed') sups.add(counter)
 
       // index matrix building
-      if (j === 1 && elems[i].nodes[0].support === 'hinge') counter++
+      // A hinge at an end is just a point; only an inner hinge needs a DOF.
+      const isHinge = j === 1 && elems[i].nodes[0].support === 'hinge'
+      if (isHinge && i > 0) counter++
       temp[j] = counter
       counter++
     }
