@@ -14,6 +14,8 @@ const props = defineProps({
 
 const beam = new PaperChart()
 
+onUnmounted(() => beam.dispose())
+
 const onUpdate = (canvasElement: HTMLCanvasElement) => {
   beam.draw({
     points: props.points,

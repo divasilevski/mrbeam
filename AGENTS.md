@@ -21,7 +21,9 @@ Use Bun only.
 
 ## Checks
 
-- Always run `bun run lint`; also `bun run build` when the change can affect the build.
+- Run `bun run lint` and `bun fmt --check` once after your edits, before handing off — not on every step or
+  after every command. Skip them when nothing changed.
+- Also run `bun run build` when the change can affect the build.
 - `bun fmt` covers the files ESLint does not format: `md`, `json`, `css`, `scss` (`bun fmt --check` is what the
   pre-commit hook runs). `ts` and `vue` stay with ESLint.
 - Never run `bun run test`, `bun run test:e2e`, `vitest`, or `playwright` unless the current request explicitly asks
